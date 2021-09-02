@@ -32,4 +32,7 @@
 *.app
 
 # Cant get this to go away
-tests/bin/windowTests
+tests/bin/*
+
+# Want these folders
+!*.keep
