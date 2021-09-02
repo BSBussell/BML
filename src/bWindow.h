@@ -9,15 +9,30 @@
 #include <SDL2/SDL.h>
 #include <stdint.h>
 
+#endif
+
 class bWindow {
 
 public:
 
-    bWindow();
+    bWindow(const char *windowTitle, uint16_t xPos, uint16_t yPos, uint16_t width, uint16_t height)
+        : windowTitle(windowTitle)
+        , xPos(xPos)
+        , yPos(yPos)
+        , width(width)
+        , height(height)
+    { }
     ~bWindow();
 
-    void move(uint16_t xPos, uint16_t yPos);
-    void resize(uint16_t width, uint16_t height);
+    void move(uint16_t xPos, uint16_t yPos) { 
+        this->xPos = xPos; 
+        this->yPos = yPos; 
+    }
+
+    void resize(uint16_t width, uint16_t height) { 
+        this->width = width;
+        this->height = height;
+    }
 
     void toggleFullScreen() { flags ^= SDL_WINDOW_FULLSCREEN; }
 
@@ -31,15 +46,15 @@ public:
 
     void createWindow();
 
-    uint16_t getWidth();
-    uint16_t getHeight();
+    uint16_t getWidth() { return width; }
+    uint16_t getHeight() { return height; }
 
 private:
 
     SDL_Window* sdlWindow;
-    SDL_Renderer* sdlRenderer
+    SDL_Renderer* sdlRenderer;
 
-    char *windowTitle;
+    const char *windowTitle;
 
     uint16_t xPos;
     uint16_t yPos;
