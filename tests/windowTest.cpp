@@ -16,9 +16,13 @@ int main() {
     uint16_t height = 240;
 
     bWindow* window = new bWindow(title, zero, zero, width, height);
+    window->toggleResizeable();
     window->createWindow();
 
-
+    while(1){
+        window->clearBuffer();
+        window->updateBuffer();
+    }
 
     return 0;
 }

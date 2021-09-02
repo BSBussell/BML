@@ -45,6 +45,9 @@ public:
     bool readResizeable() { return ((flags&SDL_WINDOW_RESIZABLE) == SDL_WINDOW_RESIZABLE); }
 
     void createWindow();
+    void clearBuffer() { SDL_RenderClear(sdlRenderer); }
+    void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
+
 
     uint16_t getWidth() { return width; }
     uint16_t getHeight() { return height; }
