@@ -9,12 +9,11 @@
 #include <SDL2/SDL.h>
 #include <stdint.h>
 
-#endif
-
 class bWindow {
 
 public:
 
+    // Constructors and Destroyer
     bWindow(const char *windowTitle, uint16_t xPos, uint16_t yPos, uint16_t width, uint16_t height)
         : windowTitle(windowTitle)
         , xPos(xPos)
@@ -24,6 +23,7 @@ public:
     { }
     ~bWindow();
 
+    // Window Dimensions and Position Setters
     void move(uint16_t xPos, uint16_t yPos) { 
         this->xPos = xPos; 
         this->yPos = yPos; 
@@ -34,23 +34,32 @@ public:
         this->height = height;
     }
 
-    void toggleFullScreen() { flags ^= SDL_WINDOW_FULLSCREEN; }
+    // Window Dimensions Getters
+    uint16_t getWidth() { return width; }
+    uint16_t getHeight() { return height; }
 
-    void toggleHighDPI() { flags ^= SDL_WINDOW_ALLOW_HIGHDPI; }
-    void toggleResizeable() { flags ^= SDL_WINDOW_RESIZABLE; }
-    void toggleBorders() { flags ^= SDL_WINDOW_BORDERLESS; }
+    // Window Flag Toggles
+    void toggleFullScreen() { windowFlags ^= SDL_WINDOW_FULLSCREEN; }
+    void toggleHighDPI() { windowFlags ^= SDL_WINDOW_ALLOW_HIGHDPI; }
+    void toggleResizeable() { windowFlags ^= SDL_WINDOW_RESIZABLE; }
+    void toggleBorders() { windowFlags ^= SDL_WINDOW_BORDERLESS; }
 
-    bool readFullScreen() { return ((flags&SDL_WINDOW_FULLSCREEN) == SDL_WINDOW_FULLSCREEN); }
-    bool readHighDpi() { return ((flags&SDL_WINDOW_ALLOW_HIGHDPI) == SDL_WINDOW_ALLOW_HIGHDPI); }
-    bool readResizeable() { return ((flags&SDL_WINDOW_RESIZABLE) == SDL_WINDOW_RESIZABLE); }
+    // Window Flag Getters
+    bool isFullScreen() { return ((windowFlags&SDL_WINDOW_FULLSCREEN) == SDL_WINDOW_FULLSCREEN); }
+    bool isHighDpi() { return ((windowFlags&SDL_WINDOW_ALLOW_HIGHDPI) == SDL_WINDOW_ALLOW_HIGHDPI); }
+    bool isResizeable() { return ((windowFlags&SDL_WINDOW_RESIZABLE) == SDL_WINDOW_RESIZABLE); }
 
+    // Renderer Flag Toggles
+    void toggleSoftwareRender() { renderFlags ^= SDL_RENDERER_SOFTWARE; }
+    void toggleHardwareRender() { renderFlags ^= SDL_RENDERER_ACCELERATED; }
+    void toggleVSync() { renderFlags ^= SDL_RENDERER_PRESENTVSYNC; } 
+    void toggleToTexture() { renderFlags ^= SDL_RENDERER_TARGETTEXTURE; }
+
+    // Drawing and Clearing
     void createWindow();
     void clearBuffer() { SDL_RenderClear(sdlRenderer); }
     void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
 
-
-    uint16_t getWidth() { return width; }
-    uint16_t getHeight() { return height; }
 
 private:
 
@@ -65,7 +74,9 @@ private:
     uint16_t width;
     uint16_t height;
 
-    uint32_t flags;
+    uint32_t windowFlags = 0;
+    uint32_t renderFlags = 0;
 
 };
 
+#endif

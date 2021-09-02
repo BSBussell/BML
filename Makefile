@@ -5,8 +5,7 @@ OBJS = tests/windowTest.cpp src/bWindow.cpp
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
-# -w suppresses all warnings
-CFLAGS ?= -Wall -Wextra -std=c++11
+CFLAGS ?= -Wall -Wextra -std=c++11 -Isrc
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2 -lSDL2_image
@@ -20,4 +19,4 @@ clean:
 	rm -f a.out bin/*
 
 bin/windowTest: tests/windowTest.cpp
-	$(CC) $(OBJS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)

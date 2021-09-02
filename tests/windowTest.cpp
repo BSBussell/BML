@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <stdint.h>
-#include "../src/bWindow.h"
+#include "bWindow.h"
 
 int main() {
 
@@ -17,10 +17,15 @@ int main() {
 
     bWindow* window = new bWindow(title, zero, zero, width, height);
     window->toggleResizeable();
+    window->toggleHardwareRender();
     window->createWindow();
 
-    while(1){
+    while(1) {
+
         window->clearBuffer();
+
+        // Do Drawings
+
         window->updateBuffer();
     }
 

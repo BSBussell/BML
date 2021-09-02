@@ -17,15 +17,15 @@ void bWindow::createWindow() {
 
         printf("...     SDL Successfully Initialized     ...\n");
         
-        sdlWindow = SDL_CreateWindow(windowTitle, xPos, yPos, width, height, flags);
+        sdlWindow = SDL_CreateWindow(windowTitle, xPos, yPos, width, height, windowFlags);
         
         if (sdlWindow) {
             SDL_UpdateWindowSurface(sdlWindow);
             printf("...  Window Successfully Initialized     ...\n");
         } else
-            printf("...Window Failed to Initialize...\n");
+            printf("...  Window Failed to Initialize...\n");
 
-        sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
+        sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, renderFlags);
         
         if (sdlRenderer) {
             
@@ -37,6 +37,6 @@ void bWindow::createWindow() {
             printf("...Renderer Failed to Initialize...\n");
 
     } else
-        printf("...SDL Failed to Initialize...\n");
+        printf("...     SDL Failed to Initialize...\n");
 
 }
