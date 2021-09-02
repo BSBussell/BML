@@ -24,7 +24,7 @@ public:
     ~bWindow();
 
     // Window Dimensions and Position Setters
-    void move(uint16_t xPos, uint16_t yPos) { 
+    void move(uint16_t xPos, uint16_t yPos) {
         this->xPos = xPos; 
         this->yPos = yPos; 
     }
@@ -56,10 +56,11 @@ public:
     void toggleToTexture() { renderFlags ^= SDL_RENDERER_TARGETTEXTURE; }
 
     // Drawing and Clearing
-    void createWindow();
+    bool createWindow();
     void clearBuffer() { SDL_RenderClear(sdlRenderer); }
     void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
 
+    void closeWindow();
 
 private:
 

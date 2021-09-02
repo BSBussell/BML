@@ -11,12 +11,12 @@ CFLAGS ?= -Wall -Wextra -std=c++11 -Isrc
 LINKER_FLAGS = -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = bin/windowTest
+OBJ_NAME = bin/windowTest.o
 #This is the target that compiles our executable
 all : $(OBJ_NAME)
 
 clean: 
 	rm -f a.out bin/*
 
-bin/windowTest: tests/windowTest.cpp
+bin/windowTest.o: tests/windowTest.cpp
 	$(CC) $(OBJS) $(CFLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)

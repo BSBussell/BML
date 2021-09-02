@@ -1,7 +1,7 @@
 
 // Bee Bussell
-// <DATE>
-// <DESCRIPTION>
+// Sept 2, 2021
+// A Window that will never close because I haven't implemented event's yet :3
 
 #include <iostream>
 #include <string>
