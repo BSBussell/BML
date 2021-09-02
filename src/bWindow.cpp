@@ -50,4 +50,6 @@ void bWindow::closeWindow() {
 
     SDL_DestroyWindow(sdlWindow);
     SDL_DestroyRenderer(sdlRenderer);
+
+    SDL_Quit();
 }
