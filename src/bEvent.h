@@ -37,8 +37,7 @@ private:
 
     bEvent();
 
-
-    static uint8_t b_KEYSTATE[41];
+    inline static uint8_t b_KEYSTATE[41];
 
 };
 

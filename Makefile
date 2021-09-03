@@ -5,7 +5,7 @@
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
-CFLAGS ?= -Wall -Wextra -std=c++11 -Isrc
+CFLAGS ?= -Wall -Wextra -std=c++17 -Isrc
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LFLAGS = -lSDL2 -lSDL2_image
