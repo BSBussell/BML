@@ -20,10 +20,10 @@ public:
 
     static bool eventLoop();
 
-    static bool KeyDown(const char *key );
-    static bool KeyStillDown(const char *key );
-    static bool KeyUp(const char *key );
-    static bool KeyStillUp(const char *key );
+    static bool keyDown(uint8_t key );
+    static bool keyStillDown(const char *key );
+    static bool keyUp(uint8_t key );
+    static bool keyStillUp(const char *key );
     /*
 
     static bool MouseDown(const char *key );

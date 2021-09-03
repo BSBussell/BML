@@ -78,6 +78,8 @@ private:
     uint32_t windowFlags = 0;
     uint32_t renderFlags = 0;
 
+    inline static uint8_t numOfWindows;
+
 };
 
 #endif

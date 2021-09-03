@@ -31,13 +31,13 @@ WindowTest: tests/obj/windowTest.o obj/bWindow.o
 	$(CC) tests/obj/windowTest.o obj/bWindow.o $(CFLAGS) $(LFLAGS) -o tests/bin/windowTest
 
 tests/obj/eventTest.o: tests/src/eventTest.cpp
-	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) $(LFLAGS) -o tests/obj/eventTest.o
+	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) -o tests/obj/eventTest.o
 
 tests/obj/windowTest.o: tests/src/windowTest.cpp src/bWindow.h
-	$(CC) -c tests/src/windowTest.cpp $(CFLAGS) $(LFLAGS) -o tests/obj/windowTest.o
+	$(CC) -c tests/src/windowTest.cpp $(CFLAGS) -o tests/obj/windowTest.o
 
 obj/bWindow.o: src/bWindow.cpp src/bWindow.h
-	$(CC) -c src/bWindow.cpp $(CFLAGS) $(LFLAGS) -o obj/bWindow.o
+	$(CC) -c src/bWindow.cpp $(CFLAGS) -o obj/bWindow.o
 
 obj/bEvent.o: src/bEvent.cpp src/bEvent.h
-	$(CC) -c src/bEvent.cpp $(CFLAGS) $(LFLAGS) -o obj/bEvent.o
+	$(CC) -c src/bEvent.cpp $(CFLAGS) -o obj/bEvent.o

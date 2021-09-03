@@ -1,7 +1,7 @@
 
 // Bee Bussell
 // Sept 2, 2021
-// A Window that will close because I have implemented event(singular) :3
+// A Window that will close because I have implemented events :3
 
 #include <iostream>
 #include <stdint.h>
@@ -32,6 +32,9 @@ int main() {
 
         // Do Drawings
         run = bEvent::eventLoop();
+
+        if (bEvent::keyDown(21) || bEvent::keyUp(21))
+            printf("Hey you pressed q");
 
         window->updateBuffer();
     }
