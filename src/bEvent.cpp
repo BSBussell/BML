@@ -1,7 +1,7 @@
 
 // Bee Bussell
 // <DATE>
-// <DESCRIPTION>
+// bEvent Handler
 
 #include "bEvent.h"
 
@@ -17,15 +17,19 @@ bool bEvent::eventLoop() {
                 return false;
             
             case SDL_KEYDOWN:
-
+                // THIS IS FUCKY
+                if (event.key.keysym.scancode <= 82)
+                    b_KEYSTATE[event.key.keysym.scancode/2] ^= b_KEYDOWN << (4-(4-(event.key.keysym.scancode%2)));
+                printf("Key Down: %u\n", event.key.keysym.scancode);
                 break;
 
             case SDL_KEYUP:
-                
-                break;
-            
-            case SDL_WINDOWEVENT:
 
+                if (event.key.keysym.scancode <= 82)
+                    b_KEYSTATE[event.key.keysym.scancode/2] ^= b_KEYUP << (4-(4-(event.key.keysym.scancode%2)));
+                break;
+
+            case SDL_WINDOWEVENT:
                 break;
 
             default:
