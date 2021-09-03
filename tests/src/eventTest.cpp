@@ -33,8 +33,8 @@ int main() {
         // Do Drawings
         run = bEvent::eventLoop();
 
-        if (bEvent::keyDown(21) || bEvent::keyUp(21))
-            printf("Hey you pressed q");
+        if (bEvent::keyDown(21))
+            printf("Hey you pressed q\n");
 
         window->updateBuffer();
     }
