@@ -43,11 +43,17 @@ bool bWindow::createWindow() {
         printf("........SDL Failed to Initialize........\n");
         return false;
     }
+    numOfWindows++;
     return true;
 }
 
 void bWindow::closeWindow() {
 
+    numOfWindows--;
+
     SDL_DestroyWindow(sdlWindow);
     SDL_DestroyRenderer(sdlRenderer);
+
+    if (numOfWindows <= 0)
+        SDL_Quit();
 }
