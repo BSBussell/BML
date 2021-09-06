@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <stdint.h>
-#include "bWindow.h"
+#include "bSDL.h"
 
 int main() {
 

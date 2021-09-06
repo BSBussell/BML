@@ -33,11 +33,11 @@ WindowTest: tests/obj/windowTest.o obj/bWindow.o
 tests/obj/eventTest.o: tests/src/eventTest.cpp
 	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) -o tests/obj/eventTest.o
 
-tests/obj/windowTest.o: tests/src/windowTest.cpp src/bWindow.h
+tests/obj/windowTest.o: tests/src/windowTest.cpp src/bWindow/bWindow.h
 	$(CC) -c tests/src/windowTest.cpp $(CFLAGS) -o tests/obj/windowTest.o
 
-obj/bWindow.o: src/bWindow.cpp src/bWindow.h
-	$(CC) -c src/bWindow.cpp $(CFLAGS) -o obj/bWindow.o
+obj/bWindow.o: src/bWindow/bWindow.cpp src/bWindow/bWindow.h
+	$(CC) -c src/bWindow/bWindow.cpp $(CFLAGS) -o obj/bWindow.o
 
-obj/bEvent.o: src/bEvent.cpp src/bEvent.h
-	$(CC) -c src/bEvent.cpp $(CFLAGS) -o obj/bEvent.o
+obj/bEvent.o: src/bEvent/bEvent.cpp src/bEvent/bEvent.h
+	$(CC) -c src/bEvent/bEvent.cpp $(CFLAGS) -o obj/bEvent.o

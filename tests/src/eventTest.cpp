@@ -6,8 +6,7 @@
 #include <iostream>
 #include <stdint.h>
 
-#include "bWindow.h"
-#include "bEvent.h"
+#include "bSDL.h"
 
 
 
