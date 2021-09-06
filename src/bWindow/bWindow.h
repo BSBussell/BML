@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include <stdint.h>
+#include "bWindow/bWindow.h"
 
 class bWindow {
 
@@ -59,6 +60,9 @@ public:
     bool createWindow();
     void clearBuffer() { SDL_RenderClear(sdlRenderer); }
     void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
+
+    void addTexture(bTexture texture);
+
 
     void closeWindow();
 

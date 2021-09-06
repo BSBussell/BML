@@ -1,6 +1,6 @@
 
 // Bee Bussell
-// <DATE>
+// Sept 2, 2021
 // bEvent Handler
 
 #include "bEvent.h"
