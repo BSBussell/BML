@@ -18,7 +18,8 @@ public:
 
 private:
 
-	bRect
+	bRect src;
+    bRect dest;
 
 };
 

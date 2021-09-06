@@ -7,8 +7,9 @@
 #define bWindow_h
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdint.h>
-#include "bWindow/bWindow.h"
+#include "../bData/bRect.h"
 
 class bWindow {
 
@@ -61,8 +62,9 @@ public:
     void clearBuffer() { SDL_RenderClear(sdlRenderer); }
     void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
 
-    void addTexture(bTexture texture);
-
+    // void addTexture(bTexture texture);
+    void addTexture(const char* source, bRect src, bRect dest);
+    void addRect(bRect location, uint8_t r, uint8_t g, uint8_t b);
 
     void closeWindow();
 

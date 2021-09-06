@@ -16,7 +16,7 @@ LFLAGS = -lSDL2 -lSDL2_image
 
 bSDL: obj/bWindow.o obj/bEvent.o
 
-Tests: EventTest WindowTest
+Tests: TextureTest EventTest WindowTest
 
 clean: 
 	rm -f a.out bin/*
@@ -24,11 +24,17 @@ clean:
 	rm -f a.out tests/obj/*
 	rm -f a.out tests/bin/*
 
+TextureTest: tests/obj/textureTest.o obj/bWindow.o obj/bEvent.o
+	$(CC) tests/obj/textureTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/textureTest
+
 EventTest: tests/obj/eventTest.o obj/bWindow.o obj/bEvent.o
 	$(CC) tests/obj/eventTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/eventTest
 
 WindowTest: tests/obj/windowTest.o obj/bWindow.o
 	$(CC) tests/obj/windowTest.o obj/bWindow.o $(CFLAGS) $(LFLAGS) -o tests/bin/windowTest
+
+tests/obj/textureTest.o: tests/src/textureTest.cpp
+	$(CC) -c tests/src/textureTest.cpp $(CFLAGS) -o tests/obj/textureTest.o
 
 tests/obj/eventTest.o: tests/src/eventTest.cpp
 	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) -o tests/obj/eventTest.o
