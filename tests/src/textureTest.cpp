@@ -40,10 +40,10 @@ int main() {
         // Event loop
         run = bEvent::eventLoop();
 
-        if (bEvent::keyDown(26)) {
+        if (bEvent::keyDown('W')) {
             dest.y--;
         }
-        if (bEvent::keyDown(22)) {
+        if (bEvent::keyDown('S')) {
             dest.y++;
         }
 

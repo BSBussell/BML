@@ -11,6 +11,14 @@ bool bEvent::keyDown(uint8_t key) {
     return (b_KEYSTATE[key] == b_KEYDOWN);
 }
 
+bool bEvent::keyDown(const char key) {
+
+    if (toupper(key) >= 'A' && toupper(key) <= 'Z')
+        return (b_KEYSTATE[toupper(key)-61] == b_KEYDOWN);
+    fprintf(stderr, "Warning, invalid key check");
+    return false;
+}
+
 bool bEvent::keyUp(uint8_t key) {
 
     return (b_KEYSTATE[key]== b_KEYUP);
