@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         // Event loop
         run = bEvent::eventLoop();
 
-        window->addTexture("~/Development/bSDL/tests/resources/blueSquare.png", src, dest);
+        window->addTexture("/Users/programming/Documents/GitHub/bSDL/tests/resources/blueSquare.png", src, dest);
         window->addRect(src, 0, 255, 0);
 
         if (bEvent::keyDown(21))
