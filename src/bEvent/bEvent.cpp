@@ -8,20 +8,12 @@
 bool bEvent::keyDown(uint8_t key) {
 
 
-    if (key%2 == 0)
-        return ((b_KEYSTATE[key/2] >> 4) == b_KEYDOWN);
-    else
-        return ((b_KEYSTATE[key/2] & 0b00001111) == b_KEYDOWN);
-
+    return (b_KEYSTATE[key] == b_KEYDOWN);
 }
 
 bool bEvent::keyUp(uint8_t key) {
 
-    if (key%2 == 0)
-        return ((b_KEYSTATE[key/2] >> 4) == b_KEYUP);
-    else
-        return (((b_KEYSTATE[key/2] << 4) >> 8) == b_KEYUP);
-    
+    return (b_KEYSTATE[key]== b_KEYUP);
 }
 
 bool bEvent::eventLoop() {
@@ -38,14 +30,14 @@ bool bEvent::eventLoop() {
             case SDL_KEYDOWN:
                 // THIS IS FUCKY
                 if (event.key.keysym.scancode <= 82)
-                    b_KEYSTATE[event.key.keysym.scancode/2] ^= b_KEYDOWN << (4-(4-(event.key.keysym.scancode%2)));
+                    b_KEYSTATE[event.key.keysym.scancode] = b_KEYDOWN;
                //printf("Key Down: %u\n", event.key.keysym.scancode);
                 break;
 
             case SDL_KEYUP:
 
                 if (event.key.keysym.scancode <= 82)
-                    b_KEYSTATE[event.key.keysym.scancode/2] ^= b_KEYUP << (4-(4-(event.key.keysym.scancode%2)));
+                    b_KEYSTATE[event.key.keysym.scancode] = b_KEYUP;
                 break;
 
             case SDL_WINDOWEVENT:

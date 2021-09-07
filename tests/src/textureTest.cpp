@@ -40,15 +40,17 @@ int main() {
         // Event loop
         run = bEvent::eventLoop();
 
+        if (bEvent::keyDown(26)) {
+            dest.y--;
+        }
+        if (bEvent::keyDown(22)) {
+            dest.y++;
+        }
+
         window->drawTexture(blueSquare, dest);
         window->drawRect(src, 0, 255, 0);
 
-        if (bEvent::keyUp(26)) {
-            printf("Up");
-            dest.y++;
-        }
-        if (bEvent::keyUp(22))
-            dest.y--;
+        
 
 
         window->updateBuffer();

@@ -16,15 +16,15 @@ bool bWindow::createWindow() {
 
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 
-        printf("........SDL Successfully Initialized........\n");
+        printf("---       SDL Successfully Initialized     ---\n");
 
         sdlWindow = SDL_CreateWindow(windowTitle, xPos, yPos, width, height, windowFlags);
 
         if (sdlWindow) {
             SDL_UpdateWindowSurface(sdlWindow);
-            printf(".....Window Successfully Initialized........\n");
+            printf("---    Window Successfully Initialized     ---\n");
         } else {
-            printf(".....Window Failed to Initialize........\n");
+            printf("---  Window Failed to Initialize     ---\n");
             return false;
         }
         sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, renderFlags);
@@ -34,13 +34,13 @@ bool bWindow::createWindow() {
             SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
             SDL_RenderClear(sdlRenderer);
             SDL_RenderPresent(sdlRenderer);
-            printf("...Renderer Successfully Initialized........\n");
+            printf("---  Renderer Successfully Initialized     ---\n");
         } else {
-            printf("...Renderer Failed to Initialize........\n");
+            printf("---  Renderer Failed to Initialize     ---\n");
             return false;
         }
     } else {
-        printf("........SDL Failed to Initialize........\n");
+        printf("---     SDL Failed to Initialize     ---\n");
         return false;
     }
     numOfWindows++;

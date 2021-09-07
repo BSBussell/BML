@@ -8,6 +8,7 @@
 
 #include <SDL2/SDL.h>
 
+
 struct bTexture {
 
 	SDL_Texture* texture;
