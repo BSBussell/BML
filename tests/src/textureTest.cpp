@@ -15,8 +15,8 @@ int main() {
 
     const char *title = "silly";
     uint16_t zero = 0;
-    uint16_t width = 320;
-    uint16_t height = 240;
+    uint16_t width = 640;
+    uint16_t height = 480;
 
 
     bool run = true;
@@ -43,8 +43,13 @@ int main() {
         window->drawTexture(blueSquare, dest);
         window->drawRect(src, 0, 255, 0);
 
-        if (bEvent::keyDown(21))
-            printf("Hey you pressed q\n");
+        if (bEvent::keyUp(26)) {
+            printf("Up");
+            dest.y++;
+        }
+        if (bEvent::keyUp(22))
+            dest.y--;
+
 
         window->updateBuffer();
     }
