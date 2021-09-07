@@ -57,3 +57,50 @@ void bWindow::closeWindow() {
     if (numOfWindows <= 0)
         SDL_Quit();
 }
+
+bTexture bWindow::initTexture(const char* source, bRect src) {
+
+    std::string relativePath = std::string(SDL_GetBasePath());
+    relativePath += std::string(source);
+
+    bTexture newTexture;
+    SDL_Surface* surface = IMG_Load(relativePath.c_str());
+    SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+    SDL_FreeSurface(surface);
+
+    newTexture.texture = sdlTexture;
+    newTexture.src = {(int)src.x, (int)src.y, (int)src.width, (int)src.height};
+
+    return newTexture;
+}
+
+void bWindow::drawTexture(bTexture texture, bRect dest) {
+
+    SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height};
+
+    SDL_RenderCopy(sdlRenderer, texture.texture, &texture.src, &SDL_dest);
+}
+
+// Initalizes and adds a texture to render scene
+void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
+
+    SDL_Surface* surface = IMG_Load(source);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+    SDL_FreeSurface(surface);
+
+    SDL_Rect SDL_src = {(int)src.x, (int)src.y, (int)src.width, (int)src.height};
+    SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height};
+
+    SDL_RenderCopy(sdlRenderer, texture, &SDL_src, &SDL_dest);
+
+}
+
+void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {
+
+
+    SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
+    SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
+    SDL_RenderDrawRect(sdlRenderer, &SDL_location);
+    SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
+}
+
