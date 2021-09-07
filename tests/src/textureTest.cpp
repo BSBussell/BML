@@ -29,8 +29,10 @@ int main() {
     bRect dest = {10,10,320,240};
     bRect src = {10,10,320,240};
    
-    bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
 
+    //bTexture blueSquare = window->initTexture("/home/bee/Development/bSDL/tests/resources/blueSquare.png", src);
+    bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
+    
     while(run) {
 
         window->clearBuffer();

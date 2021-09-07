@@ -60,8 +60,11 @@ void bWindow::closeWindow() {
 
 bTexture bWindow::initTexture(const char* source, bRect src) {
 
+    std::string relativePath = std::string(SDL_GetBasePath());
+    relativePath += std::string(source);
+
     bTexture newTexture;
-    SDL_Surface* surface = IMG_Load(source);
+    SDL_Surface* surface = IMG_Load(relativePath.c_str());
     SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
     SDL_FreeSurface(surface);
 
@@ -100,3 +103,4 @@ void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t
     SDL_RenderDrawRect(sdlRenderer, &SDL_location);
     SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
 }
+
