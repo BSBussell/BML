@@ -8,7 +8,7 @@ CC = g++
 CFLAGS ?= -Wall -Wextra -std=c++17 -Isrc
 
 #LINKER_FLAGS specifies the libraries we're linking against
-LFLAGS = -lSDL2 -lSDL2_image
+LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
 
 #OBJ_NAME specifies the name of our exectuable
 #This is the target that compiles our executable
@@ -16,9 +16,9 @@ LFLAGS = -lSDL2 -lSDL2_image
 
 all: clean objects build Tests
 
-objects: obj/bWindow.o obj/bEvent.o
+objects: bWindow bEvent
 
-Tests: TextureTest EventTest WindowTest
+Tests: SoundTest TextureTest EventTest WindowTest
 
 clean: 
 	rm -f a.out bin/*
@@ -26,30 +26,39 @@ clean:
 	rm -f a.out tests/obj/*
 	rm -f a.out tests/bin/*
 
-build: obj/bWindow.o obj/bEvent.o
+build: bWindow bEvent bSound
 	ar rc bin/bSDL.a obj/*.o
 	ranlib bin/bSDL.a
 
-TextureTest: tests/obj/textureTest.o obj/bWindow.o obj/bEvent.o
+SoundTest: soundTest.o bSound bWindow bEvent
+	$(CC) tests/obj/soundTest.o obj/bSound.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/soundTest
+
+TextureTest: textureTest.o bWindow bEvent
 	$(CC) tests/obj/textureTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/textureTest
 
-EventTest: tests/obj/eventTest.o obj/bWindow.o obj/bEvent.o
+EventTest: eventTest.o bWindow bEvent
 	$(CC) tests/obj/eventTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/eventTest
 
-WindowTest: tests/obj/windowTest.o obj/bWindow.o
+WindowTest: windowTest.o bWindow
 	$(CC) tests/obj/windowTest.o obj/bWindow.o $(CFLAGS) $(LFLAGS) -o tests/bin/windowTest
 
-tests/obj/textureTest.o: tests/src/textureTest.cpp
+soundTest.o: tests/src/soundTest.cpp
+	$(CC) -c tests/src/soundTest.cpp $(CFLAGS) -o tests/obj/soundTest.o
+
+textureTest.o: tests/src/textureTest.cpp
 	$(CC) -c tests/src/textureTest.cpp $(CFLAGS) -o tests/obj/textureTest.o
 
-tests/obj/eventTest.o: tests/src/eventTest.cpp
+eventTest.o: tests/src/eventTest.cpp
 	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) -o tests/obj/eventTest.o
 
-tests/obj/windowTest.o: tests/src/windowTest.cpp src/bWindow/bWindow.h
+windowTest.o: tests/src/windowTest.cpp src/bWindow/bWindow.h
 	$(CC) -c tests/src/windowTest.cpp $(CFLAGS) -o tests/obj/windowTest.o
 
-obj/bWindow.o: src/bWindow/bWindow.cpp src/bWindow/bWindow.h
+bSound: src/bSound/bSound.cpp src/bSound/bSound.h
+	$(CC) -c src/bSound/bSound.cpp $(CFLAGS) -o obj/bSound.o
+
+bWindow: src/bWindow/bWindow.cpp src/bWindow/bWindow.h
 	$(CC) -c src/bWindow/bWindow.cpp $(CFLAGS) -o obj/bWindow.o
 
-obj/bEvent.o: src/bEvent/bEvent.cpp src/bEvent/bEvent.h
+bEvent: src/bEvent/bEvent.cpp src/bEvent/bEvent.h
 	$(CC) -c src/bEvent/bEvent.cpp $(CFLAGS) -o obj/bEvent.o

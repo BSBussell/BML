@@ -5,7 +5,7 @@
 
 #include "bSound.h"
 
-bool openAudio() {
+bool bSound::openAudio() {
 
     if (Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
         printf("...    SDL_Mixer failed to initialize  ...\n");
@@ -15,9 +15,68 @@ bool openAudio() {
     return true;
 }
 
-bool closeAudio() {
+void bSound::closeAudio() {
 
     Mix_CloseAudio();
+}
+
+bool bSound::loadMUS(const char* src) {
+
+    std::string relativePath = std::string(SDL_GetBasePath());
+    relativePath += std::string(src);
+
+    song = Mix_LoadMUS(relativePath.c_str());
+    if (song == NULL) {
+        printf("... Music File Failed to Load ...\n");
+        return false;
+    }
+    printf("... Music File Successfully Loaded ...\n");
+    return true;
+}
+
+bool bSound::playMUS(uint8_t loops) {
+
+    if (Mix_PlayMusic(song, loops) == -1) {
+        printf("...   Music Failed to Play  ...\n");
+        return false;
+    }       
+    printf("...  Music Successfully Playing ...\n");
+    return true;
+}
+
+void bSound::freeMUS() {
+
+    Mix_FreeMusic(song);
+}
+
+bool bSound::loadSFX(const char* src) {
+
+    std::string relativePath = std::string(SDL_GetBasePath());
+    relativePath += std::string(src);
+
+    wave = Mix_LoadWAV(relativePath.c_str());
+    if (wave == NULL) {
+        printf("... Audio File Failed to Load ...\n");
+        return false;
+    }
+    printf("... Audio File Successfully Loaded ...\n");
+    return true;
+}
+
+bool bSound::playSFX(uint8_t channel, uint8_t loops) {
+
+    if (Mix_PlayChannel(channel, wave, loops) == -1) {
+        printf("... Audio File Failed to Play ...\n");
+        return false;
+    }
+    printf("... Audio File Successfully Playing ...\n");
+    return true;
+
+}
+
+void bSound::freeSFX() {
+
+    Mix_FreeChunk(wave);
 }
 
 bSound::bSound() {

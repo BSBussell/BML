@@ -9,7 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <stdint.h>
-
+#include <string>
 
 class bSound {
 
@@ -18,16 +18,22 @@ public:
     bSound();
     ~bSound();
 
-    playSFX(uint8_t channel, );
-    playMusic();
+    // Only one file considered "music" can play at a time
+    static bool loadMUS(const char* src);
+    static bool playMUS(uint8_t loops);
+    static void freeMUS();
+
+    bool loadSFX(const char* src);
+    bool playSFX(uint8_t channel, uint8_t loops);
+    void freeSFX();
 
     static bool openAudio();
-    static bool closeAudio();
+    static void closeAudio();
 
 
 private:
 
-    Mix_Music *song = NULL;
+    inline static Mix_Music *song;
     Mix_Chunk *wave = NULL;    
 };
 
