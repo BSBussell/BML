@@ -14,9 +14,9 @@ LFLAGS = -lSDL2 -lSDL2_image
 #This is the target that compiles our executable
 # add these later
 
-all: clean  bSDL Tests
+all: clean objects build Tests
 
-bSDL: obj/bWindow.o obj/bEvent.o
+objects: obj/bWindow.o obj/bEvent.o
 
 Tests: TextureTest EventTest WindowTest
 
@@ -26,7 +26,7 @@ clean:
 	rm -f a.out tests/obj/*
 	rm -f a.out tests/bin/*
 
-install: obj/bWindow.o obj/bEvent.o
+build: obj/bWindow.o obj/bEvent.o
 	ar rc bin/bSDL.a obj/*.o
 	ranlib bin/bSDL.a
 
