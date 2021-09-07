@@ -61,8 +61,8 @@ public:
 
     // Drawing and Clearing
     bool createWindow();
-    void clearBuffer() { SDL_RenderClear(sdlRenderer); }
-    void updateBuffer() { SDL_RenderPresent(sdlRenderer); }
+    void clearBuffer();
+    void updateBuffer();
 
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);

@@ -32,7 +32,7 @@ int main() {
         // Do Drawings
         run = bEvent::eventLoop();
 
-        if (bEvent::keyDown(21))
+        if (bEvent::keyDown((uint8_t)21))
             printf("Hey you pressed q\n");
 
         window->updateBuffer();

@@ -47,6 +47,17 @@ bool bWindow::createWindow() {
     return true;
 }
 
+void bWindow::clearBuffer() {
+
+    SDL_RenderClear(sdlRenderer);
+}
+
+void bWindow::updateBuffer() {
+
+    SDL_RenderPresent(sdlRenderer);
+
+}
+
 void bWindow::closeWindow() {
 
     numOfWindows--;
