@@ -36,3 +36,6 @@ tests/bin/*
 
 # Want these folders
 !*.keep
+
+# Stupid Apple
+*.DS_Store

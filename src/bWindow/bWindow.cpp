@@ -58,17 +58,28 @@ void bWindow::closeWindow() {
         SDL_Quit();
 }
 
-void bWindow::addRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {
+bTexture bWindow::initTexture(const char* source, bRect src) {
 
+    bTexture newTexture;
+    SDL_Surface* surface = IMG_Load(source);
+    SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+    SDL_FreeSurface(surface);
 
-    SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
-    SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
-    SDL_RenderDrawRect(sdlRenderer, &SDL_location);
-    SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
+    newTexture.texture = sdlTexture;
+    newTexture.src = {(int)src.x, (int)src.y, (int)src.width, (int)src.height};
+
+    return newTexture;
+}
+
+void bWindow::drawTexture(bTexture texture, bRect dest) {
+
+    SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height};
+
+    SDL_RenderCopy(sdlRenderer, texture.texture, &texture.src, &SDL_dest);
 }
 
 // Initalizes and adds a texture to render scene
-void bWindow::addTexture(const char* source, bRect src, bRect dest) {
+void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
 
     SDL_Surface* surface = IMG_Load(source);
     SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
@@ -79,4 +90,13 @@ void bWindow::addTexture(const char* source, bRect src, bRect dest) {
 
     SDL_RenderCopy(sdlRenderer, texture, &SDL_src, &SDL_dest);
 
+}
+
+void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {
+
+
+    SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
+    SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
+    SDL_RenderDrawRect(sdlRenderer, &SDL_location);
+    SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
 }

@@ -7,25 +7,12 @@
 #define bTexture_h
 
 #include <SDL2/SDL.h>
-#include <stdint.h>
 
-class bTexture {
+struct bTexture {
 
-public:
-
-	bTexture();
-	~bTexture();
-
-private:
-
-	bRect src;
-    bRect dest;
-
+	SDL_Texture* texture;
+	SDL_Rect src;
 };
-
-
-
-
 
 
 #endif

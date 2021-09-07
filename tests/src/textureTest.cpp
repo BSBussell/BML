@@ -11,7 +11,7 @@
 namespace fs = std::filesystem;
 
 
-int main(int argc, char **argv) {
+int main() {
 
     const char *title = "silly";
     uint16_t zero = 0;
@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     bRect dest = {10,10,320,240};
     bRect src = {10,10,320,240};
    
-    std::cout << fs::path(argv[0]).parent_path() << std::endl;    
+    bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
 
     while(run) {
 
@@ -38,8 +38,8 @@ int main(int argc, char **argv) {
         // Event loop
         run = bEvent::eventLoop();
 
-        window->addTexture("/Users/programming/Documents/GitHub/bSDL/tests/resources/blueSquare.png", src, dest);
-        window->addRect(src, 0, 255, 0);
+        window->drawTexture(blueSquare, dest);
+        window->drawRect(src, 0, 255, 0);
 
         if (bEvent::keyDown(21))
             printf("Hey you pressed q\n");
