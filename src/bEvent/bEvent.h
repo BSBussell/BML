@@ -21,6 +21,7 @@ public:
     static bool eventLoop();
 
     static bool keyDown(uint8_t key );
+    static bool keyDown(const char key);
     static bool keyStillDown(const char *key );
     static bool keyUp(uint8_t key );
     static bool keyStillUp(const char *key );
@@ -37,7 +38,7 @@ private:
 
     bEvent();
 
-    inline static uint8_t b_KEYSTATE[41];
+    inline static uint8_t b_KEYSTATE[82];
 
 };
 

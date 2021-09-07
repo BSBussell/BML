@@ -13,17 +13,12 @@ namespace fs = std::filesystem;
 
 int main() {
 
-    const char *title = "silly";
-    uint16_t zero = 0;
-    uint16_t width = 320;
-    uint16_t height = 240;
-
-
     bool run = true;
 
-    bWindow* window = new bWindow(title, zero, zero, width, height);
+    bWindow* window = new bWindow("silly", 0, 0, 1600, 900);
     window->toggleResizeable();
     window->toggleHardwareRender();
+    window->toggleVSync();
     window->createWindow();
 
     bRect dest = {10,10,320,240};
@@ -40,11 +35,22 @@ int main() {
         // Event loop
         run = bEvent::eventLoop();
 
+        if (bEvent::keyDown('W')) {
+            dest.y--;
+        } 
+        if (bEvent::keyDown('S')) {
+            dest.y++;
+        }
+        if (bEvent::keyDown('A'))
+            dest.x--;
+        if (bEvent::keyDown('D'))
+            dest.x++;
+
         window->drawTexture(blueSquare, dest);
         window->drawRect(src, 0, 255, 0);
 
-        if (bEvent::keyDown(21))
-            printf("Hey you pressed q\n");
+        
+
 
         window->updateBuffer();
     }
