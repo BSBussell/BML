@@ -6,10 +6,7 @@
 #include <iostream>
 #include <stdint.h>
 
-#include <bSDL/bSDL.h>
-#include <filesystem>
-namespace fs = std::filesystem;
-
+#include <BML/BML.h>
 
 int main() {
 
@@ -25,7 +22,7 @@ int main() {
     bRect src = {10,10,320,240};
    
 
-    //bTexture blueSquare = window->initTexture("/home/bee/Development/bSDL/tests/resources/blueSquare.png", src);
+    //bTexture blueSquare = window->initTexture("/home/bee/Development/BML/tests/resources/blueSquare.png", src);
     bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
     
     while(run) {

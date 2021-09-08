@@ -5,16 +5,16 @@ TESTOBJDIR = tests/obj
 #CC specifies which compiler we're using
 CC = g++
 
-bSDLsrc = $(wildcard src/bSDL/*.cpp) \
+BMLsrc = $(wildcard src/BML/*.cpp) \
 		 $(wildcard src/bData/*.cpp) \
 		 $(wildcard src/bTexture/*.cpp) \
 		 $(wildcard src/bWindow/*.cpp) \
 		 $(wildcard src/bEvent/*.cpp) \
 		 $(wildcard src/bSound/*.cpp)
 
-bSDLobj := $(notdir $(bSDLsrc))
-bSDLobj := $(addprefix $(OBJDIR)/, $(bSDLobj))
-bSDLobj := $(bSDLobj:.cpp=.o)
+BMLobj := $(notdir $(BMLsrc))
+BMLobj := $(addprefix $(OBJDIR)/, $(BMLobj))
+BMLobj := $(BMLobj:.cpp=.o)
 
 		 
 testsrc = $(wildcard tests/src/*.cpp)
@@ -30,7 +30,7 @@ CFLAGS := -Wall -Wextra -std=c++17
 IFLAGS := -Isrc
 
 #LFLAGS specifies the libraries we're linking against
-LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/libBSDL.a
+LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/libBML.a
 
 #WFLAGS specifies that we know what we are doing with ar
 WFLAGS := -no_warning_for_no_symbols
@@ -54,26 +54,26 @@ endif
 
 #all rule for just compiling everything
 .PHONY: all
-all: bSDL build Tests
+all: BML build Tests
 	
 
-.PHONY: bSDL
-bSDL: $(bSDLobj)
+.PHONY: BML
+BML: $(BMLobj)
 
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: bSDL build SoundTest TextureTest EventTest WindowTest
+Tests: BML build SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
-build: $(bSDLobj)
-	@printf "\n$(bold)----------Building bSDL LIB File----------------$(sgr0)\n"
-	ar rc bin/libBSDL.a $(bSDLobj)
-	ranlib bin/libBSDL.a 
+build: $(BMLobj)
+	@printf "\n$(bold)----------Building BML LIB File----------------$(sgr0)\n"
+	ar rc bin/libBML.a $(BMLobj)
+	ranlib bin/libBML.a 
 
 .PHONY: install
 install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
-	sudo install -m 644 bin/libBSDL.a $(LPATH)
+	sudo install -m 644 bin/libBML.a $(LPATH)
 
 SoundTest: tests/obj/soundTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
@@ -91,9 +91,9 @@ WindowTest: tests/obj/windowTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
-# Rules for bSDL obj files
+# Rules for BML obj files
 $(OBJDIR)/%.o: src/*/%.cpp
-	@printf "\n$(bold)----------COMPILING BSDL FILE: $(notdir $@)----------$(sgr0)\n"
+	@printf "\n$(bold)----------COMPILING BML FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 # Rules for test obj files
@@ -104,7 +104,7 @@ $(TESTOBJDIR)/%.o: tests/src/%.cpp
 .PHONY: clean
 clean: 
 	@printf "\n$(bold)----------REMOVING PREVIOUS BUILDS----------$(sgr0)\n"
-	rm -f $(bSDLobj) 
+	rm -f $(BMLobj) 
 	rm -f $(testobj)
 	rm -f bin/*
 	rm -f a.out tests/bin/*

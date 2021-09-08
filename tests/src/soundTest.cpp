@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <stdint.h>
-#include <bSDL/bSDL.h>
+#include <BML/BML.h>
 
 
 int main() {
@@ -31,7 +31,7 @@ int main() {
     bSound::loadMUS("../resources/BLUE-Compress.wav");
     bSound::playMUS(5);
 
-    //bTexture blueSquare = window->initTexture("/home/bee/Development/bSDL/tests/resources/blueSquare.png", src);
+    //bTexture blueSquare = window->initTexture("/home/bee/Development/BML/tests/resources/blueSquare.png", src);
     bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
     
     double vol = .5;

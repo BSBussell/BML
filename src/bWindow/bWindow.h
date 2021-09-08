@@ -10,8 +10,8 @@
 #include <SDL2/SDL_image.h>
 #include <stdint.h>
 #include <string>
-#include "../bData/bRect.h"
-#include "../bTexture/bTexture.h"
+#include "bData/bRect.h"
+#include "bTexture/bTexture.h"
 
 class bWindow {
 

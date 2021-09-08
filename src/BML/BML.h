@@ -1,6 +1,6 @@
 
-#ifndef bSDL_h
-#define bSDL_h
+#ifndef BML_h
+#define BML_h
 
 #include "bData/bRect.h"
 #include "bTexture/bTexture.h"
