@@ -9,6 +9,7 @@ bool bSound::openAudio() {
 
     if (Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
         printf("...    SDL_Mixer failed to initialize  ...\n");
+        printf("%s", Mix_GetError());
         return false;
     }
 
@@ -31,6 +32,7 @@ bool bSound::loadMUS(const char* src) {
     song = Mix_LoadMUS(relativePath.c_str());
     if (song == NULL) {
         printf("... Music File Failed to Load ...\n");
+        printf("%s", Mix_GetError());
         return false;
     }
     printf("... Music File Successfully Loaded ...\n");
@@ -41,6 +43,7 @@ bool bSound::playMUS(uint8_t loops) {
 
     if (Mix_PlayMusic(song, loops) == -1) {
         printf("...   Music Failed to Play  ...\n");
+        printf("%s", Mix_GetError());
         return false;
     }       
     printf("...  Music Successfully Playing ...\n");
@@ -59,6 +62,7 @@ bool bSound::loadSFX(const char* src) {
 
     wave = Mix_LoadWAV(relativePath.c_str());
     if (wave == NULL) {
+        printf("%s", Mix_GetError());
         printf("... Audio File Failed to Load ...\n");
         return false;
     }
@@ -71,6 +75,7 @@ bool bSound::playSFX(uint8_t channel, uint8_t loops) {
     Mix_VolumeChunk(wave, MIX_MAX_VOLUME);
 
     if (Mix_PlayChannel(channel, wave, loops) == -1) {
+        printf("%s", Mix_GetError());
         printf("... Audio File Failed to Play ...\n");
         return false;
     }

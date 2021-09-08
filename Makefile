@@ -51,7 +51,7 @@ Tests: SoundTest TextureTest EventTest WindowTest
 build: $(bSDLobj)
 	@echo "\n----------------Building bSDL LIB File----------------\n"
 	ar rc bin/bSDL.a $(bSDLobj)
-	ranlib bin/bSDL.a $(WFLAGS)
+	ranlib bin/bSDL.a 
 
 SoundTest: tests/obj/soundTest.o build
 	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"

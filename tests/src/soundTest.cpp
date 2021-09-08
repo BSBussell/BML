@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <stdint.h>
-
 #include <bSDL/bSDL.h>
 
 
@@ -27,10 +26,10 @@ int main() {
 
     bSound soundEffect;
     soundEffect.loadSFX("../resources/randomSound.wav");
-    soundEffect.playSFX(-1,2);
-    bSound music;
-    music.loadSFX("../resources/BLUE.wav");
-    music.playSFX(-1,-1);
+    soundEffect.playSFX(0,2);
+  //  bSound music;
+    bSound::loadMUS("../resources/BLUE-Compress.wav");
+    bSound::playMUS(5);
 
     //bTexture blueSquare = window->initTexture("/home/bee/Development/bSDL/tests/resources/blueSquare.png", src);
     bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
@@ -62,7 +61,7 @@ int main() {
         window->updateBuffer();
     }
     soundEffect.freeSFX();
-    music.freeSFX();
+    bSound::freeMUS();
     bSound::closeAudio();
     window->closeWindow();
     return 0;
