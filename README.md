@@ -1,17 +1,18 @@
-# bSDL
+# BML
 
-bSDL is the SDL wrapper that BlueKit2D will use. It is designed to handle many of the lower level task for the engine and keep them obstructed so that I can focus more on the structure of components and data when creating the engine.
+BML is the SDL wrapper that BlueKit2D will use. It is designed to handle many of the lower level task for the engine and keep them obstructed so that I can focus more on the structure of components and data when creating the engine.
 
 ### Uses
 This project is mostly for personal use so I do not plan on writing much in-depth documentation on how it works other than my personal comments I leave for myself. Just like ask me if you want to know how something works but really I am trying to keep it as straight forward as possible
 
 ### Build Instructions
-Install SDL2 and SDL_Image to run follow instructions based off your os for this.
+Install SDL2, SDL_Image, and SDL_Mixer following instructions based off your OSs for this.
 Once you have done that you can copy this code into your terminal of choice
+
 ```
-git clone git@github.com:BSBussell/bSDL.git
-cd bSDL
-make bSDL
+git clone git@github.com:BSBussell/BML.git
+cd BML
+make BML
 ```
 
 This will create the linker objects to use when compiling with your program.
