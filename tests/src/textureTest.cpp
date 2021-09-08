@@ -6,7 +6,7 @@
 #include <iostream>
 #include <stdint.h>
 
-#include "bSDL.h"
+#include <bSDL/bSDL.h>
 #include <filesystem>
 namespace fs = std::filesystem;
 
