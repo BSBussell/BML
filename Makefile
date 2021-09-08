@@ -44,6 +44,14 @@ ifeq ($(LPATH),)
     LPATH := /usr/lib
 endif
 
+#Get Os name
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+	LPATH = /usr/local/lib
+else
+	LPATH = /usr/lib
+endif	
+
 #all rule for just compiling everything
 .PHONY: all
 all: $(bSDLobj) build Tests
