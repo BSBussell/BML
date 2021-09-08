@@ -14,7 +14,7 @@ LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
 #This is the target that compiles our executable
 # add these later
 
-all: clean objects build Tests
+all: objects build Tests
 
 objects: bWindow bEvent
 

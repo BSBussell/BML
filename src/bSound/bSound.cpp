@@ -11,6 +11,9 @@ bool bSound::openAudio() {
         printf("...    SDL_Mixer failed to initialize  ...\n");
         return false;
     }
+
+    Mix_Init(MIX_INIT_MOD);
+    Mix_Volume(-1, MIX_MAX_VOLUME);
     printf("...    SDL_ Mixer Initalized  ... \n");
     return true;
 }
@@ -64,6 +67,8 @@ bool bSound::loadSFX(const char* src) {
 }
 
 bool bSound::playSFX(uint8_t channel, uint8_t loops) {
+
+    Mix_VolumeChunk(wave, MIX_MAX_VOLUME);
 
     if (Mix_PlayChannel(channel, wave, loops) == -1) {
         printf("... Audio File Failed to Play ...\n");
