@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 #include <stdint.h>
-#include "bSDL.h"
+#include <bSDL/bSDL.h>
 
 int main() {
 

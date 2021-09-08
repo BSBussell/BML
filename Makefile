@@ -1,64 +1,88 @@
 #OBJS specifies which files to compile as part of the project
 #Initalize when doing more stuff
 
+
+
+OBJDIR = obj
+TESTOBJDIR = tests/obj
+
 #CC specifies which compiler we're using
 CC = g++
 
-#COMPILER_FLAGS specifies the additional compilation options we're using
-CFLAGS ?= -Wall -Wextra -std=c++17 -Isrc
+bSDLsrc = $(wildcard src/bSDL/*.cpp) \
+		 $(wildcard src/bData/*.cpp) \
+		 $(wildcard src/bTexture/*.cpp) \
+		 $(wildcard src/bWindow/*.cpp) \
+		 $(wildcard src/bEvent/*.cpp) \
+		 $(wildcard src/bSound/*.cpp)
 
-#LINKER_FLAGS specifies the libraries we're linking against
-LFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer
+bSDLobj := $(notdir $(bSDLsrc))
+bSDLobj := $(addprefix $(OBJDIR)/, $(bSDLobj))
+bSDLobj := $(bSDLobj:.cpp=.o)
 
-#OBJ_NAME specifies the name of our exectuable
-#This is the target that compiles our executable
-# add these later
+		 
+testsrc = $(wildcard tests/src/*.cpp)
 
-all: objects build Tests
+testobj := $(notdir $(testsrc))
+testobj := $(addprefix $(TESTOBJDIR)/, $(testobj))
+testobj := $(testobj:.cpp=.o)
 
-objects: bWindow bEvent
+#CFLAGS specifies the additional compilation options we're using
+CFLAGS := -Wall -Wextra -std=c++17 
 
+#IFLAGS specifies which directory to check for include
+IFLAGS := -Isrc
+
+#LFLAGS specifies the libraries we're linking against
+LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/bSDL.a
+
+#WFLAGS specifies that we know what we are doing with ar
+WFLAGS := -no_warning_for_no_symbols
+
+#all rule for just compiling everything
+.PHONY: all
+all: $(bSDLobj) build Tests
+	
+#Tests for only compiling tests
+.PHONY: Tests
 Tests: SoundTest TextureTest EventTest WindowTest
 
+.PHONY: build
+build: $(bSDLobj)
+	@echo "\n----------------Building bSDL LIB File----------------\n"
+	ar rc bin/bSDL.a $(bSDLobj)
+	ranlib bin/bSDL.a $(WFLAGS)
+
+SoundTest: tests/obj/soundTest.o build
+	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+
+TextureTest: tests/obj/textureTest.o build
+	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+
+EventTest: tests/obj/eventTest.o build
+	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+
+WindowTest: tests/obj/windowTest.o build
+	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+
+# Rules for bSDL obj files
+$(OBJDIR)/%.o: src/*/%.cpp
+	@echo "\n----------COMPILING BSDL FILE:  " $(notdir $@) "----------\n"
+	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
+
+# Rules for test obj files
+$(TESTOBJDIR)/%.o: tests/src/%.cpp
+	@echo "\n----------COMPILING TEST FILE: " $(notdir $@) "----------\n"
+	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
+
+.PHONY: clean
 clean: 
-	rm -f a.out bin/*
-	rm -f a.out obj/*
-	rm -f a.out tests/obj/*
+	@echo "\n----------REMOVING PREVIOUS BUILDS----------\n"
+	rm -f $(bSDLobj) 
+	rm -f $(testobj)
+	rm -f bin/*
 	rm -f a.out tests/bin/*
-
-build: bWindow bEvent bSound
-	ar rc bin/bSDL.a obj/*.o
-	ranlib bin/bSDL.a
-
-SoundTest: soundTest.o bSound bWindow bEvent
-	$(CC) tests/obj/soundTest.o obj/bSound.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/soundTest
-
-TextureTest: textureTest.o bWindow bEvent
-	$(CC) tests/obj/textureTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/textureTest
-
-EventTest: eventTest.o bWindow bEvent
-	$(CC) tests/obj/eventTest.o obj/bWindow.o obj/bEvent.o $(CFLAGS) $(LFLAGS) -o tests/bin/eventTest
-
-WindowTest: windowTest.o bWindow
-	$(CC) tests/obj/windowTest.o obj/bWindow.o $(CFLAGS) $(LFLAGS) -o tests/bin/windowTest
-
-soundTest.o: tests/src/soundTest.cpp
-	$(CC) -c tests/src/soundTest.cpp $(CFLAGS) -o tests/obj/soundTest.o
-
-textureTest.o: tests/src/textureTest.cpp
-	$(CC) -c tests/src/textureTest.cpp $(CFLAGS) -o tests/obj/textureTest.o
-
-eventTest.o: tests/src/eventTest.cpp
-	$(CC) -c tests/src/eventTest.cpp $(CFLAGS) -o tests/obj/eventTest.o
-
-windowTest.o: tests/src/windowTest.cpp src/bWindow/bWindow.h
-	$(CC) -c tests/src/windowTest.cpp $(CFLAGS) -o tests/obj/windowTest.o
-
-bSound: src/bSound/bSound.cpp src/bSound/bSound.h
-	$(CC) -c src/bSound/bSound.cpp $(CFLAGS) -o obj/bSound.o
-
-bWindow: src/bWindow/bWindow.cpp src/bWindow/bWindow.h
-	$(CC) -c src/bWindow/bWindow.cpp $(CFLAGS) -o obj/bWindow.o
-
-bEvent: src/bEvent/bEvent.cpp src/bEvent/bEvent.h
-	$(CC) -c src/bEvent/bEvent.cpp $(CFLAGS) -o obj/bEvent.o
