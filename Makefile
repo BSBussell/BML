@@ -54,11 +54,15 @@ endif
 
 #all rule for just compiling everything
 .PHONY: all
-all: $(bSDLobj) build Tests
+all: bSDL build Tests
 	
+
+.PHONY: bSDL
+bSDL: $(bSDLobj)
+
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: SoundTest TextureTest EventTest WindowTest
+Tests: bSDL build SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
 build: $(bSDLobj)
