@@ -21,11 +21,15 @@ public:
     // Only one file considered "music" can play at a time
     static bool loadMUS(const char* src);
     static bool playMUS(uint8_t loops);
+    static void setMUSVOL(double perc);
     static void freeMUS();
 
     bool loadSFX(const char* src);
     bool playSFX(uint8_t channel, uint8_t loops);
+    void setSFXVOL(double perc);
     void freeSFX();
+
+    static void setGBLVOL(double perc);
 
     static bool openAudio();
     static void closeAudio();

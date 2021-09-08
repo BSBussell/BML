@@ -1,8 +1,4 @@
-#OBJS specifies which files to compile as part of the project
-#Initalize when doing more stuff
-
-
-
+#Directories
 OBJDIR = obj
 TESTOBJDIR = tests/obj
 
@@ -34,10 +30,19 @@ CFLAGS := -Wall -Wextra -std=c++17
 IFLAGS := -Isrc
 
 #LFLAGS specifies the libraries we're linking against
-LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/bSDL.a
+LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/libBSDL.a
 
 #WFLAGS specifies that we know what we are doing with ar
 WFLAGS := -no_warning_for_no_symbols
+
+#Give us some bold text plz
+bold := $(shell tput bold)
+sgr0 := $(shell tput sgr0)
+
+#Library Path
+ifeq ($(LPATH),)
+    LPATH := /usr/lib
+endif
 
 #all rule for just compiling everything
 .PHONY: all
@@ -49,39 +54,44 @@ Tests: SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
 build: $(bSDLobj)
-	@echo "\n----------------Building bSDL LIB File----------------\n"
-	ar rc bin/bSDL.a $(bSDLobj)
-	ranlib bin/bSDL.a 
+	@printf "\n$(bold)----------Building bSDL LIB File----------------$(sgr0)\n"
+	ar rc bin/libBSDL.a $(bSDLobj)
+	ranlib bin/libBSDL.a 
+
+.PHONY: install
+install: build
+	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
+	sudo install -m 644 bin/libBSDL.a $(LPATH)
 
 SoundTest: tests/obj/soundTest.o build
-	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 TextureTest: tests/obj/textureTest.o build
-	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 EventTest: tests/obj/eventTest.o build
-	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 WindowTest: tests/obj/windowTest.o build
-	@echo "\n----------COMPILING TEST FILE: " $@ "----------\n"
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 # Rules for bSDL obj files
 $(OBJDIR)/%.o: src/*/%.cpp
-	@echo "\n----------COMPILING BSDL FILE:  " $(notdir $@) "----------\n"
+	@printf "\n$(bold)----------COMPILING BSDL FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 # Rules for test obj files
 $(TESTOBJDIR)/%.o: tests/src/%.cpp
-	@echo "\n----------COMPILING TEST FILE: " $(notdir $@) "----------\n"
+	@printf "\n$(bold)----------COMPILING TEST FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 .PHONY: clean
 clean: 
-	@echo "\n----------REMOVING PREVIOUS BUILDS----------\n"
+	@printf "\n$(bold)----------REMOVING PREVIOUS BUILDS----------$(sgr0)\n"
 	rm -f $(bSDLobj) 
 	rm -f $(testobj)
 	rm -f bin/*

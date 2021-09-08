@@ -50,6 +50,11 @@ bool bSound::playMUS(uint8_t loops) {
     return true;
 }
 
+void bSound::setMUSVOL(double perc) {
+    
+    Mix_VolumeMusic(MIX_MAX_VOLUME*perc);
+}
+
 void bSound::freeMUS() {
 
     Mix_FreeMusic(song);
@@ -84,9 +89,19 @@ bool bSound::playSFX(uint8_t channel, uint8_t loops) {
 
 }
 
+void bSound::setSFXVOL(double perc) {
+
+    Mix_VolumeChunk(wave, (MIX_MAX_VOLUME*perc));
+}
+
 void bSound::freeSFX() {
 
     Mix_FreeChunk(wave);
+}
+
+void bSound::setGBLVOL(double perc) {
+
+    Mix_Volume(-1, (MIX_MAX_VOLUME*perc));
 }
 
 bSound::bSound() {

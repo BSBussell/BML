@@ -34,6 +34,8 @@ int main() {
     //bTexture blueSquare = window->initTexture("/home/bee/Development/bSDL/tests/resources/blueSquare.png", src);
     bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
     
+    double vol = .5;
+
     while(run) {
 
         window->clearBuffer();
@@ -43,15 +45,20 @@ int main() {
 
         if (bEvent::keyDown('W')) {
             dest.y--;
+            vol += .1;
+            bSound::setMUSVOL(vol);
         } 
         if (bEvent::keyDown('S')) {
             dest.y++;
+            vol -= .1;
+            bSound::setMUSVOL(vol);
         }
-        if (bEvent::keyDown('A'))
+        if (bEvent::keyDown('A')) {
             dest.x--;
-        if (bEvent::keyDown('D'))
+        }
+        if (bEvent::keyDown('D')) {
             dest.x++;
-
+        }
         window->drawTexture(blueSquare, dest);
         window->drawRect(src, 0, 255, 0);
 
