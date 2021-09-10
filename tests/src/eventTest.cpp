@@ -20,6 +20,7 @@ int main() {
 
     bool run = true;
 
+    BML_Init();
     bWindow* window = new bWindow(title, zero, zero, width, height);
     window->toggleResizeable();
     window->toggleHardwareRender();
@@ -39,6 +40,7 @@ int main() {
     }
     
     window->closeWindow();
+    BML_Close();
     return 0;
 }
 

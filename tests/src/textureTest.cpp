@@ -12,6 +12,7 @@ int main() {
 
     bool run = true;
 
+    BML_Init();
     bWindow* window = new bWindow("silly", 0, 0, 1600, 900);
     window->toggleResizeable();
     window->toggleHardwareRender();
@@ -53,6 +54,7 @@ int main() {
     }
     
     window->closeWindow();
+    BML_Close();
     return 0;
 }
 

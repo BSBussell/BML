@@ -12,10 +12,12 @@ int main() {
 
     bool run = true;
 
+    BML_Init();
     bWindow* window = new bWindow("silly", 0, 0, 1600, 900);
     window->toggleResizeable();
     window->toggleHardwareRender();
     window->toggleVSync();
+    window->toggleHighDPI();
     window->createWindow();
 
     bRect dest = {10,10,320,240};
@@ -71,6 +73,7 @@ int main() {
     bSound::freeMUS();
     bSound::closeAudio();
     window->closeWindow();
+    BML_Close();
     return 0;
 }
 

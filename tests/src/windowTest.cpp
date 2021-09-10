@@ -15,6 +15,7 @@ int main() {
     uint16_t width = 320;
     uint16_t height = 240;
 
+    BML_Init();
     bWindow* window = new bWindow(title, zero, zero, width, height);
     window->toggleResizeable();
     window->toggleHardwareRender();
@@ -29,6 +30,7 @@ int main() {
         window->updateBuffer();
     }
 
+    BML_Close();
     return 0;
 }
 
