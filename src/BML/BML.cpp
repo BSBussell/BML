@@ -20,13 +20,11 @@ void BML_Close() {
 	SDL_Quit();
 }
 
-const char* BML_GetPath(const char* path) {
+std::string BML_GetPath(const char* path) {
 
 	std::string relativePath = std::string(SDL_GetBasePath());
     relativePath += std::string(path);
 
-    const char* relativeChar = relativePath.c_str();
-
-    return relativeChar;
+    return relativePath;
 
 }

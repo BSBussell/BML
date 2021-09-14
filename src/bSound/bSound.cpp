@@ -29,7 +29,7 @@ bool bSound::loadMUS(const char* src) {
     /*std::string relativePath = std::string(SDL_GetBasePath());
     relativePath += std::string(src);*/
 
-    song = Mix_LoadMUS(BML_GetPath(src));
+    song = Mix_LoadMUS(BML_GetPath(src).c_str());
     if (song == NULL) {
         printf("--- Music File Failed to Load ---\n");
         printf("%s", Mix_GetError());
@@ -63,7 +63,7 @@ bool bSound::loadSFX(const char* src) {
     /*std::string relativePath = std::string(SDL_GetBasePath());
     relativePath += std::string(src);*/
 
-    wave = Mix_LoadWAV(BML_GetPath(src));
+    wave = Mix_LoadWAV(BML_GetPath(src).c_str());
     if (wave == NULL) {
         printf("%s", Mix_GetError());
         printf("--- Audio File Failed to Load ---\n");

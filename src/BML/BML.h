@@ -18,6 +18,6 @@
 void BML_Init();
 void BML_Close();
 
-const char* BML_GetPath(const char* path);
+std::string BML_GetPath(const char* path);
 
 #endif
