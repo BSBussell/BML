@@ -6,8 +6,7 @@
 #ifndef bEvent_h
 #define bEvent_h
 
-#include <SDL2/SDL.h>
-#include <stdint.h>
+#include "BML/BML.h"
 
 class bEvent {
 

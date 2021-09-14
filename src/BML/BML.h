@@ -2,6 +2,9 @@
 #ifndef BML_h
 #define BML_h
 
+#include <string>
+#include <cstdint>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
@@ -15,5 +18,6 @@
 void BML_Init();
 void BML_Close();
 
+const char* BML_GetPath(const char* path);
 
 #endif

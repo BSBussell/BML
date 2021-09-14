@@ -6,12 +6,7 @@
 #ifndef bWindow_h
 #define bWindow_h
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <stdint.h>
-#include <string>
-#include "bData/bRect.h"
-#include "bTexture/bTexture.h"
+#include "BML/BML.h"
 
 class bWindow {
 

@@ -29,7 +29,7 @@ CFLAGS := -Wall -Wextra -std=c++17
 #IFLAGS specifies which directory to check for include
 IFLAGS := -Isrc
 
-#LFLAGS specifies the libraries we're linking against
+#LFLAGS specify the libraries we're linking against
 LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/libBML.a
 
 #WFLAGS specifies that we know what we are doing with ar

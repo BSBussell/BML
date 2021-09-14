@@ -6,10 +6,7 @@
 #ifndef bSound_h
 #define bSound_h
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
-#include <stdint.h>
-#include <string>
+#include "BML/BML.h"
 
 class bSound {
 

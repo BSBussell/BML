@@ -15,11 +15,7 @@ struct bRect {
 	double width;
 	double height;
 
-    SDL_Rect sdl_rect() {
-
-        SDL_Rect translation = {(int)x, (int)y, (int)width, (int)height};
-        return translation;
-    };
+    SDL_Rect sdl_Rect();
 
 };
 
