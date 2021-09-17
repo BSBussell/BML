@@ -11,8 +11,6 @@
 #include <stdint.h>
 #include <vector>
 
-
-#pragma pack(push, 1)
 struct bSheet {
 
     std::string imagePath;
@@ -21,12 +19,12 @@ struct bSheet {
     uint32_t totalWidth;
     uint32_t totalHeight;
 
+    uint16_t totalSprites;
+
     std::vector<bRect> sprites;
 };
-#pragma pack(pop)
 
-
-/* MOVE THIS TO CPP */
 void writeSheetToBin(const char* filePath, bSheet data);
+bool readSheetFromBin(const char* filePath, bSheet &data);
 
 #endif

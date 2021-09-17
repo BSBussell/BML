@@ -11,6 +11,7 @@
 
 #include "bData/bRect.h"
 #include "bTexture/bTexture.h"
+#include "bSheet/bSheet.h"
 #include "bEvent/bEvent.h"
 #include "bWindow/bWindow.h"
 #include "bSound/bSound.h"

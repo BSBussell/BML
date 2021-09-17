@@ -8,6 +8,7 @@ CC = g++
 BMLsrc = $(wildcard src/BML/*.cpp) \
 		 $(wildcard src/bData/*.cpp) \
 		 $(wildcard src/bTexture/*.cpp) \
+		 $(wildcard src/bSheet/*.cpp) \
 		 $(wildcard src/bWindow/*.cpp) \
 		 $(wildcard src/bEvent/*.cpp) \
 		 $(wildcard src/bSound/*.cpp)
@@ -62,7 +63,7 @@ BML: $(BMLobj)
 
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: BML build SoundTest TextureTest EventTest WindowTest
+Tests: BML build SheetTest SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
 build: $(BMLobj)
@@ -74,6 +75,10 @@ build: $(BMLobj)
 install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
 	sudo install -m 644 bin/libBML.a $(LPATH)
+
+SheetTest: tests/obj/sheetTest.o build
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 SoundTest: tests/obj/soundTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
@@ -93,12 +98,12 @@ WindowTest: tests/obj/windowTest.o build
 
 # Rules for BML obj files
 $(OBJDIR)/%.o: src/*/%.cpp
-	@printf "\n$(bold)----------COMPILING BML FILE: $(notdir $@)----------$(sgr0)\n"
+	@printf "\n$(bold)----------COMPILING BML OBJ FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 # Rules for test obj files
 $(TESTOBJDIR)/%.o: tests/src/%.cpp
-	@printf "\n$(bold)----------COMPILING TEST FILE: $(notdir $@)----------$(sgr0)\n"
+	@printf "\n$(bold)----------COMPILING TEST OBJ FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 .PHONY: clean

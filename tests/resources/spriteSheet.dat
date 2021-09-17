@@ -1,0 +1,9 @@
+SPRITE_SHEET_INFO
+PATH: ../resources/spriteSheet.png
+WIDTH: 50
+HEIGHT: 50
+SPRITES: 2
+---SPRITE_DATA---
+0 0 10 10
+10 0 10 10
+---END---
