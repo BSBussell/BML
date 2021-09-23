@@ -91,6 +91,14 @@ void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
 
 }
 
+void bWindow::drawSprite(bSheet sheet, uint16_t sprite, bRect dest) {
+
+    (void) sheet;
+    (void) sprite;
+    (void) dest;
+
+}
+
 void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {
 
 
