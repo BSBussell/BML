@@ -16,7 +16,7 @@ struct bRect {
 	uint32_t width;
 	uint32_t height;
 
-    SDL_Rect sdl_Rect();
+    operator SDL_Rect() const;
 
 };
 

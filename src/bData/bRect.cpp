@@ -5,7 +5,7 @@
 
 #include "bRect.h"
 
-SDL_Rect bRect::sdl_Rect() {
+bRect::operator SDL_Rect() const {
 
 	SDL_Rect rect;
 	rect.x = x;
@@ -16,3 +16,4 @@ SDL_Rect bRect::sdl_Rect() {
 	return rect;
 
 }
+

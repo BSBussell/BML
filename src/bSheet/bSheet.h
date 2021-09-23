@@ -6,7 +6,8 @@
 #ifndef bSheet_h
 #define bSheet_h
 
-#include "BML/BML.h"
+#include "bData/bRect.h"
+#include "bTexture/bTexture.h"
 #include <fstream>
 #include <stdint.h>
 #include <vector>
@@ -20,6 +21,7 @@ struct bSheet {
     uint32_t totalHeight;
 
     uint16_t totalSprites;
+    uint16_t currentSprite = 0;
 
     std::vector<bRect> sprites;
 };

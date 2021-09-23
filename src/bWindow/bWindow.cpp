@@ -70,9 +70,24 @@ bTexture bWindow::initTexture(const char* source, bRect src) {
     return newTexture;
 }
 
+bTexture bWindow::initSpriteSheet(bSheet &sheet) {
+    
+    bTexture newTexture;
+    SDL_Surface* surface = IMG_Load(BML_GetPath(sheet.imagePath).c_str());
+    SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+    SDL_FreeSurface(surface);
+
+    newTexture.texture = sdlTexture;
+    newTexture.src = {0, 0, (int)sheet.totalWidth, (int)sheet.totalHeight};
+
+    sheet.sourceTexture = newTexture;
+
+    return newTexture;
+}
+
 void bWindow::drawTexture(bTexture texture, bRect dest) {
 
-    SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height};
+    SDL_Rect SDL_dest = SDL_Rect(dest); 
 
     SDL_RenderCopy(sdlRenderer, texture.texture, &texture.src, &SDL_dest);
 }
@@ -84,18 +99,19 @@ void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
     SDL_Texture* texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
     SDL_FreeSurface(surface);
 
-    SDL_Rect SDL_src = {(int)src.x, (int)src.y, (int)src.width, (int)src.height};
-    SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, (int)dest.width, (int)dest.height};
+    SDL_Rect SDL_src = SDL_Rect(src); 
+    SDL_Rect SDL_dest = SDL_Rect(dest); 
 
     SDL_RenderCopy(sdlRenderer, texture, &SDL_src, &SDL_dest);
 
 }
 
-void bWindow::drawSprite(bSheet sheet, uint16_t sprite, bRect dest) {
+void bWindow::drawSprite(bSheet sheet, bRect dest) {
 
-    (void) sheet;
-    (void) sprite;
-    (void) dest;
+    SDL_Rect SDL_dest = SDL_Rect(dest);
+    SDL_Rect SDL_src = SDL_Rect(sheet.sprites[sheet.currentSprite]);
+
+    SDL_RenderCopy(sdlRenderer, sheet.sourceTexture.texture, &SDL_src, &SDL_dest);
 
 }
 

@@ -28,3 +28,12 @@ std::string BML_GetPath(const char* path) {
     return relativePath;
 
 }
+
+std::string BML_GetPath(std::string path) {
+
+	std::string relativePath = std::string(SDL_GetBasePath());
+    relativePath += path;
+
+    return relativePath;
+
+}
