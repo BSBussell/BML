@@ -44,5 +44,5 @@ tests/bin/*
 *.sublime-project
 *.sublime-workspace
 
-# i would never us vscode
+# i would never use vscode
 .vscode/
