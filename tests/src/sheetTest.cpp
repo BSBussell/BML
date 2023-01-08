@@ -108,6 +108,7 @@ int main() {
         }
         if (bEvent::keyDown('q')) {
             readSheet.currentSprite ^= 1;
+            run = false;
         }
         window->drawSprite(readSheet, dest);
         window->drawRect(dest, 0, 255, 0);

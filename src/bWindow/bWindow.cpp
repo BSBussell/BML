@@ -53,8 +53,9 @@ void bWindow::updateBuffer() {
 
 void bWindow::closeWindow() {
 
-    SDL_DestroyWindow(sdlWindow);
+
     SDL_DestroyRenderer(sdlRenderer);
+    SDL_DestroyWindow(sdlWindow);
 }
 
 bTexture bWindow::initTexture(const char* source, bRect src) {

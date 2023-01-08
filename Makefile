@@ -25,7 +25,7 @@ testobj := $(addprefix $(TESTOBJDIR)/, $(testobj))
 testobj := $(testobj:.cpp=.o)
 
 #CFLAGS specifies the additional compilation options we're using
-CFLAGS := -Wall -Wextra -std=c++17 
+CFLAGS := -Wall -Wextra -std=c++17  -g
 
 #IFLAGS specifies which directory to check for include
 IFLAGS := -Isrc
