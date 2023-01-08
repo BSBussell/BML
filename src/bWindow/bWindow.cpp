@@ -70,9 +70,12 @@ bTexture bWindow::initTexture(const char* source, bRect src) {
     return newTexture;
 }
 
-bTexture bWindow::initSpriteSheet(bSheet &sheet) {
-    
+bTexture bWindow::initSpriteSheet(struct bSheet &sheet) {
+
+    // Making a new texture ok    
     bTexture newTexture;
+
+    // Grabbing the surface
     SDL_Surface* surface = IMG_Load(BML_GetPath(sheet.imagePath).c_str());
     SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
     SDL_FreeSurface(surface);
@@ -106,13 +109,15 @@ void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
 
 }
 
-void bWindow::drawSprite(bSheet sheet, bRect dest) {
+// Draws a sprite by grabbing from the texture and then drawing that specific region
+void bWindow::drawSprite(struct bSheet sheet, bRect dest) {
 
+    // Converting the rects we're given into the appropriate rects
     SDL_Rect SDL_dest = SDL_Rect(dest);
     SDL_Rect SDL_src = SDL_Rect(sheet.sprites[sheet.currentSprite]);
 
+    // print to the renderer the texture at the coordinates
     SDL_RenderCopy(sdlRenderer, sheet.sourceTexture.texture, &SDL_src, &SDL_dest);
-
 }
 
 void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {

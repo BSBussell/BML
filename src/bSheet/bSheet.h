@@ -24,6 +24,7 @@ struct bSheet {
     uint16_t currentSprite = 0;
 
     std::vector<bRect> sprites;
+
 };
 
 void writeSheetToBin(const char* filePath, bSheet data);

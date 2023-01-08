@@ -11,7 +11,6 @@ int main() {
 
    
     // Step 1: Make sure reading and writing .dat files works
-
     bRect sprite;
     std::string path = "../resources/spriteSheet.png";
 
@@ -19,8 +18,8 @@ int main() {
 
     sprite.x = 0;
     sprite.y = 0;
-    sprite.width = 10;
-    sprite.height = 10;
+    sprite.width = 800;
+    sprite.height = 800;
     
     spriteSheet.imagePath = path;
     spriteSheet.totalWidth = 1601;
@@ -28,13 +27,14 @@ int main() {
 
     spriteSheet.sprites.push_back(sprite);
 
-    sprite.x = 10;
+    sprite.x = 800;
     spriteSheet.sprites.push_back(sprite);
 
     spriteSheet.totalSprites = 2;
 
     writeSheetToBin(BML_GetPath("../resources/spriteSheet.dat").c_str(), spriteSheet);
 
+    // Step 2: Make sure we are reading in the data correctly
     bSheet readSheet;
     readSheetFromBin(BML_GetPath("../resources/spriteSheet.dat").c_str(), readSheet);
 
@@ -53,7 +53,71 @@ int main() {
         printf("------\n");
     }
 
+    printf("At this point the reading and writing of Spritesheets is working\n");
 
+
+    // Step 3 Test printing the Sheet
+    readSheet.currentSprite = 0;
+
+    bool run = true;
+
+    BML_Init();
+    bWindow* window = new bWindow("Sprite Sheet Test", 0, 0, 1600, 900);
+    
+    // Ok looking at this a year after I developed this, I hate it
+    // This should be something that should be set, like maybe a bool?
+    // However now that I've peaked at bit more at this function... I get it a bit more...
+    window->toggleResizeable();
+    window->toggleHardwareRender();
+    window->toggleVSync();
+    window->toggleHighDPI();
+
+
+    window->createWindow();
+
+    bRect dest = {10,10,800,800};
+   
+    if (!bSound::openAudio())
+        printf(":(");
+
+    //  bSound music;
+    bSound::loadMUS("../resources/BLUE-Compress.wav");
+    bSound::playMUS(5);
+
+    // I think this should be something handled in the sheet function
+    window->initSpriteSheet(readSheet);
+
+    while(run) {
+
+        window->clearBuffer();
+
+        // Event loop
+        run = bEvent::eventLoop();
+
+        if (bEvent::keyDown('W')) {
+            dest.y--;
+        } 
+        if (bEvent::keyDown('S')) {
+            dest.y++;
+        }
+        if (bEvent::keyDown('A')) {
+            dest.x--;
+        }
+        if (bEvent::keyDown('D')) {
+            dest.x++;
+        }
+        if (bEvent::keyDown('q')) {
+            readSheet.currentSprite ^= 1;
+        }
+        window->drawSprite(readSheet, dest);
+        window->drawRect(dest, 0, 255, 0);
+
+        window->updateBuffer();
+    }
+    bSound::freeMUS();
+    bSound::closeAudio();
+    window->closeWindow();
+    BML_Close();
 
     return 0;
 }

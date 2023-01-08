@@ -40,8 +40,9 @@ tests/bin/*
 # Stupid Apple
 *.DS_Store
 
-# Ok I promise I mostly use vim, but sometimes I have another window
-# Open with Sublime Text just so I can have another tab open to reference.
-# Dr. Plank if you ever see this I'm sorry I have failed you.
+# What was here previously was cringe
 *.sublime-project
 *.sublime-workspace
+
+# i would never us vscode
+.vscode/
