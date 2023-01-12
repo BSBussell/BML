@@ -1,10 +1,51 @@
 
-//
-//
-//
+// Bee Bussell
+// Jan 8 2023
+// bSheet and bAnimation source
 
 #include "bSheet.h"
 
+bool bSheet::startAnimation(uint16_t animation) {
+
+	animated = true;
+
+	currentAnimation = &animations[animation];
+	currentAnimation -> frameIndex = 0;
+	currentAnimation -> frameCount = 0;
+
+	currentSprite = currentAnimation -> frames[0];
+
+	return true;
+}
+
+bool bSheet::updateAnimation() {
+
+	// For readability
+	bAnimation *current = currentAnimation;
+	current -> frameCount++;
+
+	if (current -> frameCount > current -> frameRate) {
+
+		current -> frameIndex++;
+		if (current -> frameIndex > current -> frames.size()) {
+			current -> frameIndex = 0;
+		}
+		currentSprite = current -> frames[current -> frameIndex];
+	}
+
+	return true;
+}
+
+bool bSheet::stopAnimation() {
+
+	animated = false;
+
+	currentAnimation -> frameIndex = 0;
+	currentAnimation -> frameCount = 0;
+	currentAnimation = NULL;
+
+	return true;
+}
 
 void writeSheetToBin(const char* filePath, bSheet data) {
 

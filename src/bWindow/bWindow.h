@@ -58,6 +58,7 @@ public:
     bool createWindow();
     void clearBuffer();
     void updateBuffer();
+    void drawBuffer();
 
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);

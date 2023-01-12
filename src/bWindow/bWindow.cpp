@@ -51,6 +51,12 @@ void bWindow::updateBuffer() {
 
 }
 
+void bWindow::drawBuffer() {
+
+    updateBuffer();
+    clearBuffer();
+}
+
 void bWindow::closeWindow() {
 
 
@@ -112,6 +118,10 @@ void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
 
 // Draws a sprite by grabbing from the texture and then drawing that specific region
 void bWindow::drawSprite(struct bSheet sheet, bRect dest) {
+
+    if (sheet.animated)
+        sheet.updateAnimation();
+    
 
     // Converting the rects we're given into the appropriate rects
     SDL_Rect SDL_dest = SDL_Rect(dest);

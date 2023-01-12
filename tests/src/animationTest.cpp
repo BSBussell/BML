@@ -1,6 +1,6 @@
 // Bee Bussell
 // Sept 17, 2021
-// Testing sheet class creator.
+// Testing animation class creator.
 
 #include <iostream>
 #include <string>
@@ -12,31 +12,33 @@ int main() {
    
     // Step 1: Make sure reading and writing .dat files works
     bRect sprite;
-    std::string path = "../resources/spriteSheet.png";
+    std::string path = "../resources/spriteSheet2.png";
 
     bSheet spriteSheet;
 
     sprite.x = 0;
     sprite.y = 0;
-    sprite.width = 800;
-    sprite.height = 800;
+    sprite.width = 8;
+    sprite.height = 8;
     
     spriteSheet.imagePath = path;
-    spriteSheet.totalWidth = 1601;
-    spriteSheet.totalHeight = 2397;
+    spriteSheet.totalWidth = 56;
+    spriteSheet.totalHeight = 8;
 
     spriteSheet.sprites.push_back(sprite);
 
-    sprite.x = 800;
-    spriteSheet.sprites.push_back(sprite);
+    for (int i = 1; i < 7; i++ ) {
+        sprite.x += 8;
+        spriteSheet.sprites.push_back(sprite);
+    }
 
-    spriteSheet.totalSprites = 2;
+    spriteSheet.totalSprites = 7;
 
-    writeSheetToBin(BML_GetPath("../resources/spriteSheet.dat").c_str(), spriteSheet);
+    writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
 
     // Step 2: Make sure we are reading in the data correctly
     bSheet readSheet;
-    readSheetFromBin(BML_GetPath("../resources/spriteSheet.dat").c_str(), readSheet);
+    readSheetFromBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), readSheet);
 
     printf("Image Path: %s\n", readSheet.imagePath.c_str());
     printf("Total Width: %i\n", readSheet.totalWidth);
@@ -57,6 +59,7 @@ int main() {
 
 
     // Step 3 Test printing the Sheet
+    /*
     readSheet.currentSprite = 0;
 
     bool run = true;
@@ -119,6 +122,6 @@ int main() {
     bSound::closeAudio();
     window->closeWindow();
     BML_Close();
-
+    */
     return 0;
 }

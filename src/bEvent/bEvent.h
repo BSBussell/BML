@@ -8,6 +8,9 @@
 
 #include "BML/BML.h"
 
+// TODO: Allow custom actions. ex: a user can tie action jump to keydown spacebar
+//       See godot implementation
+
 class bEvent {
 
 public:

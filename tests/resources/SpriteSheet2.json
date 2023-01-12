@@ -1,0 +1,26 @@
+{ "frames": {
+   "SpriteSheet2.png": {
+    "frame": { "x": 0, "y": 0, "w": 56, "h": 8 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 8 },
+    "sourceSize": { "w": 56, "h": 8 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.2.30-dev",
+  "image": "SpriteSheet2-sheet.png",
+  "format": "RGBA8888",
+  "size": { "w": 56, "h": 8 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Layer 1", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
