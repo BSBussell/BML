@@ -74,7 +74,7 @@ int main() {
     bool run = true;
 
     BML_Init();
-    bWindow* window = new bWindow("Animation Test", 0, 0, 1600, 900);
+    bWindow* window = new bWindow("Animation Test", 0, 0, 800, 450);
     
     // Ok looking at this a year after I developed this, I hate it
     // This should be something that should be set, like maybe a bool?
@@ -119,7 +119,7 @@ int main() {
         if (bEvent::keyDown('Q')) {
             run = false;
         }
-        window->drawSprite(spriteSheet, dest);
+        window->drawSprite(&spriteSheet, dest);
         window->drawRect(dest, 0, 255, 0);
 
         window->drawBuffer();

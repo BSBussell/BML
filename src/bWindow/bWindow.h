@@ -67,7 +67,7 @@ public:
     // Drawing Textures and Rectangles
     void drawTexture(bTexture texture, bRect dest);
     void drawTexture(const char* source, bRect src, bRect dest);
-    void drawSprite(bSheet sheet, bRect dest);
+    void drawSprite(bSheet *sheet, bRect dest);
     void drawRect(bRect location, uint8_t r, uint8_t g, uint8_t b);
 
     void closeWindow();

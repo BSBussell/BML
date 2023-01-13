@@ -28,10 +28,11 @@ bool bSheet::updateAnimation() {
 
 		current -> frameIndex++;
 
-		printf("Current Frame Index: %d\n", current -> frameIndex);
+		
 		if (current -> frameIndex >= current -> frames.size()) {
 			current -> frameIndex = 0;
 		}
+
 		currentSprite = current -> frames[current -> frameIndex];
 		current -> frameCount = 0;
 	}
