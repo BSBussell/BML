@@ -35,14 +35,15 @@ int main() {
 
     spriteSheet.totalSprites = 7;
 
-    writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
 
     // Step 2: Make sure we are reading in the data correctly
     bAnimation full;
     full.frames = {0,1,2,3,4,5,6};
-    full.frameRate = 20;
-    full.frameCount = 0;
+    full.animationSpeed = 200;
     spriteSheet.animations.push_back(full);
+
+    writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
+
 
     // This is some ugly ass implementation right here clean this later :3
     spriteSheet.startAnimation(0);

@@ -19,8 +19,8 @@ struct bAnimation {
 
     uint16_t frameIndex;
     // How often to update animations
-    uint16_t frameRate;
-    uint16_t frameCount;
+    uint32_t animationSpeed;
+    uint64_t tickCount;
 };
 
 /// @brief Data structure used for storing spritesheet info

@@ -11,7 +11,7 @@ bool bSheet::startAnimation(uint16_t animation) {
 
 	currentAnimation = &animations[animation];
 	currentAnimation -> frameIndex = 0;
-	currentAnimation -> frameCount = 0;
+	currentAnimation -> tickCount = SDL_GetTicks64();
 
 	currentSprite = currentAnimation -> frames[0];
 
@@ -22,9 +22,11 @@ bool bSheet::updateAnimation() {
 
 	// For readability
 	bAnimation *current = currentAnimation;
-	current -> frameCount++;
+	uint64_t changeInTick = SDL_GetTicks64();
 
-	if (current -> frameCount > current -> frameRate) {
+	changeInTick = SDL_GetTicks64() - current -> tickCount;
+
+	if (changeInTick > current -> animationSpeed) {
 
 		current -> frameIndex++;
 
@@ -34,7 +36,7 @@ bool bSheet::updateAnimation() {
 		}
 
 		currentSprite = current -> frames[current -> frameIndex];
-		current -> frameCount = 0;
+		current -> tickCount = SDL_GetTicks64();
 	}
 
 	return true;
@@ -45,7 +47,7 @@ bool bSheet::stopAnimation() {
 	animated = false;
 
 	currentAnimation -> frameIndex = 0;
-	currentAnimation -> frameCount = 0;
+	currentAnimation -> tickCount = 0;
 	currentAnimation = NULL;
 
 	return true;
@@ -68,6 +70,26 @@ void writeSheetToBin(const char* filePath, bSheet data) {
     	fout << sprite.x << " " << sprite.y << " ";
     	fout << sprite.width << " " << sprite.height << std::endl;
     }
+
+	fout << "---SPRITE_END---" << std::endl;
+	fout << "---ANIMATION_DATA---" << std::endl;
+
+	for (bAnimation& animation: data.animations) {
+
+		fout << "---ANIMATION---" << std::endl;
+		fout << "FRAMES: ";
+
+		for (uint16_t& frame: animation.frames)
+			fout << frame << " ";
+		
+		fout << std::endl;
+
+		fout << "ANIMATION_SPEED: " << animation.animationSpeed << std::endl;
+		fout << "---ANIMATION_END---" << std::endl;
+
+	}
+
+	fout << "---ANIMATION_DATA_END---" << std::endl;
 
     fout << "---END---";
 
