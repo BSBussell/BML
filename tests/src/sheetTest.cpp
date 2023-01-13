@@ -57,7 +57,7 @@ int main() {
 
 
     // Step 3 Test printing the Sheet
-    readSheet.currentSprite = 0;
+    //readSheet.currentSprite = 0;
 
     bool run = true;
 

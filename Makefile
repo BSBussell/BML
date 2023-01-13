@@ -63,7 +63,7 @@ BML: $(BMLobj)
 
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: BML build SheetTest SoundTest TextureTest EventTest WindowTest
+Tests: BML build AnimationTest SheetTest SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
 build: $(BMLobj)
@@ -75,6 +75,10 @@ build: $(BMLobj)
 install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
 	sudo install -m 644 bin/libBML.a $(LPATH)
+
+AnimationTest: tests/obj/animationTest.o build
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 SheetTest: tests/obj/sheetTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"

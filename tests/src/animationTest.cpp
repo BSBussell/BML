@@ -12,7 +12,7 @@ int main() {
    
     // Step 1: Make sure reading and writing .dat files works
     bRect sprite;
-    std::string path = "../resources/spriteSheet2.png";
+    std::string path = "../resources/SpriteSheet2.png";
 
     bSheet spriteSheet;
 
@@ -27,6 +27,7 @@ int main() {
 
     spriteSheet.sprites.push_back(sprite);
 
+    // Making the 8 sprites we need
     for (int i = 1; i < 7; i++ ) {
         sprite.x += 8;
         spriteSheet.sprites.push_back(sprite);
@@ -37,6 +38,15 @@ int main() {
     writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
 
     // Step 2: Make sure we are reading in the data correctly
+    bAnimation full;
+    full.frames = {0,1,2,3,4,5,6};
+    full.frameRate = 20;
+    full.frameCount = 0;
+    spriteSheet.animations.push_back(full);
+
+    // This is some ugly ass implementation right here clean this later :3
+    spriteSheet.startAnimation(0);
+    /*
     bSheet readSheet;
     readSheetFromBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), readSheet);
 
@@ -56,16 +66,15 @@ int main() {
     }
 
     printf("At this point the reading and writing of Spritesheets is working\n");
-
+    */
 
     // Step 3 Test printing the Sheet
-    /*
-    readSheet.currentSprite = 0;
+    //spriteSheet.currentSprite = 0;
 
     bool run = true;
 
     BML_Init();
-    bWindow* window = new bWindow("Sprite Sheet Test", 0, 0, 1600, 900);
+    bWindow* window = new bWindow("Animation Test", 0, 0, 1600, 900);
     
     // Ok looking at this a year after I developed this, I hate it
     // This should be something that should be set, like maybe a bool?
@@ -78,7 +87,7 @@ int main() {
 
     window->createWindow();
 
-    bRect dest = {10,10,800,800};
+    bRect dest = {10,10,128,128};
    
     if (!bSound::openAudio())
         printf(":(");
@@ -88,11 +97,9 @@ int main() {
     bSound::playMUS(5);
 
     // I think this should be something handled in the sheet function
-    window->initSpriteSheet(readSheet);
+    window->initSpriteSheet(spriteSheet);
 
     while(run) {
-
-        
 
         // Event loop
         run = bEvent::eventLoop();
@@ -109,19 +116,19 @@ int main() {
         if (bEvent::keyDown('D')) {
             dest.x++;
         }
-        if (bEvent::keyDown('q')) {
-            readSheet.currentSprite ^= 1;
+        if (bEvent::keyDown('Q')) {
             run = false;
         }
-        window->drawSprite(readSheet, dest);
+        window->drawSprite(spriteSheet, dest);
         window->drawRect(dest, 0, 255, 0);
 
         window->drawBuffer();
     }
+    spriteSheet.stopAnimation();
     bSound::freeMUS();
     bSound::closeAudio();
     window->closeWindow();
     BML_Close();
-    */
+    
     return 0;
 }
