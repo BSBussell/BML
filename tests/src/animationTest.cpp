@@ -1,5 +1,5 @@
 // Bee Bussell
-// Sept 17, 2021
+// Sept 17, 2022
 // Testing animation class creator.
 
 #include <iostream>
@@ -119,7 +119,7 @@ int main() {
         if (bEvent::keyDown('Q')) {
             run = false;
         }
-        window->drawSprite(&spriteSheet, dest);
+        window->drawSprite(spriteSheet, dest);
         window->drawRect(dest, 0, 255, 0);
 
         window->drawBuffer();
