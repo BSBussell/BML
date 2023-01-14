@@ -10,6 +10,8 @@
 
 // Just a header file for now
 
+// TODO: Implement texture freeing and destructer for that
+
 struct bTexture {
 
 	SDL_Texture* texture;

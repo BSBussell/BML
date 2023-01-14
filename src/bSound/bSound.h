@@ -21,6 +21,7 @@ public:
     static void setMUSVOL(double perc);
     static void freeMUS();
 
+    // Sound effects can play on many channels
     bool loadSFX(const char* src);
     bool playSFX(uint8_t channel, uint8_t loops);
     void setSFXVOL(double perc);
