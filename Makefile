@@ -5,13 +5,7 @@ TESTOBJDIR = tests/obj
 #CC specifies which compiler we're using
 CC = g++
 
-BMLsrc = $(wildcard src/BML/*.cpp) \
-		 $(wildcard src/bData/*.cpp) \
-		 $(wildcard src/bTexture/*.cpp) \
-		 $(wildcard src/bSheet/*.cpp) \
-		 $(wildcard src/bWindow/*.cpp) \
-		 $(wildcard src/bEvent/*.cpp) \
-		 $(wildcard src/bSound/*.cpp)
+BMLsrc = $(wildcard src/*/*.cpp)
 
 BMLobj := $(notdir $(BMLsrc))
 BMLobj := $(addprefix $(OBJDIR)/, $(BMLobj))
