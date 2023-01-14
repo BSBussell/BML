@@ -10,16 +10,24 @@
 #include "bTexture/bTexture.h"
 #include <fstream>
 #include <stdint.h>
-#include <vector>
+#include <queue>
+#include <unordered_map>
+
+/* 
+    You can really tell how most of this was written after I 
+    spent a semester taking a class that restricted me to only
+    using C :3
+*/ 
 
 /// @brief Datastructure used for information about an animation
 struct bAnimation {
 
-    std::vector<uint16_t> frames;
+    std::queue<uint16_t> frames;
 
-    uint16_t frameIndex;
+    std::string name;
+
     // How often to update animations
-    uint32_t animationSpeed;
+    uint32_t speed;
     uint64_t tickCount;
 };
 
@@ -41,9 +49,13 @@ struct bSheet {
 
     // Maybe make this like a dictionary that can be added to or something
     bAnimation *currentAnimation = NULL;
-    std::vector<bAnimation> animations;
+    std::unordered_map<std::string, bAnimation> animations;
 
-    bool startAnimation(uint16_t animation);
+    bool startAnimation(std::string key);
+
+    // PLEASE BEE IM BEGGING YOU DO NOT USE THIS!!!
+    bool startAnimation(bAnimation *animation);
+
     bool updateAnimation();
     bool stopAnimation();
 

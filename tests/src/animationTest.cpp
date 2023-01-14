@@ -38,36 +38,23 @@ int main() {
 
     // Step 2: Make sure we are reading in the data correctly
     bAnimation full;
-    full.frames = {0,1,2,3,4,5,6};
-    full.animationSpeed = 200;
-    spriteSheet.animations.push_back(full);
+    full.name = "Cycle";
+    for (int i = 0; i < 7; i++)
+        full.frames.push(i);
+    full.speed = 200;
+    spriteSheet.animations["Cycle"] = full;
 
     writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
 
 
     // This is some ugly ass implementation right here clean this later :3
-    spriteSheet.startAnimation(0);
-    /*
+    spriteSheet.startAnimation("Cycle");
+    
+    // Run diff to check for differences
     bSheet readSheet;
     readSheetFromBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), readSheet);
-
-    printf("Image Path: %s\n", readSheet.imagePath.c_str());
-    printf("Total Width: %i\n", readSheet.totalWidth);
-    printf("Total Height: %i\n", readSheet.totalHeight);
-    printf("Total Sprites: %i\n", readSheet.totalSprites);
-
-    for (bRect vals: readSheet.sprites) {
-
-        printf("Rect-----\n");
-        printf("X: %i\n", vals.x);
-        printf("Y: %i\n", vals.y);
-        printf("Width: %i\n", vals.width);
-        printf("Height: %i\n", vals.height);
-        printf("------\n");
-    }
-
-    printf("At this point the reading and writing of Spritesheets is working\n");
-    */
+    writeSheetToBin(BML_GetPath("../resources/spriteSheet2_TEST.dat").c_str(), readSheet);
+    
 
     // Step 3 Test printing the Sheet
     //spriteSheet.currentSprite = 0;

@@ -5,17 +5,41 @@
 
 #include "bSheet.h"
 
-bool bSheet::startAnimation(uint16_t animation) {
+bool bSheet::startAnimation(std::string key) {
+
+	if (animations.count(key) == 0) {
+		perror("KEY DID NOT EXIST\n");
+		return false;
+	}
 
 	animated = true;
 
-	currentAnimation = &animations[animation];
-	currentAnimation -> frameIndex = 0;
+	currentAnimation = &animations[key];
 	currentAnimation -> tickCount = SDL_GetTicks64();
 
-	currentSprite = currentAnimation -> frames[0];
+	currentSprite = currentAnimation -> frames.front();
+
+	currentAnimation -> frames.pop();
+	currentAnimation -> frames.push(currentSprite);
 
 	return true;
+}
+
+bool bSheet::startAnimation(bAnimation *animation) {
+
+	animated = true;
+
+	currentAnimation = animation;
+
+	currentAnimation -> tickCount = SDL_GetTicks64();
+
+	currentSprite = currentAnimation -> frames.front();
+
+	currentAnimation -> frames.pop();
+	currentAnimation -> frames.push(currentSprite);
+
+	return true;
+
 }
 
 bool bSheet::updateAnimation() {
@@ -26,16 +50,14 @@ bool bSheet::updateAnimation() {
 
 	changeInTick = SDL_GetTicks64() - current -> tickCount;
 
-	if (changeInTick > current -> animationSpeed) {
+	if (changeInTick > current -> speed) {
 
-		current -> frameIndex++;
+		currentSprite = current -> frames.front();
 
-		
-		if (current -> frameIndex >= current -> frames.size()) {
-			current -> frameIndex = 0;
-		}
+		// Remove the current animation and toss it to the back all in beautiful O(1)
+		current -> frames.pop();
+		current -> frames.push(currentSprite);
 
-		currentSprite = current -> frames[current -> frameIndex];
 		current -> tickCount = SDL_GetTicks64();
 	}
 
@@ -46,7 +68,6 @@ bool bSheet::stopAnimation() {
 
 	animated = false;
 
-	currentAnimation -> frameIndex = 0;
 	currentAnimation -> tickCount = 0;
 	currentAnimation = NULL;
 
@@ -63,6 +84,7 @@ void writeSheetToBin(const char* filePath, bSheet data) {
     fout << "WIDTH: " << data.totalWidth << std::endl;
     fout << "HEIGHT: " << data.totalHeight << std::endl;
     fout << "SPRITES: " << data.totalSprites << std::endl;
+	fout << "ANIMATIONS: " << data.animations.size() << std::endl;
     fout << "---SPRITE_DATA---" << std::endl;
 
     for (bRect& sprite : data.sprites)  {
@@ -71,25 +93,34 @@ void writeSheetToBin(const char* filePath, bSheet data) {
     	fout << sprite.width << " " << sprite.height << std::endl;
     }
 
-	fout << "---SPRITE_END---" << std::endl;
+	fout << "---END_SPRITES---" << std::endl;
 	fout << "---ANIMATION_DATA---" << std::endl;
+	for (auto& element : data.animations) {
 
-	for (bAnimation& animation: data.animations) {
+		bAnimation& animation = element.second;
 
 		fout << "---ANIMATION---" << std::endl;
-		fout << "FRAMES: ";
+		fout << animation.name << std::endl;
+		fout << animation.speed << std::endl;
+		fout << animation.frames.size() << std::endl;
 
-		for (uint16_t& frame: animation.frames)
-			fout << frame << " ";
+		for (size_t i = 0; i < animation.frames.size(); i++) {
+			
+			fout << animation.frames.front() << " ";
+
+
+			animation.frames.push(animation.frames.front());
+			animation.frames.pop();
+		}
 		
 		fout << std::endl;
 
-		fout << "ANIMATION_SPEED: " << animation.animationSpeed << std::endl;
-		fout << "---ANIMATION_END---" << std::endl;
+		
+		fout << "---END_ANIMATION---" << std::endl;
 
 	}
 
-	fout << "---ANIMATION_DATA_END---" << std::endl;
+	fout << "---END_ANIMATION_DATA---" << std::endl;
 
     fout << "---END---";
 
@@ -104,20 +135,29 @@ bool readSheetFromBin(const char* filePath, bSheet &data) {
 	std::string s;
 
 	bRect sprite;
+	uint8_t animations;
 	///vector<bRect> sprites;
 
 	fin.open(filePath);
 	if (fin.fail()) return false;
 
 	if (!(fin >> s) || s != "SPRITE_SHEET_INFO") return false;
+	
 	if (!(fin >> s) || s != "PATH:") return false; 
 	if (!(fin >> data.imagePath)) return false;
+	
 	if (!(fin >> s) || s != "WIDTH:") return false;
 	if (!(fin >> data.totalWidth)) return false;
+	
 	if (!(fin >> s) || s != "HEIGHT:") return false;
 	if (!(fin >> data.totalHeight)) return false;
+	
 	if (!(fin >> s) || s != "SPRITES:") return false;
 	if (!(fin >> data.totalSprites)) return false;
+	
+	if (!(fin >> s) || s != "ANIMATIONS:") return false;
+	if (!(fin >> animations)) return false;
+
 	if (!(fin >> s) || s != "---SPRITE_DATA---") return false;
 
 	for (int i = 0; i < data.totalSprites; i++) {
@@ -127,6 +167,37 @@ bool readSheetFromBin(const char* filePath, bSheet &data) {
 		if (!(fin >> sprite.height)) return false;
 		data.sprites.push_back(sprite);
 	}
+
+	if (!(fin >> s) || s != "---END_SPRITES---") return false;
+
+	if (!(fin >> s) || s != "---ANIMATION_DATA---") return false;
+
+	for (int i = 0; i < animations; i++) {
+
+		bAnimation anim;
+		uint16_t frameCount;
+
+		if (!(fin >> s) || s != "---ANIMATION---") return false;
+
+		if (!(fin >> anim.name)) return false;
+		if (!(fin >> anim.speed)) return false;
+		if (!(fin >> frameCount)) return false;
+		
+		for (int i = 0; i < frameCount; i++) {
+
+			uint16_t temp;
+			if (!(fin >> temp)) return false;
+			anim.frames.push(temp);
+		}
+
+		data.animations[anim.name] = anim;
+
+		if (!(fin >> s) || s != "---END_ANIMATION---") return false;
+
+
+	}
+
+	if (!(fin >> s) || s != "---END_ANIMATION_DATA---") return false;
 
 	if (!(fin >> s) || s != "---END---") return false;
 	
