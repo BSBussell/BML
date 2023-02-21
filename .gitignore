@@ -46,3 +46,5 @@ tests/bin/*
 
 # i would never use vscode
 .vscode/
+vgcore.13263
+vgcore.9718

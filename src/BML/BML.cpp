@@ -22,8 +22,14 @@ void BML_Close() {
 
 std::string BML_GetPath(const char* path) {
 
-	std::string relativePath = std::string(SDL_GetBasePath());
+	char * base_path = SDL_GetBasePath();
+
+	std::string relativePath = std::string(base_path);
     relativePath += std::string(path);
+	
+	// SDL being a C library always causes some funnies
+	// Maybe I should be rewriting this in C lmao
+	free(base_path);
 
     return relativePath;
 
@@ -31,8 +37,13 @@ std::string BML_GetPath(const char* path) {
 
 std::string BML_GetPath(std::string path) {
 
-	std::string relativePath = std::string(SDL_GetBasePath());
+	char * base_path = SDL_GetBasePath();
+
+	std::string relativePath = std::string(base_path);
     relativePath += path;
+
+	// holy hell :3
+	free(base_path);
 
     return relativePath;
 

@@ -71,7 +71,7 @@ install: build
 	sudo install -m 644 bin/libBML.a $(LPATH)
 
 ValgrindTest: Tests
-	valgrind -s --leak-check=full ./tests/bin/AnimationTest
+	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest
 
 AnimationTest: tests/obj/animationTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"

@@ -1,0 +1,83 @@
+{ "frames": [
+   {
+    "filename": "MCaniHIGH #Start walk 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 1.aseprite",
+    "frame": { "x": 700, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 2.aseprite",
+    "frame": { "x": 1400, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 3.aseprite",
+    "frame": { "x": 2100, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 4.aseprite",
+    "frame": { "x": 2800, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 5.aseprite",
+    "frame": { "x": 3500, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 6.aseprite",
+    "frame": { "x": 4200, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   },
+   {
+    "filename": "MCaniHIGH #Start walk 7.aseprite",
+    "frame": { "x": 4900, "y": 0, "w": 700, "h": 700 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 700, "h": 700 },
+    "sourceSize": { "w": 700, "h": 700 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3-beta21-arm64",
+  "image": "MCaniHIGH-Start walk.png",
+  "format": "RGBA8888",
+  "size": { "w": 5600, "h": 700 },
+  "scale": "1"
+ }
+}

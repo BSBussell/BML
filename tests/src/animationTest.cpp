@@ -44,8 +44,9 @@ int main() {
     full.speed = 200;
     spriteSheet.animations["Cycle"] = full;
 
+    
     writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
-
+    
 
     // This is some ugly ass implementation right here clean this later :3
     spriteSheet.startAnimation("Cycle");
@@ -59,9 +60,11 @@ int main() {
     // Step 3 Test printing the Sheet
     //spriteSheet.currentSprite = 0;
 
+    
     bool run = true;
-
+    
     BML_Init();
+    
     bWindow* window = new bWindow("Animation Test", 0, 0, 800, 450);
     
     // Ok looking at this a year after I developed this, I hate it
@@ -75,8 +78,9 @@ int main() {
 
     window->createWindow();
 
+    
     bRect dest = {10,10,128,128};
-   
+    
     if (!bSound::openAudio())
         printf(":(");
 
@@ -84,11 +88,13 @@ int main() {
     bSound::loadMUS("../resources/BLUE-Compress.wav");
     bSound::playMUS(5);
 
+    
     // I think this should be something handled in the sheet function
     window->initSpriteSheet(spriteSheet);
-
+    
     while(run) {
 
+        
         // Event loop
         run = bEvent::eventLoop();
 
@@ -107,14 +113,19 @@ int main() {
         if (bEvent::keyDown('Q')) {
             run = false;
         }
-        window->drawSprite(spriteSheet, dest);
+        //window->drawSprite(spriteSheet, dest);
         window->drawRect(dest, 0, 255, 0);
 
         window->drawBuffer();
+        run = false;
     }
     spriteSheet.stopAnimation();
+    //*/
+    window->freeSpriteSheet(spriteSheet);
+    
     bSound::freeMUS();
     bSound::closeAudio();
+    
     window->closeWindow();
     BML_Close();
     

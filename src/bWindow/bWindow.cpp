@@ -12,6 +12,8 @@ bWindow::~bWindow() {
     closeWindow();
 }
 
+// Creates the window
+// Creates the renderer
 bool bWindow::createWindow() {
 
 
@@ -24,6 +26,7 @@ bool bWindow::createWindow() {
         printf("---  Window Failed to Initialize     ---\n");
         return false;
     }
+
     sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, renderFlags);
 
     if (sdlRenderer) {
@@ -57,6 +60,8 @@ void bWindow::drawBuffer() {
     clearBuffer();
 }
 
+// Deletes the renderer
+// Deletes the window
 void bWindow::closeWindow() {
 
 
@@ -77,7 +82,7 @@ bTexture bWindow::initTexture(const char* source, bRect src) {
     return newTexture;
 }
 
-bTexture bWindow::initSpriteSheet(bSheet &sheet) {
+void bWindow::initSpriteSheet(bSheet &sheet) {
 
     // Making a new texture ok    
     bTexture newTexture;
@@ -85,14 +90,24 @@ bTexture bWindow::initSpriteSheet(bSheet &sheet) {
     // Grabbing the surface
     SDL_Surface* surface = IMG_Load(BML_GetPath(sheet.imagePath).c_str());
     SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
+    
+    // Used the surface to make a texture now free it... Seems to cause no problems
     SDL_FreeSurface(surface);
 
     newTexture.texture = sdlTexture;
     newTexture.src = {0, 0, (int)sheet.totalWidth, (int)sheet.totalHeight};
 
     sheet.sourceTexture = newTexture;
+}
 
-    return newTexture;
+void bWindow::freeTexture(bTexture &texture) {
+
+    SDL_DestroyTexture(texture.texture);
+}
+
+void bWindow::freeSpriteSheet(bSheet &sheet) {
+
+    this->freeTexture(sheet.sourceTexture);
 }
 
 void bWindow::drawTexture(bTexture texture, bRect dest) {
@@ -103,6 +118,7 @@ void bWindow::drawTexture(bTexture texture, bRect dest) {
 }
 
 // Initalizes and adds a texture to render scene
+// Awful don't use :3
 void bWindow::drawTexture(const char* source, bRect src, bRect dest) {
 
     SDL_Surface* surface = IMG_Load(source);
@@ -137,5 +153,6 @@ void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t
     SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
     SDL_RenderDrawRect(sdlRenderer, &SDL_location);
     SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
+    //free(SDL_location);
 }
 
