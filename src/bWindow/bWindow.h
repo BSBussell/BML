@@ -62,7 +62,11 @@ public:
 
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);
-    bTexture initSpriteSheet(bSheet &sheet);
+    void initSpriteSheet(bSheet &sheet);
+
+    // Freeing Textures
+    void freeTexture(bTexture &texture);
+    void freeSpriteSheet(bSheet &sheet);
 
     // Drawing Textures and Rectangles
     void drawTexture(bTexture texture, bRect dest);

@@ -24,6 +24,7 @@ bool bEvent::keyUp(uint8_t key) {
     return (b_KEYSTATE[key]== b_KEYUP);
 }
 
+// I do not feel good about this :3
 bool bEvent::eventLoop() {
     
     SDL_Event event;

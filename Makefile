@@ -70,6 +70,9 @@ install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
 	sudo install -m 644 bin/libBML.a $(LPATH)
 
+ValgrindTest: Tests
+	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest
+
 AnimationTest: tests/obj/animationTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
 	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@

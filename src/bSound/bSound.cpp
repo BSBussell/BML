@@ -5,6 +5,8 @@
 
 #include "bSound.h"
 
+// Opens audio
+// Inits mix
 bool bSound::openAudio() {
 
     if (Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 ) {
@@ -19,11 +21,15 @@ bool bSound::openAudio() {
     return true;
 }
 
+// Closes audio
+// Quits mix
 void bSound::closeAudio() {
 
     Mix_CloseAudio();
+    Mix_Quit();
 }
 
+// Loads Music
 bool bSound::loadMUS(const char* src) {
 
     /*std::string relativePath = std::string(SDL_GetBasePath());
@@ -53,6 +59,7 @@ void bSound::setMUSVOL(double perc) {
     Mix_VolumeMusic(MIX_MAX_VOLUME*perc);
 }
 
+// Free Music
 void bSound::freeMUS() {
 
     Mix_FreeMusic(song);
