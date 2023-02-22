@@ -74,6 +74,8 @@ bool bSheet::stopAnimation() {
 	return true;
 }
 
+/*
+// As we shift to using Aseprite JSON files for this yeah..
 void writeSheetToBin(const char* filePath, bSheet data) {
 
     std::ofstream fout;
@@ -126,9 +128,22 @@ void writeSheetToBin(const char* filePath, bSheet data) {
 
     fout.close();
 }
+*/
 
-bool readSheetFromBin(const char* filePath, bSheet &data) {
+bool readSheetFromJSON(const char* filePath, bSheet &data) {
 
+
+	std::ifstream f(filePath);
+	json dataFile = json::parse(f);
+
+	json meta = &dataFile["meta"];
+	data.imagePath = meta["image"];
+
+	json dimensions = &meta["size"];
+
+	data.totalWidth = dimensions["w"];
+	data.totalHeight = dimensions["h"];
+	/*
 	std::ifstream fin;
 	
 
@@ -203,5 +218,6 @@ bool readSheetFromBin(const char* filePath, bSheet &data) {
 	
 	fin.close();
 	return true;
+	*/
 
 }

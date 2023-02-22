@@ -75,7 +75,7 @@
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3-beta21-arm64",
-  "image": "MCaniHIGH-Start walk.png",
+  "image": "MCaniHIGH-Start_walk.png",
   "format": "RGBA8888",
   "size": { "w": 5600, "h": 700 },
   "scale": "1"

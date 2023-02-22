@@ -13,6 +13,9 @@
 #include <queue>
 #include <unordered_map>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 /* 
     You can really tell how most of this was written after I 
     spent a semester taking a class that restricted me to only
@@ -61,7 +64,7 @@ struct bSheet {
 
 };
 
-void writeSheetToBin(const char* filePath, bSheet data);
-bool readSheetFromBin(const char* filePath, bSheet &data);
+//void writeSheetToBin(const char* filePath, bSheet data);
+bool readSheetFromJSON(const char* filePath, bSheet &data);
 
 #endif
