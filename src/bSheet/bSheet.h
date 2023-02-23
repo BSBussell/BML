@@ -13,7 +13,7 @@
 #include <queue>
 #include <unordered_map>
 
-#include <nlohmann/json.hpp>
+#include "../../include/json.hpp"
 using json = nlohmann::json;
 
 /* 
@@ -22,10 +22,12 @@ using json = nlohmann::json;
     using C :3
 */ 
 
+
 /// @brief Datastructure used for information about an animation
 struct bAnimation {
 
     std::queue<uint16_t> frames;
+    // TODO: std::queue<uint32_t> speed;
 
     std::string name;
 

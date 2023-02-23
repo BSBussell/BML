@@ -136,13 +136,51 @@ bool readSheetFromJSON(const char* filePath, bSheet &data) {
 	std::ifstream f(filePath);
 	json dataFile = json::parse(f);
 
-	json meta = &dataFile["meta"];
-	data.imagePath = meta["image"];
+	
+	json meta = dataFile["meta"];
+	json dimensions = meta["size"];
+	json frames = dataFile["frames"];
+	
 
-	json dimensions = &meta["size"];
+	data.imagePath = meta["image"].get<std::string>();
+
 
 	data.totalWidth = dimensions["w"];
 	data.totalHeight = dimensions["h"];
+	
+	printf("Path: %s\n", data.imagePath.c_str());
+	printf("Dimensions: (%d,%d)\n", data.totalWidth, data.totalHeight);
+
+	int count = 0;
+	
+	// This is noels fault
+	bAnimation animation;
+	animation.name = "defaultAseprite";
+
+
+	for (auto& frame : frames ) {
+
+		//printf("Filename: %s\n", frame["filename"].get<std::string>().c_str());
+		
+		json rect = frame["frame"];
+		bRect sprite;
+		sprite.x = rect["x"];
+		sprite.y = rect["y"];
+		sprite.width = rect["w"];
+		sprite.height = rect["h"];
+
+		data.sprites.push_back(sprite);
+
+		// LOL, I'm gonna have to change this
+		animation.speed = frame["duration"];
+		animation.frames.push(count);
+
+		count++;
+	}
+	data.animations[animation.name] = animation;
+	data.totalSprites = count;
+	printf("Total Sprites: %d\n", data.totalSprites);
+	return true;
 	/*
 	std::ifstream fin;
 	

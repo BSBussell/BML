@@ -22,7 +22,7 @@ testobj := $(testobj:.cpp=.o)
 CFLAGS := -Wall -Wextra -std=c++17  -g
 
 #IFLAGS specifies which directory to check for include
-IFLAGS := -Isrc
+IFLAGS := -Isrc -Iinclude
 
 #LFLAGS specify the libraries we're linking against
 LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer bin/libBML.a
@@ -57,7 +57,7 @@ BML: $(BMLobj)
 
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: BML build AnimationTest SheetTest SoundTest TextureTest EventTest WindowTest
+Tests: BML build JSONTest AnimationTest SheetTest SoundTest TextureTest EventTest WindowTest
 
 .PHONY: build
 build: $(BMLobj)
@@ -72,6 +72,10 @@ install: build
 
 ValgrindTest: Tests
 	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest
+
+JSONTest: tests/obj/jsonTest.o build
+	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
 
 AnimationTest: tests/obj/animationTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"

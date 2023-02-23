@@ -151,7 +151,7 @@ void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t
 
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
     SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
-    SDL_RenderDrawRect(sdlRenderer, &SDL_location);
+    SDL_RenderFillRect(sdlRenderer, &SDL_location);
     SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
     //free(SDL_location);
 }
