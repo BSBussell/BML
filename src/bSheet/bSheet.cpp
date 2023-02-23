@@ -50,13 +50,19 @@ bool bSheet::updateAnimation() {
 
 	changeInTick = SDL_GetTicks64() - current -> tickCount;
 
-	if (changeInTick > current -> speed) {
+	uint32_t duration = current -> duration.front();
+
+	if (changeInTick > duration) {
 
 		currentSprite = current -> frames.front();
 
-		// Remove the current animation and toss it to the back all in beautiful O(1)
+		// Remove the current animation and toss it to the back
 		current -> frames.pop();
 		current -> frames.push(currentSprite);
+
+		// Do the same thing to speeds
+		current -> duration.pop();
+		current -> duration.push(duration);
 
 		current -> tickCount = SDL_GetTicks64();
 	}
@@ -172,7 +178,7 @@ bool readSheetFromJSON(const char* filePath, bSheet &data) {
 		data.sprites.push_back(sprite);
 
 		// LOL, I'm gonna have to change this
-		animation.speed = frame["duration"];
+		animation.duration.push(frame["duration"]);
 		animation.frames.push(count);
 
 		count++;

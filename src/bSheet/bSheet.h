@@ -27,12 +27,12 @@ using json = nlohmann::json;
 struct bAnimation {
 
     std::queue<uint16_t> frames;
-    // TODO: std::queue<uint32_t> speed;
+    std::queue<uint32_t> duration;
 
     std::string name;
 
     // How often to update animations
-    uint32_t speed;
+    //uint32_t speed;
     uint64_t tickCount;
 };
 

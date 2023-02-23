@@ -17,7 +17,7 @@ bool bSound::openAudio() {
 
     Mix_Init(MIX_INIT_MOD);
     Mix_Volume(-1, MIX_MAX_VOLUME);
-    printf("---  SDL_Mixer Successfully Initalized     --- \n");
+    printf("--- SDL_Mixer SUCCESSFULLY INITIALIZED     --- \n");
     return true;
 }
 

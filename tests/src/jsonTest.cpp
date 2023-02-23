@@ -72,28 +72,6 @@ int main() {
         printf("--------------\n");
     }
 
-    /*
-    for (auto& frame: spriteSheet.animations) {
-
-        bAnimation anim = frame.second;
-        printf("-----Animation-----\n");
-        printf("Name: %s\n", anim.name.c_str());
-        printf("Speed: %d\n", anim.speed);
-
-        printf("Frames: ");
-        while (!anim.frames.empty()) {
-
-            printf("%d ", anim.frames.front());
-            anim.frames.pop();
-
-        }
-        printf("\n");
-        printf("-------------------\n");
-    }
-    */
-
-    // writeSheetToBin(BML_GetPath("../resources/spriteSheet2_TEST.dat").c_str(), readSheet);
-    
 
     // Step 3 Test printing the Sheet
     //spriteSheet.currentSprite = 0;

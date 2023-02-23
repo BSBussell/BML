@@ -21,7 +21,7 @@ bool bWindow::createWindow() {
 
     if (sdlWindow) {
         SDL_UpdateWindowSurface(sdlWindow);
-        printf("---    Window Successfully Initialized     ---\n");
+        printf("---    WINDOW SUCCESSFULLY INITIALIZED     ---\n");
     } else {
         printf("---  Window Failed to Initialize     ---\n");
         return false;
@@ -34,7 +34,7 @@ bool bWindow::createWindow() {
         SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
         SDL_RenderClear(sdlRenderer);
         SDL_RenderPresent(sdlRenderer);
-        printf("---  Renderer Successfully Initialized     ---\n");
+        printf("---  RENDERER SUCCESSFULLY INITIALIZED     ---\n");
     } else {
         printf("---  Renderer Failed to Initialize     ---\n");
         return false;
