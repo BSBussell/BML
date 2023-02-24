@@ -38,7 +38,7 @@ struct bAnimation {
 
 /// @brief Data structure used for storing spritesheet info
 struct bSheet {
-
+ 
     std::string imagePath;
     bTexture sourceTexture;
 

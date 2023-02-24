@@ -8,75 +8,12 @@
 #include <BML/BML.h>
 
 int main() {
-
-   
-    // Step 1: Make sure reading and writing .dat files works
-    /*
-    bRect sprite;
-    std::string path = "../resources/SpriteSheet2.png";
-
-    bSheet spriteSheet;
-
-    sprite.x = 0;
-    sprite.y = 0;
-    sprite.width = 8;
-    sprite.height = 8;
-    
-    spriteSheet.imagePath = path;
-    spriteSheet.totalWidth = 56;
-    spriteSheet.totalHeight = 8;
-
-    spriteSheet.sprites.push_back(sprite);
-
-    // Making the 8 sprites we need
-    for (int i = 1; i < 7; i++ ) {
-        sprite.x += 8;
-        spriteSheet.sprites.push_back(sprite);
-    }
-
-    spriteSheet.totalSprites = 7;
-
-    */
-    // Step 2: Make sure we are reading in the data correctly
-    // bAnimation full;
-    // full.name = "Cycle";
-    // for (int i = 0; i < 7; i++)
-    //     full.frames.push(i);
-    // full.speed = 200;
-    // spriteSheet.animations["Cycle"] = full;
-
-    
-    //writeSheetToBin(BML_GetPath("../resources/spriteSheet2.dat").c_str(), spriteSheet);
-    
-
-    // This is some ugly ass implementation right here clean this later :3
-    //spriteSheet.startAnimation("Cycle");
-    
+ 
     // Run diff to check for differences
     bSheet spriteSheet;
-    readSheetFromJSON(BML_GetPath("../resources/NoelAssets/MCaniHIGH-Start_walk.json").c_str(), spriteSheet);
-    spriteSheet.startAnimation("defaultAseprite");
-
-    printf("Image Path: %s\n", spriteSheet.imagePath.c_str());
-    printf("Total Width: %i\n", spriteSheet.totalWidth);
-    printf("Total Height: %i\n", spriteSheet.totalHeight);
-    printf("Total Sprites: %i\n", spriteSheet.totalSprites);
-
-    for (bRect vals: spriteSheet.sprites) {
-
-        printf("-----Rect-----\n");
-        printf("X: %i\n", vals.x);
-        printf("Y: %i\n", vals.y);
-        printf("Width: %i\n", vals.width);
-        printf("Height: %i\n", vals.height);
-        printf("--------------\n");
-    }
-
-
-    // Step 3 Test printing the Sheet
-    //spriteSheet.currentSprite = 0;
-    
-    
+    readSheetFromJSON(BML_GetPath("../resources /NoelAssets/MCaniHIGH-Start_walk.json").c_str(), spriteSheet);
+    spriteSheet.startAnimation("default");
+        
     bool run = true;
     
     BML_Init();
