@@ -126,9 +126,10 @@ bool readSheetFromJSON(const char* filePath, bSheet &data) {
 		}
 		data.animations[animation.name] = animation;
 		data.totalSprites = count;
-
+		return true;
 	} catch (...) {
 		perror("JSON Parsing Error\n");
+		return false;
 		exit(1);
 	}
 	
