@@ -8,7 +8,7 @@
 void BML_Init() {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-		printf("---       SDL SUCCESSFULLY INITIALIZED      ---\n");
+		printf("---       SDL SUCCESSFULLY INITIALIZED     ---\n");
 	} else {
 		printf("---       SDL FAILED TO INITIALIZE          ---\n");
 		printf("Unable to initialize SDL: %s", SDL_GetError());

@@ -21,7 +21,7 @@ bool bWindow::createWindow() {
 
     if (sdlWindow) {
         SDL_UpdateWindowSurface(sdlWindow);
-        printf("---    Window Successfully Initialized     ---\n");
+        printf("---    WINDOW SUCCESSFULLY INITIALIZED     ---\n");
     } else {
         printf("---  Window Failed to Initialize     ---\n");
         return false;
@@ -34,7 +34,7 @@ bool bWindow::createWindow() {
         SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
         SDL_RenderClear(sdlRenderer);
         SDL_RenderPresent(sdlRenderer);
-        printf("---  Renderer Successfully Initialized     ---\n");
+        printf("---  RENDERER SUCCESSFULLY INITIALIZED     ---\n");
     } else {
         printf("---  Renderer Failed to Initialize     ---\n");
         return false;
@@ -151,7 +151,7 @@ void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t
 
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
     SDL_SetRenderDrawColor( sdlRenderer, r, g, b, 255);
-    SDL_RenderDrawRect(sdlRenderer, &SDL_location);
+    SDL_RenderFillRect(sdlRenderer, &SDL_location);
     SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
     //free(SDL_location);
 }

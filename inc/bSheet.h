@@ -6,12 +6,16 @@
 #ifndef bSheet_h
 #define bSheet_h
 
-#include "bData/bRect.h"
-#include "bTexture/bTexture.h"
+#include "bRect.h"
+#include "bTexture.h"
+
 #include <fstream>
 #include <stdint.h>
 #include <queue>
 #include <unordered_map>
+
+#include "json.hpp"
+using json = nlohmann::json;
 
 /* 
     You can really tell how most of this was written after I 
@@ -19,21 +23,23 @@
     using C :3
 */ 
 
+
 /// @brief Datastructure used for information about an animation
 struct bAnimation {
 
     std::queue<uint16_t> frames;
+    std::queue<uint32_t> duration;
 
     std::string name;
 
     // How often to update animations
-    uint32_t speed;
+    //uint32_t speed;
     uint64_t tickCount;
 };
 
 /// @brief Data structure used for storing spritesheet info
 struct bSheet {
-
+ 
     std::string imagePath;
     bTexture sourceTexture;
 
@@ -61,7 +67,7 @@ struct bSheet {
 
 };
 
-void writeSheetToBin(const char* filePath, bSheet data);
-bool readSheetFromBin(const char* filePath, bSheet &data);
+//void writeSheetToBin(const char* filePath, bSheet data);
+bool readSheetFromJSON(const char* filePath, bSheet &data);
 
 #endif
