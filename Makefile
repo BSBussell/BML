@@ -44,8 +44,6 @@ ifeq ($(OS), Darwin)
 	LPATH = /usr/local/lib
 	HEADERPATH = /usr/local/include/BML/
 else
-
-	# PLEASE DOUBLE CHECK THIS BEFORE MAKING BEEEE
 	LPATH = /usr/lib
 	HEADERPATH = /usr/include/BML/
 endif	
@@ -73,7 +71,7 @@ install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
 	sudo install -m 644 bin/libBML.a $(LPATH)
 	@printf "\n$(bold)--------------PLACING HEADER FILES--------------$(sgr0)\n"
-	cp -rf inc/ /usr/local/include/BML/
+	sudo cp -rf inc/* $(HEADERPATH)
 
 ValgrindTest: Tests
 	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest

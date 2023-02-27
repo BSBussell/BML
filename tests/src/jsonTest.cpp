@@ -11,7 +11,7 @@ int main() {
  
     // Run diff to check for differences
     bSheet spriteSheet;
-    readSheetFromJSON(BML_GetPath("../resources /NoelAssets/MCaniHIGH-Start_walk.json").c_str(), spriteSheet);
+    readSheetFromJSON(BML_GetPath("../resources/NoelAssets/MCaniHIGH-Start_walk.json").c_str(), spriteSheet);
     spriteSheet.startAnimation("default");
         
     bool run = true;
