@@ -8,7 +8,7 @@
 
 #include <SDL2/SDL.h>
 #include <cstdint>
-
+ 
 struct bRect {
 
 	uint32_t x;

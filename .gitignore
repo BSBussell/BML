@@ -48,3 +48,6 @@ tests/bin/*
 .vscode/
 vgcore.13263
 vgcore.9718
+
+#CMAckle
+builds/*
