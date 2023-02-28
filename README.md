@@ -12,7 +12,7 @@ Once you have done that you can copy this code into your terminal of choice
 ```
 git clone git@github.com:BSBussell/BML.git
 cd BML
-make BML
+make Build
 ```
 
 This will create the linker objects to use when compiling with your program.
