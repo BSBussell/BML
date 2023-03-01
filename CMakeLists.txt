@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+
+CMAKE_PREFIX_PATH()
+
+
 # Project's Name
 project(BML VERSION 0.2.0 DESCRIPTION "SDL Wrapper For Bee")
 
@@ -46,7 +53,8 @@ add_library(
 target_include_directories(
 	BML
 	PRIVATE
-	src)
+	src
+	inc)
 
 target_link_libraries(
 	BML

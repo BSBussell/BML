@@ -51,3 +51,11 @@ vgcore.9718
 
 #CMAckle
 builds/*
+inc/BML/json.hpp
+inc/BML/bWindow.h
+inc/BML/bTexture.h
+inc/BML/bSound.h
+inc/BML/bSheet.h
+inc/BML/bRect.h
+inc/BML/BML.h
+inc/BML/bEvent.h

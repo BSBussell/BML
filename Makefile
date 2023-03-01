@@ -21,7 +21,7 @@ testobj := $(testobj:.cpp=.o)
 CFLAGS := -Wall -Wextra -std=c++17 -O3
 
 #IFLAGS specifies which directory to check for include
-IFLAGS := -Iinc
+IFLAGS := -Iinc 
 
 #LFLAGS specify the libraries we're linking against
 LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer -lBML
@@ -29,24 +29,52 @@ LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer -lBML
 #WFLAGS specifies that we know what we are doing with ar
 WFLAGS := -no_warning_for_no_symbols
 
-#Give us some bold text plz
-bold := $(shell tput bold)
-sgr0 := $(shell tput sgr0)
 
-#Library Path
-ifeq ($(LPATH),)
-    LPATH := /usr/lib
-endif
 
-#Get Os name
-OS := $(shell uname)
-ifeq ($(OS), Darwin)
-	LPATH = /usr/local/lib
-	HEADERPATH = /usr/local/include/BML/
+# If Windows (BOOOOOO)
+ifdef OS
+    
+    RM = del /Q
+    FixPath = $(subst /,\,$1)
+
+    disp := echo
+    
+    bold := THIS LOOKS LIKE SHIT BECAUSE YOU USE WINDOWS
+    sgr0 := Loser
+
+    # AHHH I HATE WINDOWS
+    # WHAT DO I HAVE TO LIKE INCLUDE THESE IN THE REPO NOW?!
+    LFLAGS := -LC:\Development\sdks\i686-w64-mingw32\lib -LC:\Users\benja\Documents\GitHub\BML\bin\libBML.a
+    IFLAGS := -IC:\Development\sdks\i686-w64-mingw32\include -IC:\Users\benja\Documents\GitHub\BML\inc
+
+    EXT := .lib
+
 else
-	LPATH = /usr/lib
-	HEADERPATH = /usr/include/BML/
-endif	
+	
+	disp := @printf
+
+	# Bold Text Variables
+	bold := $(shell tput bold)
+ 	sgr0 := $(shell tput sgr0)
+
+ 	WLFLAGS := 
+ 	WIFLAGS :=
+
+ 	EXT := .a
+    
+    ifeq ($(shell uname), Darwin)
+		
+		LPATH = /usr/local/lib
+ 		HEADERPATH = /usr/local/include/BML/
+ 		
+	else
+		
+		LPATH = /usr/lib
+		HEADERPATH = /usr/include/BML/
+		
+	endif	
+endif 
+
 
 #all rule for just compiling everything
 .PHONY: all
@@ -62,9 +90,9 @@ Tests: BML build install JSONTest AnimationTest SheetTest SoundTest TextureTest 
 
 .PHONY: build
 build: $(BMLobj)
-	@printf "\n$(bold)----------Building BML LIB File----------------$(sgr0)\n"
-	ar rc bin/libBML.a $(BMLobj)
-	ranlib bin/libBML.a 
+	$(disp) "\n$(bold)----------Building BML LIB File----------------$(sgr0)\n"
+	ar rc bin/libBML$(EXT) $(BMLobj)
+	ranlib bin/libBML$(EXT) 
 
 .PHONY: install
 install: build
@@ -77,8 +105,8 @@ ValgrindTest: Tests
 	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest
 
 JSONTest: tests/obj/jsonTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+	$(disp) "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@.exe
 
 AnimationTest: tests/obj/animationTest.o build
 	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
@@ -106,13 +134,13 @@ WindowTest: tests/obj/windowTest.o build
 
 # Rules for BML obj files
 $(OBJDIR)/%.o: src/%.cpp
-	@printf "\n$(bold)----------COMPILING BML OBJ FILE: $(notdir $@)----------$(sgr0)\n"
+	$(disp) "\n$(bold)----------COMPILING BML OBJ FILE: $(notdir $@)----------$(sgr0)\n"
 	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 # Rules for test obj files
 $(TESTOBJDIR)/%.o: tests/src/%.cpp
-	@printf "\n$(bold)----------COMPILING TEST OBJ FILE: $(notdir $@)----------$(sgr0)\n"
-	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
+	$(disp) "\n$(bold)----------COMPILING TEST OBJ FILE: $(notdir $@)----------$(sgr0)\n"
+	$(CC) $^ $(CFLAGS) $(LFLAGS) $(IFLAGS) -c -o $@ 
 
 .PHONY: clean
 clean: 
