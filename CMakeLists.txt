@@ -91,6 +91,7 @@ if(BUILD_TESTS)
 	    set_target_properties(${test_name} PROPERTIES
 	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
 	    )
+	    add_dependencies(${test_name} BML)
 
 	endforeach()
 endif()
