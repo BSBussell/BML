@@ -23,7 +23,7 @@ testbin := $(addprefix $(TESTBINDIR)/, $(testbin))
 testbin := $(testbin:.cpp=)
 
 #CFLAGS specifies the additional compilation options we're using
-CFLAGS := -Wall -Wextra -std=c++17 -O3
+CFLAGS := -Wall -Wextra -std=c++17
 
 #IFLAGS specifies which directory to check for include
 IFLAGS := -Iinc 
@@ -110,8 +110,9 @@ ValgrindTest: Tests
 
 # Rules for Building Tests Binary
 tests/bin/%: $(testobj)
+
 	$(disp) "\n$(bold)----------COMPILING TEST FILE: $(notdir $@)----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o $@
+	$(CC) tests/obj/$(notdir $@).o $(CFLAGS) $(LFLAGS) -o $@
 
 # Rules for BML obj files
 $(OBJDIR)/%.o: src/%.cpp
