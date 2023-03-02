@@ -3,8 +3,8 @@
 // Sept 6, 2021
 // Creating Rectangless
 
-#ifndef bRect_h
-#define bRect_h
+#ifndef BRECT_H
+#define BRECT_H
 
 #include <SDL2/SDL.h>
 #include <cstdint>

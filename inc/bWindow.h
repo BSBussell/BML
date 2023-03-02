@@ -3,8 +3,8 @@
 // Sept 1, 2021
 // Header
 
-#ifndef bWindow_h
-#define bWindow_h
+#ifndef BWINDOW_H
+#define BWINDOW_H
 
 #include "BML.h"
 

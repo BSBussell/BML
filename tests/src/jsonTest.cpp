@@ -10,13 +10,15 @@
 int main() {
  
     // Run diff to check for differences
-    bSheet spriteSheet;
-    readSheetFromJSON(BML_GetPath("../resources/NoelAssets/MCaniHIGH-Start_walk.json").c_str(), spriteSheet);
-    spriteSheet.startAnimation("default");
+    
         
     bool run = true;
     
     BML_Init();
+
+    bSheet spriteSheet;
+    readSheetFromJSON(BML_GetPath("../resources/NoelAssets/MCaniHIGH-Start_walk.json"), spriteSheet);
+    spriteSheet.startAnimation("default");
     
     bWindow* window = new bWindow("JSON Test", 0, 0, 800, 450);
     

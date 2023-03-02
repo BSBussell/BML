@@ -1,6 +1,7 @@
 #Directories
 OBJDIR = obj
 TESTOBJDIR = tests/obj
+TESTBINDIR = tests/bin
 
 #CC specifies which compiler we're using
 CC = g++
@@ -16,6 +17,10 @@ testsrc = $(wildcard tests/src/*.cpp)
 testobj := $(notdir $(testsrc))
 testobj := $(addprefix $(TESTOBJDIR)/, $(testobj))
 testobj := $(testobj:.cpp=.o)
+
+testbin := $(notdir $(testsrc))
+testbin := $(addprefix $(TESTBINDIR)/, $(testbin))
+testbin := $(testbin:.cpp=)
 
 #CFLAGS specifies the additional compilation options we're using
 CFLAGS := -Wall -Wextra -std=c++17 -O3
@@ -49,6 +54,7 @@ ifdef OS
 
     EXT := .lib
 
+# If Unix (YAAYYYY!!!)
 else
 	
 	disp := @printf
@@ -56,9 +62,6 @@ else
 	# Bold Text Variables
 	bold := $(shell tput bold)
  	sgr0 := $(shell tput sgr0)
-
- 	WLFLAGS := 
- 	WIFLAGS :=
 
  	EXT := .a
     
@@ -86,10 +89,11 @@ BML: $(BMLobj)
 
 #Tests for only compiling tests
 .PHONY: Tests
-Tests: BML build install JSONTest AnimationTest SheetTest SoundTest TextureTest EventTest WindowTest
+Tests: BML build install $(testbin)
 
 .PHONY: build
 build: $(BMLobj)
+	$(disp) "$(testbin)"
 	$(disp) "\n$(bold)----------Building BML LIB File----------------$(sgr0)\n"
 	ar rc bin/libBML$(EXT) $(BMLobj)
 	ranlib bin/libBML$(EXT) 
@@ -97,40 +101,17 @@ build: $(BMLobj)
 .PHONY: install
 install: build
 	@printf "\n$(bold)----------INSTALLING LIBRARY TO DIRECTORY-------$(sgr0)\n"
-	sudo install -m 644 bin/libBML.a $(LPATH)
+	sudo install -m 644 bin/libBML$(EXT) $(LPATH)
 	@printf "\n$(bold)--------------PLACING HEADER FILES--------------$(sgr0)\n"
 	sudo cp -rf inc/* $(HEADERPATH)
 
 ValgrindTest: Tests
 	valgrind --track-origins=yes --suppressions=window.supp --leak-check=full --show-leak-kinds=all ./tests/bin/AnimationTest
 
-JSONTest: tests/obj/jsonTest.o build
-	$(disp) "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@.exe
-
-AnimationTest: tests/obj/animationTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
-
-SheetTest: tests/obj/sheetTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
-
-SoundTest: tests/obj/soundTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
-
-TextureTest: tests/obj/textureTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
-
-EventTest: tests/obj/eventTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
-
-WindowTest: tests/obj/windowTest.o build
-	@printf "\n$(bold)----------COMPILING TEST FILE: $@----------$(sgr0)\n"
-	$(CC) $< $(CFLAGS) $(LFLAGS) -o tests/bin/$@
+# Rules for Building Tests Binary
+tests/bin/%: $(testobj)
+	$(disp) "\n$(bold)----------COMPILING TEST FILE: $(notdir $@)----------$(sgr0)\n"
+	$(CC) $< $(CFLAGS) $(LFLAGS) -o $@
 
 # Rules for BML obj files
 $(OBJDIR)/%.o: src/%.cpp
@@ -140,7 +121,7 @@ $(OBJDIR)/%.o: src/%.cpp
 # Rules for test obj files
 $(TESTOBJDIR)/%.o: tests/src/%.cpp
 	$(disp) "\n$(bold)----------COMPILING TEST OBJ FILE: $(notdir $@)----------$(sgr0)\n"
-	$(CC) $^ $(CFLAGS) $(LFLAGS) $(IFLAGS) -c -o $@ 
+	$(CC) $^ $(CFLAGS) $(IFLAGS) -c -o $@ 
 
 .PHONY: clean
 clean: 
