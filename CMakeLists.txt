@@ -27,6 +27,9 @@ option(BUILD_TESTS "Build tests" ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS})
+
 
 # Grabbing BML .cpp files
 set (LIBRARY_SOURCES
@@ -72,6 +75,16 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/inc/
 # Conditionally add the tests directory
 if(BUILD_TESTS)
   
+	find_package(SDL2 REQUIRED)
+	include_directories(${SDL2_INCLUDE_DIRS})
+
+	# Yeah I'm gonna have to look into these a bit more :3
+	
+	#find_package(SDL2_IMAGE_LIBRARY REQUIRED)
+	#include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+
+	#find_package(SDL2_MIXER_LIBRARY REQUIRED)
+	#include_directories(${SDL2_MIXER_INCLUDE_DIRS})
 
 	set(TEST_SOURCES
 
@@ -86,7 +99,7 @@ if(BUILD_TESTS)
 
 		get_filename_component(test_name ${test_src} NAME_WE)
 		add_executable(${test_name} ${test_src})
-	    target_link_libraries(${test_name} BML SDL2 SDL2_image SDL2_mixer)
+	    target_link_libraries(${test_name} BML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer)
 	    target_include_directories(${test_name} PRIVATE inc/)
 	    set_target_properties(${test_name} PROPERTIES
 	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
