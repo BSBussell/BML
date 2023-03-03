@@ -18,7 +18,7 @@ project(BML VERSION 0.2.0 DESCRIPTION "SDL Wrapper For Bee")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Define an option to build the tests
-option(BUILD_TESTS "Build tests" ON)
+option(TESTS "Build tests" OFF)
 
 
 
@@ -51,6 +51,7 @@ set (LIBRARY_HEADERS
 	inc/bSound.h
 	inc/bTexture.h
 	inc/bWindow.h
+	inc/json.h
 )
 
 
