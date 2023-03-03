@@ -1,7 +1,11 @@
 
 // Bee Bussell
 // Sept 6, 2021
-// Creating Rectangless
+// Creating Rectangles and more
+
+/*
+	Might seem pointless but eventually I plan on baking methods into these
+*/
 
 #ifndef BRECT_H
 #define BRECT_H
@@ -9,6 +13,14 @@
 #include <SDL2/SDL.h>
 #include <cstdint>
  
+struct bPoint {
+
+	uint32_t x, y;
+
+	// Easy conversion to SDL_Point
+	operator SDL_Point() const;
+};
+
 struct bRect {
 
 	uint32_t x;
@@ -16,6 +28,7 @@ struct bRect {
 	uint32_t width;
 	uint32_t height;
 
+	// Easy conversion to SDL_Rect
     operator SDL_Rect() const;
 
 };

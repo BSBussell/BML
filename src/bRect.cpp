@@ -1,6 +1,6 @@
 // Bee Bussell
 // Sept 7, 2021
-// For Compilation
+// Conversion functions
 
 
 #include "bRect.h"
@@ -15,5 +15,14 @@ bRect::operator SDL_Rect() const {
 
 	return rect;
 
+}
+
+bPoint::operator SDL_Point() const {
+
+	SDL_Point point;
+	point.x = x;
+	point.y = y;
+
+	return point;
 }
 
