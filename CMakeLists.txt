@@ -62,6 +62,14 @@ add_library(
 	${LIBRARY_HEADERS}
 )
 
+target_compile_options(
+	BML
+	PRIVATE
+	-Wall
+	-Wextra
+	-std=c++17
+)
+
 target_include_directories(	BML PUBLIC inc )
 
 install(TARGETS BML

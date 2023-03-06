@@ -45,7 +45,10 @@ bool bWindow::createWindow() {
 
 void bWindow::clearBuffer() {
 
+
+    SDL_SetRenderDrawColor( sdlRenderer, bkgColor.r, bkgColor.g, bkgColor.b, bkgColor.a);
     SDL_RenderClear(sdlRenderer);
+    SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 0);
 }
 
 void bWindow::updateBuffer() {
@@ -56,8 +59,14 @@ void bWindow::updateBuffer() {
 
 void bWindow::drawBuffer() {
 
+    // Clear what was drawn and draw the buffer
     updateBuffer();
     clearBuffer();
+}
+
+void bWindow::background(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+    
+    bkgColor = {r, g, b, a};
 }
 
 // Deletes the renderer

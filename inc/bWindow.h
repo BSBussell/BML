@@ -60,6 +60,10 @@ public:
     void updateBuffer();
     void drawBuffer();
 
+    // Change the background color
+    void background(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+
+
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);
     void initSpriteSheet(bSheet &sheet);
@@ -82,6 +86,8 @@ private:
     SDL_Renderer* sdlRenderer;
 
     const char *windowTitle;
+
+    SDL_Color bkgColor;
 
     // You dumbass why didn't you use a bRect for this oh my god
     uint16_t xPos;

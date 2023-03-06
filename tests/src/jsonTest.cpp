@@ -30,8 +30,13 @@ int main() {
     window->toggleVSync();
     window->toggleHighDPI();
 
+    // Setting the Background Color
+    window->background(255, 255, 255, 255);
+
     window->createWindow();
     
+
+
     bRect dest = {10,10,128,128};
     
     if (!bSound::openAudio())
@@ -66,11 +71,14 @@ int main() {
         if (bEvent::keyDown('Q')) {
             run = false;
         }
-        window->drawRect(dest, 255, 255, 255);
+
+        // This would be optimal usage for rendering, do inputs/math
+        // Clear our buffer, draw our shit and finally, present the buffer
+        window -> clearBuffer();
+
         window->drawSprite(spriteSheet, dest);
         
-
-        window->drawBuffer();
+        window->updateBuffer();
         //run = false;
     }
     spriteSheet.stopAnimation();
