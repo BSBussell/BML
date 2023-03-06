@@ -3,8 +3,8 @@
 // Sept 7, 2021
 // Sound Header
 
-#ifndef BSOUND_H
-#define BSOUND_H
+#ifndef BML_SOUND_H
+#define BML_SOUND_H
 
 #include "BML.h"
 

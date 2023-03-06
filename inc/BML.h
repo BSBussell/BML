@@ -1,6 +1,6 @@
 
-#ifndef BML_h
-#define BML_h
+#ifndef BML_H
+#define BML_H
 
 #include <string>
 #include <cstdint>

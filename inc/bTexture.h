@@ -3,8 +3,8 @@
 // Sept 6, 2021
 // Header
 
-#ifndef BTEXTURE_H
-#define BTEXTURE_H
+#ifndef BML_TEXTURE_H
+#define BML_TEXTURE_H
 
 #include <SDL2/SDL.h>
 

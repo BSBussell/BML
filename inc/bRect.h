@@ -7,8 +7,8 @@
 	Might seem pointless but eventually I plan on baking methods into these
 */
 
-#ifndef BRECT_H
-#define BRECT_H
+#ifndef BML_RECT_H
+#define BML_RECT_H
 
 #include <SDL2/SDL.h>
 #include <cstdint>

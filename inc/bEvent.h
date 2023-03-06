@@ -3,8 +3,8 @@
 // Sept 2, 2021
 // Event Handler
 
-#ifndef BEVENT_H
-#define BEVENT_H
+#ifndef BML_EVENT_H
+#define BML_EVENT_H
 
 #include "BML.h"
 

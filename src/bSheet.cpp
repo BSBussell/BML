@@ -81,11 +81,11 @@ bool bSheet::stopAnimation() {
 }
 
 
-bool readSheetFromJSON(std::string filePath, bSheet &data) {
+bool readSheetFromJSON(const char *filePath, bSheet &data) {
 
 
 	try {
-		std::ifstream f(filePath.c_str());
+		std::ifstream f(filePath);
 		json dataFile = json::parse(f);
 
 		

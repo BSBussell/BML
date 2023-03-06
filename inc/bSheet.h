@@ -3,8 +3,8 @@
 // Sept 14, 2021
 // bSheet Header File
 
-#ifndef BSHEET_H
-#define BSHEET_H
+#ifndef BML_SHEET_H
+#define BML_SHEET_H
 
 #include "bRect.h"
 #include "bTexture.h"
@@ -69,6 +69,6 @@ struct bSheet {
 };
 
 //void writeSheetToBin(const char* filePath, bSheet data);
-bool readSheetFromJSON(std::string filePath, bSheet &data);
+bool readSheetFromJSON(const char *filePath, bSheet &data);
 
 #endif

@@ -18,7 +18,7 @@ project(BML VERSION 0.2.0 DESCRIPTION "SDL Wrapper For Bee")
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Define an option to build the tests
-option(TESTS "Build tests" OFF)
+option(TESTS "Build tests" ON)
 
 
 
@@ -74,7 +74,7 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/inc/
 
 
 # Conditionally add the tests directory
-if(BUILD_TESTS)
+if(TESTS)
   
 	find_package(SDL2 REQUIRED)
 	include_directories(${SDL2_INCLUDE_DIRS})
