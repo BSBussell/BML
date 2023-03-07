@@ -40,6 +40,7 @@ set (LIBRARY_SOURCES
 	src/bSound.cpp
 	src/bTexture.cpp
 	src/bWindow.cpp
+	src/bFontManager.cpp
 )
 
 # Grabbing BML .h files
@@ -51,6 +52,7 @@ set (LIBRARY_HEADERS
 	inc/bSound.h
 	inc/bTexture.h
 	inc/bWindow.h
+	inc/bFontManager.h
 	inc/json.h
 )
 
@@ -108,7 +110,7 @@ if(TESTS)
 
 		get_filename_component(test_name ${test_src} NAME_WE)
 		add_executable(${test_name} ${test_src})
-	    target_link_libraries(${test_name} BML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer)
+	    target_link_libraries(${test_name} BML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer -lSDL2_ttf)
 	    target_include_directories(${test_name} PRIVATE inc/)
 	    set_target_properties(${test_name} PROPERTIES
 	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
