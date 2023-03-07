@@ -32,7 +32,7 @@ int main() {
 
     // Setting the Background Color
     window->background(255, 255, 255, 255);
-
+`
     window->createWindow();
 
     // Setting the font
