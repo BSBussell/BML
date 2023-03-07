@@ -40,6 +40,8 @@ bool bWindow::createWindow() {
         return false;
     }
 
+    font_manager = new bFontManager(sdlRenderer);    
+
     return true;
 }
 
@@ -163,5 +165,14 @@ void bWindow::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t
     SDL_RenderFillRect(sdlRenderer, &SDL_location);
     SDL_SetRenderDrawColor( sdlRenderer, 0, 0, 0, 255 );
     //free(SDL_location);
+}
+
+void bWindow::setFont(std::string filePath, Uint8 font_size, SDL_Color color) {
+
+    font_manager -> setFont(filePath, font_size, color);
+}
+void bWindow::drawText(std::string text, bPoint position) {
+
+    font_manager -> render(text, position);
 }
 

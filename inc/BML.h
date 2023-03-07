@@ -13,6 +13,7 @@
 #include "bTexture.h"
 #include "bSheet.h"
 #include "bEvent.h"
+#include "bFontManager.h"
 #include "bWindow.h"
 #include "bSound.h"
 

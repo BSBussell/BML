@@ -34,8 +34,9 @@ int main() {
     window->background(255, 255, 255, 255);
 
     window->createWindow();
-    
 
+    // Setting the font
+    window->setFont("../resources/fonts/daydream_3/Daydream.ttf", 50, {0,0,0,255});
 
     bRect dest = {10,10,128,128};
     
@@ -76,6 +77,7 @@ int main() {
         // Clear our buffer, draw our shit and finally, present the buffer
         window -> clearBuffer();
 
+        window -> drawText("Hello World!", {960, 540});
         window->drawSprite(spriteSheet, dest);
         
         window->updateBuffer();
