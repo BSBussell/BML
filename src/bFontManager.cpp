@@ -51,15 +51,19 @@ void bFontManager::loadFont(const std::string& font_path, Uint8 font_size) {
     }
 
     // Create our font
-    bFont *font = new bFont();
-    font -> _size = font_size;
+    bFont *font = new bFont(abs_font_path, font_size, {255,255,255,255});
+    
+    /*
+    font -> _size = font_size; 
     font -> _font = TTF_OpenFont(font_path.c_str(), font_size);
     font -> _renderer = _renderer;
     font -> _color = {255, 255, 255, 255};
+    */
 
     if (!font -> _font) {
         
         perror("Font Could Not Be Found\n");
+        fprintf(stderr, "Path: %s\n", abs_font_path.c_str());
         exit(1);
     }
 

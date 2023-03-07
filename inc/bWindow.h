@@ -6,7 +6,11 @@
 #ifndef BML_WINDOW_H
 #define BML_WINDOW_H
 
+#include "bFontManager.h"
 #include "BML.h"
+
+
+class bFontManager;
 
 class bWindow {
 
@@ -68,15 +72,19 @@ public:
     bTexture initTexture(const char* source, bRect src);
     void initSpriteSheet(bSheet &sheet);
 
-    // Freeing Textures
-    void freeTexture(bTexture &texture);
-    void freeSpriteSheet(bSheet &sheet);
-
     // Drawing Textures and Rectangles
     void drawTexture(bTexture texture, bRect dest);
     void drawTexture(const char* source, bRect src, bRect dest);
     void drawSprite(bSheet &sheet, bRect dest);
     void drawRect(bRect location, uint8_t r, uint8_t g, uint8_t b);
+
+    // Freeing Textures
+    void freeTexture(bTexture &texture);
+    void freeSpriteSheet(bSheet &sheet);
+
+    // Fonts
+    void setFont(std::string filePath, Uint8 font_size, SDL_Color color);
+    void drawText(std::string text, bPoint position);
 
     void closeWindow();
 
@@ -84,6 +92,8 @@ private:
 
     SDL_Window* sdlWindow;
     SDL_Renderer* sdlRenderer;
+
+    bFontManager *font_manager;
 
     const char *windowTitle;
 
