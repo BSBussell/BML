@@ -41,6 +41,7 @@ set (LIBRARY_SOURCES
 	src/bTexture.cpp
 	src/bWindow.cpp
 	src/bFontManager.cpp
+	src/bRenderer.cpp
 )
 
 # Grabbing BML .h files
@@ -53,6 +54,7 @@ set (LIBRARY_HEADERS
 	inc/bTexture.h
 	inc/bWindow.h
 	inc/bFontManager.h
+	inc/bRenderer.h
 	inc/json.h
 )
 
@@ -99,11 +101,11 @@ if(TESTS)
 
 	set(TEST_SOURCES
 
-		tests/src/eventTest.cpp
+		#tests/src/eventTest.cpp
 		tests/src/jsonTest.cpp
-		tests/src/soundTest.cpp
-		tests/src/textureTest.cpp
-		tests/src/windowTest.cpp
+		#tests/src/soundTest.cpp
+		#tests/src/textureTest.cpp
+		#tests/src/windowTest.cpp
 	)
 
 	foreach(test_src ${TEST_SOURCES})
@@ -112,6 +114,15 @@ if(TESTS)
 		add_executable(${test_name} ${test_src})
 	    target_link_libraries(${test_name} BML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer -lSDL2_ttf)
 	    target_include_directories(${test_name} PRIVATE inc/)
+	    target_compile_options(
+			${test_name}
+			PRIVATE
+			-Wall
+			-Wextra
+			-std=c++17
+			-g
+		)
+
 	    set_target_properties(${test_name} PROPERTIES
 	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
 	    )

@@ -6,29 +6,30 @@
 #ifndef BML_RENDERER_H
 #define BML_RENDERER_H
 
-#include "BML.h"
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+#include "bFontManager.h"
+#include "bTexture.h"
+#include "bSheet.h"
+
 
 class bRenderer {
 	
 public:
 
-	bRenderer();
+	bRenderer(SDL_Window *window, Uint32 _render_flags);
 	~bRenderer();
-
-	// Renderer Flag Toggles
-    void toggleSoftwareRender() { renderFlags ^= SDL_RENDERER_SOFTWARE; }
-    void toggleHardwareRender() { renderFlags ^= SDL_RENDERER_ACCELERATED; }
-    void toggleVSync() { renderFlags ^= SDL_RENDERER_PRESENTVSYNC; } 
-    void toggleToTexture() { renderFlags ^= SDL_RENDERER_TARGETTEXTURE; }
-
-    // Buffer Presentation
-    void clearBuffer();
-    void updateBuffer();
-    void drawBuffer();
 
     // Change the background color
     void background(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
+
+    // Buffer Presentation
+    void clearBuffer();
+    void presentBuffer();
+    void drawBuffer();
 
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);
@@ -41,8 +42,8 @@ public:
     void drawRect(bRect location, uint8_t r, uint8_t g, uint8_t b);
 
     // Freeing Textures
-    void freeTexture(bTexture &texture);
-    void freeSpriteSheet(bSheet &sheet);
+    void unloadTexture(bTexture &texture);
+    void unloadSpriteSheet(bSheet &sheet);
 
     // Fonts
     void setFont(std::string filePath, Uint8 font_size, SDL_Color color);
@@ -50,15 +51,14 @@ public:
 
 private:
 
-	bFontManager *font_manager;
+	bFontManager *_font_manager;
 
 	SDL_Color _bkg_color;
 
-	SDL_Window *context;
+	SDL_Window *_context;
 	SDL_Renderer *_sdl_renderer;
 
-	uint32_t renderFlags = 0;
-}
+};
 
 
 #endif
