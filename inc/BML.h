@@ -14,6 +14,7 @@
 #include "bSheet.h"
 #include "bEvent.h"
 #include "bFontManager.h"
+#include "bRenderer.h"
 #include "bWindow.h"
 #include "bSound.h"
 

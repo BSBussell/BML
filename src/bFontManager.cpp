@@ -4,6 +4,7 @@
 // bFontManager.cpp
 
 #include "bFontManager.h"
+#include "BML.h"
 
 bFont::bFont(std::string font_path, Uint8 font_size, SDL_Color color) {
 
@@ -28,9 +29,9 @@ bFontManager::bFontManager(SDL_Renderer* renderer) {
 // Destroying our Font Manager
 bFontManager::~bFontManager() {
 
+
 	// Remove all Loaded fonts
 	for (auto& font : _fonts) {
-        TTF_CloseFont(font.second -> _font);
         
         // Free Memory
         delete font.second;
@@ -51,14 +52,12 @@ void bFontManager::loadFont(const std::string& font_path, Uint8 font_size) {
     }
 
     // Create our font
-    bFont *font = new bFont(abs_font_path, font_size, {255,255,255,255});
+    bFont *font = new bFont(
+        abs_font_path, 
+        font_size, 
+        {255,255,255,255}
+    );
     
-    /*
-    font -> _size = font_size; 
-    font -> _font = TTF_OpenFont(font_path.c_str(), font_size);
-    font -> _renderer = _renderer;
-    font -> _color = {255, 255, 255, 255};
-    */
 
     if (!font -> _font) {
         
@@ -80,12 +79,11 @@ void bFontManager::unloadFont(const std::string& font_path, Uint8 font_size) {
 	auto iter = _fonts.find(font_key);
 	if (iter != _fonts.end()) {
         
-        // Close the font and erase elements
-        //TTF_CloseFont(iter -> second -> _font);
-        _fonts.erase(iter -> first);
-
         // Call fonts destructer
         delete iter -> second;
+
+        // Close the font and erase elements
+        _fonts.erase(iter -> first);
         return;
     
     }
@@ -113,8 +111,6 @@ void bFontManager::setFont(const std::string &font_path, Uint8 font_size, SDL_Co
 	font -> _color = color;
 
 	_currentFont = font;
-
-
 }
 
 

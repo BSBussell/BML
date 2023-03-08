@@ -26,17 +26,21 @@ int main() {
     // This should be something that should be set, like maybe a bool?
     // However now that I've peaked at bit more at this function... I get it a bit more...
     window->toggleResizeable();
-    window->toggleHardwareRender();
-    window->toggleVSync();
     window->toggleHighDPI();
 
-    // Setting the Background Color
-    window->background(255, 255, 255, 255);
+    // Flags for our renderer
+    window->toggleHardwareRender();
+    window->toggleVSync();
 
-    window->createWindow();
+    // Create Window returns a pointer to the renderer
+    bRenderer *renderer = window->createWindow();
+
+    // Setting the Background Color
+    renderer->background(255, 255, 255, 255);
+
 
     // Setting the font
-    window->setFont("../resources/fonts/daydream_3/Daydream.ttf", 50, {0,0,0,255});
+    renderer->setFont("../resources/fonts/daydream_3/Daydream.ttf", 50, {0,0,0,255});
 
     bRect dest = {10,10,128,128};
     
@@ -49,7 +53,7 @@ int main() {
 
     
     // I think this should be something handled in the sheet function
-    window->initSpriteSheet(spriteSheet);
+    renderer->initSpriteSheet(spriteSheet);
     
     while(run) {
 
@@ -75,21 +79,23 @@ int main() {
 
         // This would be optimal usage for rendering, do inputs/math
         // Clear our buffer, draw our shit and finally, present the buffer
-        window -> clearBuffer();
+        renderer -> clearBuffer();
 
-        window -> drawText("Hello World!", {960, 540});
-        window->drawSprite(spriteSheet, dest);
+        renderer -> drawText("Hello World!", {960, 540});
+        renderer -> drawSprite(spriteSheet, dest);
         
-        window->updateBuffer();
+        renderer->presentBuffer();
         //run = false;
     }
     spriteSheet.stopAnimation();
     //
-    window->freeSpriteSheet(spriteSheet);
+    renderer->unloadSpriteSheet(spriteSheet);
     
     bSound::freeMUS();
     bSound::closeAudio();
     
+
+    // This Deletes the renderer
     window->closeWindow();
     
     BML_Close();

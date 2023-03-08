@@ -19,15 +19,15 @@ int main() {
     bWindow* window = new bWindow(title, zero, zero, width, height);
     window->toggleResizeable();
     window->toggleHardwareRender();
-    window->createWindow();
+    bRenderer *r = window->createWindow();
 
     while(1) {
 
-        window->clearBuffer();
+        r->clearBuffer();
 
         // Do Drawings
 
-        window->updateBuffer();
+        r->updateBuffer();
     }
 
     BML_Close();

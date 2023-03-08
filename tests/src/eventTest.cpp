@@ -24,11 +24,11 @@ int main() {
     bWindow* window = new bWindow(title, zero, zero, width, height);
     window->toggleResizeable();
     window->toggleHardwareRender();
-    window->createWindow();
+    bRenderer *r = window->createWindow();
 
     while(run) {
 
-        window->clearBuffer();
+        r->clearBuffer();
 
         // Do Drawings
         run = bEvent::eventLoop();
@@ -36,7 +36,7 @@ int main() {
         if (bEvent::keyDown((uint8_t)21))
             printf("Hey you pressed q\n");
 
-        window->updateBuffer();
+        r->updateBuffer();
     }
     
     window->closeWindow();

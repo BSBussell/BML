@@ -18,7 +18,7 @@ int main() {
     window->toggleHardwareRender();
     window->toggleVSync();
     window->toggleHighDPI();
-    window->createWindow();
+    bRenderer *r = window->createWindow();
 
     bRect dest = {10,10,320,240};
     bRect src = {10,10,320,240};
@@ -34,13 +34,13 @@ int main() {
     bSound::playMUS(5);
 
     //bTexture blueSquare = window->initTexture("/home/bee/Development/BML/tests/resources/blueSquare.png", src);
-    bTexture blueSquare = window->initTexture("../resources/blueSquare.png", src);
+    bTexture blueSquare = r->initTexture("../resources/blueSquare.png", src);
     
     double vol = .5;
 
     while(run) {
 
-        window->clearBuffer();
+        r->clearBuffer();
 
         // Event loop
         run = bEvent::eventLoop();
@@ -61,13 +61,13 @@ int main() {
         if (bEvent::keyDown('D')) {
             dest.x++;
         }
-        window->drawTexture(blueSquare, dest);
-        window->drawRect(src, 0, 255, 0);
+        r->drawTexture(blueSquare, dest);
+        r->drawRect(src, 0, 255, 0);
 
         
 
 
-        window->updateBuffer();
+        r->updateBuffer();
     }
     soundEffect.freeSFX();
     bSound::freeMUS();

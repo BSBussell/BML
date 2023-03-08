@@ -6,10 +6,11 @@
 #ifndef B_FONT_MANAGER_H
 #define B_FONT_MANAGER_H
 
-#include "BML.h"
 #include <string>
 #include <unordered_map>
 #include <SDL2/SDL_ttf.h>
+
+#include "bRect.h"
 
 class bFontManager;
 
