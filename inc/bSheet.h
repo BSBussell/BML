@@ -25,7 +25,7 @@ using json = nlohmann::json;
 */ 
 
 
-/// @brief Datastructure used for information about an animation
+// @brief Datastructure used for information about an animation
 struct bAnimation {
 
     std::queue<uint16_t> frames;
@@ -38,7 +38,7 @@ struct bAnimation {
     uint64_t tickCount;
 };
 
-/// @brief Data structure used for storing spritesheet info
+// @brief Data structure used for storing spritesheet info
 struct bSheet {
  
     std::string imagePath;
