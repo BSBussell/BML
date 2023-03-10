@@ -13,14 +13,26 @@
 #include <SDL2/SDL.h>
 #include <cstdint>
  
+ /**
+  * @brief A struct for holding a 2D point
+  * 
+  */
 struct bPoint {
 
 	Uint32 x, y;
 
-	// Easy conversion to SDL_Point
+	/**
+	 * @brief Converts to SDL_Point
+	 * 
+	 * @return SDL_Point 
+	 */
 	operator SDL_Point() const;
 };
 
+/**
+ * @brief A struct for holding a 2D rectangle
+ * 
+ */
 struct bRect {
 
 	Uint32 x;
@@ -28,7 +40,11 @@ struct bRect {
 	Uint32 width;
 	Uint32 height;
 
-	// Easy conversion to SDL_Rect
+	/**
+	 * @brief Converts to SDL_Rect
+	 * 
+	 * @return SDL_Rect 
+	 */
     operator SDL_Rect() const;
 
 };

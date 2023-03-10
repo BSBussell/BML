@@ -15,6 +15,8 @@
 
 #include "bRect.h"
 
+// TODO: Implement texture freeing and destructer for that
+
 // @brief Data structure used for storing texture info
 struct bTexture {
 
@@ -26,34 +28,84 @@ struct bTexture {
 
 };
 
-// @brief Class for mananging usage of textures
+/**
+ * @brief A class for managing textures in a cache
+ * 
+ */
 class bTextureManager {
 
 public:
 
+	/**
+	 * @brief Making a bTextureManager tied to the renderer
+	 * 
+	 * @param SDL_Renderer* renderer 
+	 */
 	bTextureManager(SDL_Renderer *renderer);
+
+	/**
+	 * @brief Destroy the b Texture Manager::b Texture Manager object by clearing the cache
+	 * 
+	 */
 	~bTextureManager();
 
-	// Load the texture either by creating a new one or grabbing it from the cache
+	/**
+	 * @brief Load the texture either by creating a new one or grabbing it from the cache
+	 * 
+	 * @param const_char* the path to the texture
+	 * @param bRect the dimensions of the texture
+	 */
 	bTexture loadTexture(const char *path, bRect dim);
 
-	// Unloads the texture, if it's not being used by anything else
+	/**
+	 * @brief Unload the texture by decreasing the ref count and deleting it if it's at zero
+	 * 
+	 * @param bTexture the texture to unload
+	 */
 	void unloadTexture(bTexture texture);
 
-	// Does not delete bTextures, User still has to do that on ther own
+	/**
+	 * @brief Clear the cache of textures
+	 * 
+	 */
 	void clearCache();
 
-	// Rendering the Texture either using a rect or a point
+	/**
+	 * @brief Render the texture to the screen
+	 * 
+	 * @param bTexture the texture to render
+	 * @param bRect the destination rectangle
+	 */
 	void renderTexture(bTexture &texture, bRect dest);
+
+	/**
+	 * @brief Render the texture to the screen
+	 * 
+	 * @param bTexture the texture to render
+	 * @param bPoint the destination point
+	 */
 	void renderTexture(bTexture &texture, bPoint dest);
 	
 
 private:
 
+	/**
+	 * @brief The renderer that the textures are tied to
+	 * 
+	 */
 	SDL_Renderer *_sdl_renderer;
 
-	// Cache
+	
+	/**
+	 * @brief Cache of allocated textures
+	 * 
+	 */
 	std::unordered_map<std::string, SDL_Texture*> _loaded_textures;
+
+	/**
+	 * @brief Reference counter for textures
+	 * 
+	 */
 	std::unordered_map<SDL_Texture*, Uint8> _refs;
 
 };

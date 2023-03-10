@@ -72,6 +72,7 @@ target_compile_options(
 	-Wall
 	-Wextra
 	-std=c++17
+	-Ofast
 )
 
 target_include_directories(	BML PUBLIC inc )

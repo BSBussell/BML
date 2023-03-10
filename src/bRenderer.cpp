@@ -9,6 +9,7 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
 
 	// Grabs the SDL_Window()
 	_context = window;
+    _bkg_color = {255, 255, 255, 255};
 
 	_sdl_renderer = SDL_CreateRenderer(_context, -1, _render_flags);
 

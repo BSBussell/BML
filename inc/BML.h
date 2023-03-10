@@ -17,10 +17,32 @@
 #include "bWindow.h"
 #include "bSound.h"
 
+/**
+ * @brief Initializes SDL
+ * 
+ */
 void BML_Init();
+
+/**
+ * @brief Closes SDL
+ * 
+ */
 void BML_Close();
 
+/**
+ * @brief Gets the path to the file
+ * 
+ * @param const char* relative path to the file
+ * @return std::string absolute path to the file
+ */
 std::string BML_GetPath(const char* path);
+
+/**
+ * @brief Gets the path to the file
+ * 
+ * @param std::string path relative path to the file 
+ * @return std::string Absolute path to the file
+ */
 std::string BML_GetPath(std::string path);
 
 #endif
