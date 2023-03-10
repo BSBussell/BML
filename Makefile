@@ -29,7 +29,7 @@ CFLAGS := -Wall -Wextra -std=c++17
 IFLAGS := -Iinc 
 
 #LFLAGS specify the libraries we're linking against
-LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer -lBML
+LFLAGS  := -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lBML
 
 #WFLAGS specifies that we know what we are doing with ar
 WFLAGS := -no_warning_for_no_symbols
