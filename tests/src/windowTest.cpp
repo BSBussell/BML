@@ -11,9 +11,9 @@
 int main() {
 
     const char *title = "silly";
-    uint16_t zero = 0;
-    uint16_t width = 320;
-    uint16_t height = 240;
+    Uint16 zero = 0;
+    Uint16 width = 320;
+    Uint16 height = 240;
 
     BML_Init();
     bWindow* window = new bWindow(title, zero, zero, width, height);

@@ -15,9 +15,9 @@
 
 #include "bRect.h"
 
+// @brief Data structure used for storing texture info
 struct bTexture {
 
-	~bTexture();
 
 	std::string path;
 
@@ -26,6 +26,7 @@ struct bTexture {
 
 };
 
+// @brief Class for mananging usage of textures
 class bTextureManager {
 
 public:
@@ -33,33 +34,27 @@ public:
 	bTextureManager(SDL_Renderer *renderer);
 	~bTextureManager();
 
-	/* 
-		Ok so load_texture will check the path with _loaded_textures,
-		if it finds that it has loaded it already it will
-		Make a new bTexture with the src, copy the SDL_Texture from
-		_loaded_textures increment the _refs value keyed on the texture
-		and return it.
-		Otherwise, completely make a new texture setup the slot in _refs 
-		and _loaded_textures
-	*/
-
+	// Load the texture either by creating a new one or grabbing it from the cache
 	bTexture loadTexture(const char *path, bRect dim);
+
+	// Unloads the texture, if it's not being used by anything else
 	void unloadTexture(bTexture texture);
 
 	// Does not delete bTextures, User still has to do that on ther own
 	void clearCache();
 
+	// Rendering the Texture either using a rect or a point
 	void renderTexture(bTexture &texture, bRect dest);
+	void renderTexture(bTexture &texture, bPoint dest);
+	
 
 private:
 
 	SDL_Renderer *_sdl_renderer;
 
-
+	// Cache
 	std::unordered_map<std::string, SDL_Texture*> _loaded_textures;
 	std::unordered_map<SDL_Texture*, Uint8> _refs;
-
-	//std::unordered_map<SDL_Texture*, bTexture*> _b_textures;
 
 };
 

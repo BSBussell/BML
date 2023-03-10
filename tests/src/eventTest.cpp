@@ -13,9 +13,9 @@
 int main() {
 
     const char *title = "silly";
-    uint16_t zero = 0;
-    uint16_t width = 320;
-    uint16_t height = 240;
+    Uint16 zero = 0;
+    Uint16 width = 320;
+    Uint16 height = 240;
 
 
     bool run = true;
@@ -33,7 +33,7 @@ int main() {
         // Do Drawings
         run = bEvent::eventLoop();
 
-        if (bEvent::keyDown((uint8_t)21))
+        if (bEvent::keyDown((Uint8)21))
             printf("Hey you pressed q\n");
 
         r->updateBuffer();

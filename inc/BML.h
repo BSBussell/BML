@@ -3,7 +3,6 @@
 #define BML_H
 
 #include <string>
-#include <cstdint>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

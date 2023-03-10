@@ -75,8 +75,6 @@ void bTextureManager::unloadTexture(bTexture texture) {
 		_refs.erase(refs_iter);
 	}
 
-	// Free the bTexture memory
-	//delete texture;
 }
 
 // Clear the maps and free all memory, extremely dangerous to use,,, please be careful
@@ -107,5 +105,29 @@ void bTextureManager::renderTexture(bTexture &texture, bRect dest) {
 	    _refs[texture.texture] = 1;	
 	}
 
-	SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &dest);
+	// I could not find an easy way around doing this ngl
+	SDL_Rect SDL_dest = SDL_Rect(dest); 
+
+	SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &SDL_dest);
+}
+
+void bTextureManager::renderTexture(bTexture &texture, bPoint dest) {
+
+	// Make sure the SDL_Texture hasn't been unloaded
+	auto refs_iter = _refs.find(texture.texture);
+	if (refs_iter == _refs.end()) {
+
+		// Create new texture
+		SDL_Surface* surface = IMG_Load(texture.path.c_str());
+	    texture.texture = SDL_CreateTextureFromSurface(_sdl_renderer, surface);
+	    SDL_FreeSurface(surface);
+
+	    // Setup our look ups and reference counter
+	    _loaded_textures[texture.path] = texture.texture;
+	    _refs[texture.texture] = 1;	
+	}
+
+	// I could not find an easy way around doing this ngl
+	SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, texture.src.w, texture.src.h}; 
+	SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &SDL_dest);
 }

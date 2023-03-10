@@ -14,7 +14,7 @@ class bWindow {
 public:
 
     // Constructors and Destroyer
-    bWindow(const char *windowTitle, uint16_t xPos, uint16_t yPos, uint16_t width, uint16_t height)
+    bWindow(const char *windowTitle, Uint16 xPos, Uint16 yPos, Uint16 width, Uint16 height)
         : windowTitle(windowTitle)
         , xPos(xPos)
         , yPos(yPos)
@@ -24,19 +24,19 @@ public:
     ~bWindow();
 
     // Window Dimensions and Position Setters
-    void move(uint16_t xPos, uint16_t yPos) {
+    void move(Uint16 xPos, Uint16 yPos) {
         this->xPos = xPos; 
         this->yPos = yPos; 
     }
 
-    void resize(uint16_t width, uint16_t height) { 
+    void resize(Uint16 width, Uint16 height) { 
         this->width = width;
         this->height = height;
     }
 
     // Window Dimensions Getters
-    uint16_t getWidth() { return width; }
-    uint16_t getHeight() { return height; }
+    Uint16 getWidth() { return width; }
+    Uint16 getHeight() { return height; }
 
     // Window Flag Toggles
     void toggleFullScreen() { windowFlags ^= SDL_WINDOW_FULLSCREEN; }
@@ -71,14 +71,14 @@ private:
     const char *windowTitle;
 
     // Not a bRect because Uint16 is good enough :3
-    uint16_t xPos;
-    uint16_t yPos;
+    Uint16 xPos;
+    Uint16 yPos;
 
-    uint16_t width;
-    uint16_t height;
+    Uint16 width;
+    Uint16 height;
 
-    uint32_t windowFlags = 0;
-    uint32_t _render_flags = 0;
+    Uint32 windowFlags = 0;
+    Uint32 _render_flags = 0;
 
 };
 

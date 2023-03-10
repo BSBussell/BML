@@ -46,11 +46,11 @@ bool bSheet::updateAnimation() {
 
 	// For readability
 	bAnimation *current = currentAnimation;
-	uint64_t changeInTick = SDL_GetTicks64();
+	Uint64 changeInTick = SDL_GetTicks64();
 
 	changeInTick = SDL_GetTicks64() - current -> tickCount;
 
-	uint32_t duration = current -> duration.front();
+	Uint32 duration = current -> duration.front();
 
 	if (changeInTick > duration) {
 
