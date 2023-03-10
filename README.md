@@ -10,20 +10,21 @@ Install SDL2, SDL_Image, and SDL_Mixer following instructions based off your OSs
 Once you have done that you can copy this code into your terminal of choice
 
 ```
-git clone git@github.com:BSBussell/BML.git
+git clone https://github.com/BSBussell/BML.git
 cd BML
-make install
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
 ```
 
 This will create the linker objects to use when compiling with your program.
 
 #### Tests
-If you want to build and run the tests run in the base directory and then you can run the test binaries created in tests/bin/
-```
-make Tests
-```
+The above will also compile tests that you can run.
 
-Currently there is only 2 tests one for opening a window that you have to force quit to close as events haven't been integrated with it yet. The other opens a window that you can quit using events and will also print to the console when the key 'Q' is pressed. 
+Currently there is only 1 test. 
 
 ### Not working
-Please be patient as the makefile is subject to change as this project grows in size and I am unlikely to update this ReadMe once that happens because honestly how did you even find the project?
+Please be patient as the ~~makefile~~CMakeLists.txt is subject to change as this project grows in size and I am one person.
