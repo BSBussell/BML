@@ -15,7 +15,7 @@
  
 struct bPoint {
 
-	uint32_t x, y;
+	Uint32 x, y;
 
 	// Easy conversion to SDL_Point
 	operator SDL_Point() const;
@@ -23,10 +23,10 @@ struct bPoint {
 
 struct bRect {
 
-	uint32_t x;
-	uint32_t y;
-	uint32_t width;
-	uint32_t height;
+	Uint32 x;
+	Uint32 y;
+	Uint32 width;
+	Uint32 height;
 
 	// Easy conversion to SDL_Rect
     operator SDL_Rect() const;

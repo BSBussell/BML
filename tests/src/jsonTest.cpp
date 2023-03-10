@@ -4,14 +4,10 @@
 
 #include <iostream>
 #include <string>
-#include <stdint.h>
 #include <BML/BML.h>
 
 int main() {
- 
-    // Run diff to check for differences
-    
-        
+     
     bool run = true;
     
     BML_Init();
@@ -41,7 +37,7 @@ int main() {
 
     // Setting the font
     renderer->setFont("../resources/fonts/daydream_3/Daydream.ttf", 50, {0,0,0,255});
-
+    
     bRect dest = {10,10,128,128};
     
     if (!bSound::openAudio())
@@ -54,6 +50,10 @@ int main() {
     
     // I think this should be something handled in the sheet function
     renderer->initSpriteSheet(spriteSheet);
+
+    // Setting up a texture
+    bTexture texture = renderer->initTexture("../resources/blueSquare.png", {0,0,128,128});
+
     
     while(run) {
 
@@ -82,14 +82,17 @@ int main() {
         renderer -> clearBuffer();
 
         renderer -> drawText("Hello World!", {960, 540});
+        renderer -> drawTexture(texture, dest);
         renderer -> drawSprite(spriteSheet, dest);
         
+        
         renderer->presentBuffer();
-        //run = false;
     }
+
     spriteSheet.stopAnimation();
     //
-    renderer->unloadSpriteSheet(spriteSheet);
+    renderer -> unloadTexture(texture);
+    renderer -> unloadSpriteSheet(spriteSheet);
     
     bSound::freeMUS();
     bSound::closeAudio();

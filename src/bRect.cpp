@@ -8,21 +8,19 @@
 bRect::operator SDL_Rect() const {
 
 	SDL_Rect rect;
-	rect.x = x;
-	rect.y = y;
-	rect.w = width;
-	rect.h = height;
-
-	return rect;
+    rect.x = static_cast<int>(x);
+    rect.y = static_cast<int>(y);
+    rect.w = static_cast<int>(width);
+    rect.h = static_cast<int>(height);
+    return rect;
 
 }
 
 bPoint::operator SDL_Point() const {
 
 	SDL_Point point;
-	point.x = x;
-	point.y = y;
-
+	point.x = static_cast<int>(x);
+    point.y = static_cast<int>(y);
 	return point;
 }
 

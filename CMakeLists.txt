@@ -33,28 +33,28 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 # Grabbing BML .cpp files
 set (LIBRARY_SOURCES
-	src/BML.cpp
 	src/bEvent.cpp
+	src/bFontManager.cpp
+	src/BML.cpp
 	src/bRect.cpp
+	src/bRenderer.cpp
 	src/bSheet.cpp
 	src/bSound.cpp
 	src/bTexture.cpp
 	src/bWindow.cpp
-	src/bFontManager.cpp
-	src/bRenderer.cpp
 )
 
 # Grabbing BML .h files
 set (LIBRARY_HEADERS
-	inc/BML.h
 	inc/bEvent.h
+	inc/bFontManager.h
+	inc/BML.h
 	inc/bRect.h
+	inc/bRenderer.h
 	inc/bSheet.h
 	inc/bSound.h
 	inc/bTexture.h
 	inc/bWindow.h
-	inc/bFontManager.h
-	inc/bRenderer.h
 	inc/json.h
 )
 
@@ -112,7 +112,7 @@ if(TESTS)
 
 		get_filename_component(test_name ${test_src} NAME_WE)
 		add_executable(${test_name} ${test_src})
-	    target_link_libraries(${test_name} BML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer -lSDL2_ttf)
+	    target_link_libraries(${test_name} -lBML ${SDL2_LIBRARIES} -lSDL2_image -lSDL2_mixer -lSDL2_ttf)
 	    target_include_directories(${test_name} PRIVATE inc/)
 	    target_compile_options(
 			${test_name}

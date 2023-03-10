@@ -25,20 +25,20 @@ using json = nlohmann::json;
 */ 
 
 
-/// @brief Datastructure used for information about an animation
+// @brief Datastructure used for information about an animation
 struct bAnimation {
 
-    std::queue<uint16_t> frames;
-    std::queue<uint32_t> duration;
+    std::queue<Uint16> frames;
+    std::queue<Uint32> duration;
 
     std::string name;
 
     // How often to update animations
-    //uint32_t speed;
-    uint64_t tickCount;
+    //Uint32 speed;
+    Uint64 tickCount;
 };
 
-/// @brief Data structure used for storing spritesheet info
+// @brief Data structure used for storing spritesheet info
 struct bSheet {
  
     std::string imagePath;
@@ -46,11 +46,11 @@ struct bSheet {
 
     bool animated = false;
 
-    uint32_t totalWidth;
-    uint32_t totalHeight;
+    Uint32 totalWidth;
+    Uint32 totalHeight;
 
-    uint16_t totalSprites;
-    uint16_t currentSprite = 0;
+    Uint16 totalSprites;
+    Uint16 currentSprite = 0;
 
     std::vector<bRect> sprites;
 

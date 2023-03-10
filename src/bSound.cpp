@@ -44,7 +44,7 @@ bool bSound::loadMUS(const char* src) {
     return true;
 }
 
-bool bSound::playMUS(uint8_t loops) {
+bool bSound::playMUS(Uint8 loops) {
 
     if (Mix_PlayMusic(song, loops) == -1) {
         printf("---   Music Failed to Play  ---\n");
@@ -79,7 +79,7 @@ bool bSound::loadSFX(const char* src) {
     return true;
 }
 
-bool bSound::playSFX(uint8_t channel, uint8_t loops) {
+bool bSound::playSFX(Uint8 channel, Uint8 loops) {
 
     Mix_VolumeChunk(wave, MIX_MAX_VOLUME);
 

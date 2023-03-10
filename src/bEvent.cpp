@@ -5,7 +5,7 @@
 
 #include "bEvent.h"
 
-bool bEvent::keyDown(uint8_t key) {
+bool bEvent::keyDown(Uint8 key) {
 
 
     return (b_KEYSTATE[key] == b_KEYDOWN);
@@ -19,7 +19,7 @@ bool bEvent::keyDown(const char key) {
     return false;
 }
 
-bool bEvent::keyUp(uint8_t key) {
+bool bEvent::keyUp(Uint8 key) {
 
     return (b_KEYSTATE[key]== b_KEYUP);
 }

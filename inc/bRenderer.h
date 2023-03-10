@@ -19,12 +19,12 @@ class bRenderer {
 	
 public:
 
+    // Create the renderer using the given flags
 	bRenderer(SDL_Window *window, Uint32 _render_flags);
 	~bRenderer();
 
     // Change the background color
-    void background(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-
+    void background(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
     // Buffer Presentation
     void clearBuffer();
@@ -37,9 +37,10 @@ public:
 
     // Drawing Textures and Rectangles
     void drawTexture(bTexture texture, bRect dest);
+    void drawTexture(bTexture texture, bPoint dest);
     void drawTexture(const char* source, bRect src, bRect dest);
     void drawSprite(bSheet &sheet, bRect dest);
-    void drawRect(bRect location, uint8_t r, uint8_t g, uint8_t b);
+    void drawRect(bRect location, Uint8 r, Uint8 g, Uint8 b);
 
     // Freeing Textures
     void unloadTexture(bTexture &texture);
@@ -51,12 +52,19 @@ public:
 
 private:
 
+    /*
+        We want our managers to be stored in the heap because
+        they will have a long life time, and we don't want to 
+        overfill the stack with things
+    */
+    bTextureManager *_texture_manager;
 	bFontManager *_font_manager;
-
-	SDL_Color _bkg_color;
 
 	SDL_Window *_context;
 	SDL_Renderer *_sdl_renderer;
+
+    // The background color
+    SDL_Color _bkg_color;
 
 };
 

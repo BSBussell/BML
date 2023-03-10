@@ -34,7 +34,6 @@ bRenderer *bWindow::createWindow() {
 }
 
 
-
 // Deletes the renderer
 // Deletes the window
 void bWindow::closeWindow() {

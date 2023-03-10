@@ -23,94 +23,79 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
         exit(1);
     }
 
-    _font_manager = new bFontManager(_sdl_renderer);    
+    
+    _font_manager = new bFontManager(_sdl_renderer);
+    _texture_manager = new bTextureManager(_sdl_renderer);    
 
 }
 
+// Delete our managers
 bRenderer::~bRenderer() {
-	
+
+	delete _texture_manager;
 	delete _font_manager;
 	SDL_DestroyRenderer(_sdl_renderer);
 }
 
+// Changes the renderers background color
 void bRenderer::background(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     
     _bkg_color = {r, g, b, a};
 }
 
+// Clears the current buffer
 void bRenderer::clearBuffer() {
 	
 	SDL_SetRenderDrawColor( _sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a);
     SDL_RenderClear(_sdl_renderer);
-    //SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 0);
 }
 
+// Presents the current buffer
 void bRenderer::presentBuffer() {
 
 	SDL_RenderPresent(_sdl_renderer);
 }
 
+// Presents the current buffer and then clears it for next frame
 void bRenderer::drawBuffer() {
 
 	presentBuffer();
 	clearBuffer();
 }
 
+// Initalizes a texutre from the texture manager and returns it 
 bTexture bRenderer::initTexture(const char* source, bRect src) {
 
-    bTexture newTexture;
-
-    // Despite SDL_LoadTexture's existence I would like to keep the
-    // SDL_Surface in case :3
-    SDL_Surface* surface = IMG_Load(BML_GetPath(source).c_str());
-    SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(_sdl_renderer, surface);
-    SDL_FreeSurface(surface);
-
-    newTexture.texture = sdlTexture;
-    newTexture.src = {(int)src.x, (int)src.y, (int)src.width, (int)src.height};
-
-    return newTexture;
+    return _texture_manager -> loadTexture(source, src);
 }
 
+// Initializes a spritesheet using our texture manager
 void bRenderer::initSpriteSheet(bSheet &sheet) {
-
-    // Making a new texture ok    
+   
     bTexture newTexture;
-
-    // Grabbing the surface
-    SDL_Surface* surface = IMG_Load(BML_GetPath(sheet.imagePath).c_str());
-    SDL_Texture* sdlTexture = SDL_CreateTextureFromSurface(_sdl_renderer, surface);
-    
-    // Used the surface to make a texture now free it... Seems to cause no problems
-    SDL_FreeSurface(surface);
-
-    newTexture.texture = sdlTexture;
-    newTexture.src = {0, 0, (int)sheet.totalWidth, (int)sheet.totalHeight};
-
+    newTexture = _texture_manager -> loadTexture(sheet.imagePath.c_str(), {0, 0, sheet.totalWidth, sheet.totalHeight});
     sheet.sourceTexture = newTexture;
 }
 
 
+// Draws a texture to the screen
 void bRenderer::drawTexture(bTexture texture, bRect dest) {
 
-    SDL_Rect SDL_dest = SDL_Rect(dest); 
-
-    SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &SDL_dest);
+    _texture_manager -> renderTexture(texture, dest);
 }
 
-// Initalizes and adds a texture to render scene
+void bRenderer::drawTexture(bTexture texture, bPoint dest) {
+
+    _texture_manager -> renderTexture(texture, dest);
+}
+
+// Initalizes and adds a texture to render scene then frees texture
 // Awful don't use :3
 void bRenderer::drawTexture(const char* source, bRect src, bRect dest) {
 
-    SDL_Surface* surface = IMG_Load(source);
-    SDL_Texture* texture = SDL_CreateTextureFromSurface(_sdl_renderer, surface);
-    SDL_FreeSurface(surface);
-
-    SDL_Rect SDL_src = SDL_Rect(src); 
-    SDL_Rect SDL_dest = SDL_Rect(dest); 
-
-    SDL_RenderCopy(_sdl_renderer, texture, &SDL_src, &SDL_dest);
-
+    bTexture newTexture = _texture_manager -> loadTexture(source, src);
+    _texture_manager -> renderTexture(newTexture, dest);
+    _texture_manager -> unloadTexture(newTexture);
 }
 
 // Draws a sprite by grabbing from the texture and then drawing that specific region
@@ -127,7 +112,8 @@ void bRenderer::drawSprite(bSheet &sheet, bRect dest) {
     SDL_RenderCopy(_sdl_renderer, sheet.sourceTexture.texture, &SDL_src, &SDL_dest);
 }
 
-void bRenderer::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8_t b = 255) {
+// Simply drawing a rectangle
+void bRenderer::drawRect(bRect location, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255) {
 
 
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
@@ -137,11 +123,13 @@ void bRenderer::drawRect(bRect location, uint8_t r = 255, uint8_t g = 255, uint8
     //free(SDL_location);
 }
 
+// Unloads a texture from memory
 void bRenderer::unloadTexture(bTexture &texture) {
 
-    SDL_DestroyTexture(texture.texture);
+    _texture_manager -> unloadTexture(texture);
 }
 
+// Just calls unloadTexture() on the sheet's source texture
 void bRenderer::unloadSpriteSheet(bSheet &sheet) {
 
     this->unloadTexture(sheet.sourceTexture);

@@ -17,13 +17,13 @@ public:
 
     // Only one file considered "music" can play at a time
     static bool loadMUS(const char* src);
-    static bool playMUS(uint8_t loops);
+    static bool playMUS(Uint8 loops);
     static void setMUSVOL(double perc);
     static void freeMUS();
 
     // Sound effects can play on many channels
     bool loadSFX(const char* src);
-    bool playSFX(uint8_t channel, uint8_t loops);
+    bool playSFX(Uint8 channel, Uint8 loops);
     void setSFXVOL(double perc);
     void freeSFX();
 
