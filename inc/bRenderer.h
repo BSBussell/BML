@@ -40,7 +40,7 @@ public:
     void drawTexture(bTexture texture, bPoint dest);
     void drawTexture(const char* source, bRect src, bRect dest);
     void drawSprite(bSheet &sheet, bRect dest);
-    void drawRect(bRect location, Uint8 r, Uint8 g, Uint8 b);
+    void drawRect(bRect location, SDL_Color color);
 
     // Freeing Textures
     void unloadTexture(bTexture &texture);

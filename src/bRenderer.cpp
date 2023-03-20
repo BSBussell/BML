@@ -12,6 +12,7 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
     _bkg_color = {255, 255, 255, 255};
 
 	_sdl_renderer = SDL_CreateRenderer(_context, -1, _render_flags);
+    SDL_SetRenderDrawBlendMode(_sdl_renderer, SDL_BLENDMODE_BLEND);
 
     if (_sdl_renderer) {
 
@@ -114,11 +115,11 @@ void bRenderer::drawSprite(bSheet &sheet, bRect dest) {
 }
 
 // Simply drawing a rectangle
-void bRenderer::drawRect(bRect location, Uint8 r = 255, Uint8 g = 255, Uint8 b = 255) {
+void bRenderer::drawRect(bRect location, SDL_Color color) {
 
 
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
-    SDL_SetRenderDrawColor( _sdl_renderer, r, g, b, 255);
+    SDL_SetRenderDrawColor( _sdl_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(_sdl_renderer, &SDL_location);
     SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 255 );
     //free(SDL_location);

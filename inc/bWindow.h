@@ -61,6 +61,8 @@ public:
     // Drawing and Clearing
     bRenderer *createWindow();
     
+    void setWindowTitle(const char *title) { SDL_SetWindowTitle(sdlWindow, title); }
+
     void closeWindow();
 
 private:
