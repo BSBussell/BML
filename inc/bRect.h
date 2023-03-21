@@ -20,8 +20,8 @@ struct bPointF;
 struct bRect;
 struct bRectF;
 
-// @brief Integer, can be used as a vector2d
 
+// @brief Integer, can be used as a vector2d
 struct bPoint {
 
 	Uint32 x, y;

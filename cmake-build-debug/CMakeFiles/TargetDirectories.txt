@@ -1,0 +1,8 @@
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/BML.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/jsonTest.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/list_install_components.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/install.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/install/local.dir
+/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/CMakeFiles/install/strip.dir

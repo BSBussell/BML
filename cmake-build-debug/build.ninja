@@ -1,0 +1,278 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: BML
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug/
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target BML
+
+
+#############################################
+# Order-only phony target for BML
+
+build cmake_object_order_depends_target_BML: phony || CMakeFiles/BML.dir
+
+build CMakeFiles/BML.dir/src/bEvent.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bEvent.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bEvent.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bFontManager.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bFontManager.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bFontManager.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/BML.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/BML.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/BML.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bRect.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bRect.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bRect.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bRenderer.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bRenderer.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bRenderer.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bSheet.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bSheet.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bSheet.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bSound.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bSound.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bSound.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bTexture.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bTexture.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bTexture.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+build CMakeFiles/BML.dir/src/bWindow.cpp.o: CXX_COMPILER__BML_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/src/bWindow.cpp || cmake_object_order_depends_target_BML
+  DEP_FILE = CMakeFiles/BML.dir/src/bWindow.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -Ofast -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/usr/local/include/SDL2 -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc
+  OBJECT_DIR = CMakeFiles/BML.dir
+  OBJECT_FILE_DIR = CMakeFiles/BML.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target BML
+
+
+#############################################
+# Link the static library libBML.a
+
+build libBML.a: CXX_STATIC_LIBRARY_LINKER__BML_Debug CMakeFiles/BML.dir/src/bEvent.cpp.o CMakeFiles/BML.dir/src/bFontManager.cpp.o CMakeFiles/BML.dir/src/BML.cpp.o CMakeFiles/BML.dir/src/bRect.cpp.o CMakeFiles/BML.dir/src/bRenderer.cpp.o CMakeFiles/BML.dir/src/bSheet.cpp.o CMakeFiles/BML.dir/src/bSound.cpp.o CMakeFiles/BML.dir/src/bTexture.cpp.o CMakeFiles/BML.dir/src/bWindow.cpp.o
+  ARCH_FLAGS = -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles/BML.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libBML.a
+  TARGET_PDB = BML.a.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target jsonTest
+
+
+#############################################
+# Order-only phony target for jsonTest
+
+build cmake_object_order_depends_target_jsonTest: phony || cmake_object_order_depends_target_BML
+
+build CMakeFiles/jsonTest.dir/tests/src/jsonTest.cpp.o: CXX_COMPILER__jsonTest_Debug /Users/programming/Documents/GitHub/BlueEngine/BML/tests/src/jsonTest.cpp || cmake_object_order_depends_target_jsonTest
+  DEP_FILE = CMakeFiles/jsonTest.dir/tests/src/jsonTest.cpp.o.d
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk -fcolor-diagnostics -Wall -Wextra -std=c++17 -g -std=gnu++17
+  INCLUDES = -I/usr/local/include -I/Users/programming/Documents/GitHub/BlueEngine/BML/inc -isystem /usr/local/include/SDL2
+  OBJECT_DIR = CMakeFiles/jsonTest.dir
+  OBJECT_FILE_DIR = CMakeFiles/jsonTest.dir/tests/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target jsonTest
+
+
+#############################################
+# Link the executable /Users/programming/Documents/GitHub/BlueEngine/BML/tests/bin/jsonTest
+
+build /Users/programming/Documents/GitHub/BlueEngine/BML/tests/bin/jsonTest: CXX_EXECUTABLE_LINKER__jsonTest_Debug CMakeFiles/jsonTest.dir/tests/src/jsonTest.cpp.o | /usr/local/lib/libSDL2.dylib || libBML.a
+  FLAGS = -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib  -lBML  /usr/local/lib/libSDL2.dylib  -lSDL2_image  -lSDL2_mixer  -lSDL2_ttf
+  LINK_PATH = -L/usr/local/lib
+  OBJECT_DIR = CMakeFiles/jsonTest.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = /Users/programming/Documents/GitHub/BlueEngine/BML/tests/bin/jsonTest
+  TARGET_PDB = jsonTest.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug && /opt/local/bin/ccmake -S/Users/programming/Documents/GitHub/BlueEngine/BML -B/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug && "/Users/programming/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S/Users/programming/Documents/GitHub/BlueEngine/BML -B/Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug && "/Users/programming/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/bin/cmake" -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug && "/Users/programming/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug && "/Users/programming/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+# =============================================================================
+# Target aliases.
+
+build BML: phony libBML.a
+
+build jsonTest: phony /Users/programming/Documents/GitHub/BlueEngine/BML/tests/bin/jsonTest
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/programming/Documents/GitHub/BlueEngine/BML/cmake-build-debug
+
+build all: phony libBML.a /Users/programming/Documents/GitHub/BlueEngine/BML/tests/bin/jsonTest
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Users/programming/Documents/GitHub/BlueEngine/BML/CMakeLists.txt /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FeatureSummary.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/SDL2/sdl2-config-version.cmake /usr/local/lib/cmake/SDL2/sdl2-config.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Users/programming/Documents/GitHub/BlueEngine/BML/CMakeLists.txt /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCXXInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/FeatureSummary.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-CXX.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Users/programming/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8836.42/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake /usr/local/lib/cmake/SDL2/sdl2-config-version.cmake /usr/local/lib/cmake/SDL2/sdl2-config.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeCXXCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all

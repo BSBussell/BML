@@ -19,6 +19,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Define an option to build the tests
 option(TESTS "Build tests" ON)
+option(INSTALL "Install BML" ON)
 
 
 
@@ -77,13 +78,16 @@ target_compile_options(
 
 target_include_directories(	BML PUBLIC inc )
 
-install(TARGETS BML
-    ARCHIVE DESTINATION lib
-)
+if(INSTALL)
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/inc/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/usr/local/include/BML
-        FILES_MATCHING PATTERN "*.h")
+	install(TARGETS BML
+		ARCHIVE DESTINATION lib
+	)
+
+	install(DIRECTORY ${PROJECT_SOURCE_DIR}/inc/
+			DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/usr/local/include/BML
+			FILES_MATCHING PATTERN "*.h")
+endif()
 
 
 # Conditionally add the tests directory
