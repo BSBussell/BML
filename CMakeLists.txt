@@ -10,6 +10,10 @@ project(BML VERSION 0.2.0 DESCRIPTION "SDL Wrapper For Bee")
 
 
 # Set the output folder where The program will be created
+
+#set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/build)
+
+# Print the Current_Binary_Dir
 #set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 #set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 #set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
@@ -78,6 +82,10 @@ target_compile_options(
 
 target_include_directories(	BML PUBLIC inc )
 
+#set_target_properties(BML PROPERTIES
+#    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/
+#)
+
 if(INSTALL)
 
 	install(TARGETS BML
@@ -106,11 +114,7 @@ if(TESTS)
 
 	set(TEST_SOURCES
 
-		#tests/src/eventTest.cpp
 		tests/src/jsonTest.cpp
-		#tests/src/soundTest.cpp
-		#tests/src/textureTest.cpp
-		#tests/src/windowTest.cpp
 	)
 
 	foreach(test_src ${TEST_SOURCES})
@@ -129,8 +133,14 @@ if(TESTS)
 		)
 
 	    set_target_properties(${test_name} PROPERTIES
-	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
+	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests/bin/
 	    )
+		# Print the RUNTIME_OUTPUT_DIRECTORY
+		message(STATUS "RUNTIME_OUTPUT_DIRECTORY: " ${CMAKE_CURRENT_SOURCE_DIR}/tests/bin/)
+#		set_target_properties(${test_name} PROPERTIES
+#    		OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/build
+#		)
+
 	    add_dependencies(${test_name} BML)
 
 	endforeach()

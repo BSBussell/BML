@@ -20,6 +20,7 @@ struct bPointF;
 struct bRect;
 struct bRectF;
 
+typedef bPoint bVector2d;
 
 // @brief Integer, can be used as a vector2d
 struct bPoint {

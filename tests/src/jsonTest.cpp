@@ -9,6 +9,7 @@
 int main() {
      
     bool run = true;
+	bVector2d mousePos = {0,1};
     
     BML_Init();
 
@@ -45,6 +46,7 @@ int main() {
 
     //  bSound music;
     bSound::loadMUS("../resources/BLUE-Compress.wav");
+	bSound::setMUSVOL(0.5);
     bSound::playMUS(5);
 
     
@@ -62,16 +64,17 @@ int main() {
         run = bEvent::eventLoop();
 
         if (bEvent::keyDown('W')) {
-            dest.y--;
+            dest.y-=5;
         } 
         if (bEvent::keyDown('S')) {
-            dest.y++;
+            dest.y+=5;
         }
         if (bEvent::keyDown('A')) {
-            dest.x--;
+            dest.x-=5;
         }
         if (bEvent::keyDown('D')) {
-            dest.x++;
+            dest.x+=5;
+			mousePos.x+=5;
         }
         if (bEvent::keyDown('Q')) {
             run = false;
