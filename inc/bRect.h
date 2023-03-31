@@ -35,50 +35,29 @@ struct bPoint {
 	// Conversion to bPointF
     operator bPointF() const;
 
-	// @brief Fixed-point addition
-    bPoint operator+(const bPoint& other) const {
-        return {x + other.x, y + other.y};
-    }
 
-    // @brief
-    bPoint operator-(const bPoint& other) const {
-        return {x - other.x, y - other.y};
-    }
+	// ###### Math Operators ######
+	// ###########################
 
-    // @brief Fixed-point multiplication by scalar
-    bPoint operator*(Uint32 scalar) const {
-        return {x * scalar, y * scalar};
-    }
+	// the + and - operators with bPoint
+    bPoint operator+(const bPoint& other) const;
+    bPoint operator-(const bPoint& other) const;
 
-    // @brief Fixed-point division by scalar
-    bPoint operator/(Uint32 scalar) const {
-        return {x / scalar, y / scalar};
-    }
+	// the * and / operators with a scalar
+    bPoint operator*(Uint32 scalar) const;
+    bPoint operator/(Uint32 scalar) const;
 
-	// @brief the += operator
-	bPoint operator+=(const bPoint& other) {
-		x += other.x;
-		y += other.y;
-		return *this;
-	}
 
-	bPoint operator-=(const bPoint& other) {
-		x -= other.x;
-		y -= other.y;
-		return *this;
-	}
+	// ###### Assignment Operators ######
+	// #################################
 
-	bPoint operator*=(Uint32 scalar) {
-		x *= scalar;
-		y *= scalar;
-		return *this;
-	}
+	// += and -= operators with bPoint
+	bPoint operator+=(const bPoint& other);
+	bPoint operator-=(const bPoint& other);
 
-	bPoint operator/=(Uint32 scalar) {
-		x /= scalar;
-		y /= scalar;
-		return *this;
-	}
+	// *= and /= operators with a scalar
+	bPoint operator*=(Uint32 scalar);
+	bPoint operator/=(Uint32 scalar);
 };
 
 
@@ -100,50 +79,27 @@ struct bPointF {
 	// Conversion to bPoint
     operator bPoint() const;
 
-    // @brief Fixed-point addition
-    bPointF operator+(const bPointF& other) const {
-        return {x + other.x, y + other.y};
-    }
+	// ###### Math Operators ######
+	// ###########################
 
-    // @brief Fixed-point subtraction
-    bPointF operator-(const bPointF& other) const {
-        return {x - other.x, y - other.y};
-    }
+    // + and - operators with bPointF
+    bPointF operator+(const bPointF& other) const;
+    bPointF operator-(const bPointF& other) const;
 
-    // @brief Fixed-point multiplication by scalar
-    bPointF operator*(float scalar) const {
-        return { (x * scalar), (y * scalar)};
-    }
+    // * and / operators with a scalar
+    bPointF operator*(float scalar) const;
+    bPointF operator/(float scalar) const;
 
-    // @brief Fixed-point division by scalar
-    bPointF operator/(float scalar) const {
-        return {(x / scalar), (y / scalar)};
-    }
-	
-	// @brief the += operator
-	bPointF operator+=(const bPointF& other) {
-		x += other.x;
-		y += other.y;
-		return *this;
-	}
+	// ###### Assignment Operators ######
+	// #################################
 
-	bPointF operator-=(const bPointF& other) {
-		x -= other.x;
-		y -= other.y;
-		return *this;
-	}
+	// += and -= operators with bPointF
+	bPointF operator+=(const bPointF& other);
+	bPointF operator-=(const bPointF& other);
 
-	bPointF operator*=(float scalar) {
-		x *= scalar;
-		y *= scalar;
-		return *this;
-	}
-
-	bPointF operator/=(float scalar) {
-		x /= scalar;
-		y /= scalar;
-		return *this;
-	}
+	// *= and /= operators with a scalar
+	bPointF operator*=(float scalar);
+	bPointF operator/=(float scalar);
 };
 
 
@@ -159,11 +115,6 @@ struct bRect {
 	// Return the center of the rectangle
 	bPoint center() const;
 
-	float left() const { return x; }
-    float right() const { return x + width; }
-    float top() const { return y; }
-    float bottom() const { return y + height; }
-
 	// Checks if the two rectangles intersect
 	bool intersects(const bRect& other);
 
@@ -172,54 +123,31 @@ struct bRect {
 
 	operator bRectF() const;
 
-	// Math Operators
-	bRect operator+(const bRect &other) const {
-		return {x + other.x, y + other.y, width + other.width, height + other.height};
-	}
+	// ###### Math Operators ########
+	// ##############################
 
-	bRect operator-(const bRect &other) const {
-		return {x - other.x, y - other.y, width - other.width, height - other.height};
-	}
+	// Adding and subtracting with a bRect
+	bRect operator+(const bRect &other) const;
+	bRect operator-(const bRect &other) const;
 
-	bRect operator*(Uint32 scalar) const {
-		return {x * scalar, y * scalar, width * scalar, height * scalar};
-	}
+	// Multiplying and dividing with a scalar
+	bRect operator*(Uint32 scalar) const;
+	bRect operator/(Uint32 scalar) const;
 
-	bRect operator/(Uint32 scalar) const {
-		return {x / scalar, y / scalar, width / scalar, height / scalar};
-	}
+	// ###### Assignment Operators ########
+	// ####################################
 
-	bRect& operator+=(const bRect &other) {
-		x += other.x;
-		y += other.y;
-		width += other.width;
-		height += other.height;
-		return *this;
-	}
+	// += and -= with a bRect
+	bRect& operator+=(const bRect &other);
+	bRect& operator-=(const bRect &other);
 
-	bRect& operator-=(const bRect &other) {
-		x -= other.x;
-		y -= other.y;
-		width -= other.width;
-		height -= other.height;
-		return *this;
-	}
+	// += and -= with a bPoint
+	bRect &operator+=(const bPoint &other);
+	bRect &operator-=(const bPoint &other);
 
-	bRect& operator*=(Uint32 scalar) {
-		x *= scalar;
-		y *= scalar;
-		width *= scalar;
-		height *= scalar;
-		return *this;
-	}
-
-	bRect& operator/=(Uint32 scalar) {
-		x /= scalar;
-		y /= scalar;
-		width /= scalar;
-		height /= scalar;
-		return *this;
-	}
+	// *= and /= with a scalar
+	bRect& operator*=(Uint32 scalar);
+	bRect& operator/=(Uint32 scalar);
 
 };
 
@@ -232,120 +160,50 @@ struct bRectF {
 	bPointF center() const;
 
 	// Return the intersection of two rectangles
-	bRectF intersection(const bRectF& other) const {
-
-
-		float x1 = fmax(x, other.x);
-		float y1 = fmax(y, other.y);
-		float x2 = fmin(x + width, other.x + other.width);
-		float y2 = fmin(y + height, other.y + other.height);
-
-		return {x1, y1, x2 - x1, y2 - y1};
-	}
+	bRectF intersection(const bRectF& other) const;
 
 	// Checks if the two rectangles intersect
 	bool intersects(const bRectF& other);
 
+	// Conversion to bRect
 	operator bRect() const;
 
-	// Math Operators
-	bRectF operator+(const bRectF& other) const {
-        return {x + other.x, y + other.y, width + other.width, height + other.height};
-    }
 
-    bRectF operator-(const bRectF& other) const {
-        return {x - other.x, y - other.y, width - other.width, height - other.height};
-    }
+	// ###### Math Operators ########
+	// ##############################
 
-    bRectF operator*(float scalar) const {
-        return {x * scalar, y * scalar, width * scalar, height * scalar};
-    }
+	// +, and - with a bRectF
+	bRectF operator+(const bRectF& other) const;
+    bRectF operator-(const bRectF& other) const;
 
-    bRectF operator/(float scalar) const {
-        return {x / scalar, y / scalar, width / scalar, height / scalar};
-    }
+	// *, and / with a scalar
+    bRectF operator*(float scalar) const;
+    bRectF operator/(float scalar) const;
 
-    bRectF& operator+=(const bRectF& other) {
-        x += other.x;
-        y += other.y;
-        width += other.width;
-        height += other.height;
-        return *this;
-    }
+	// +, -, *, and / with a bPointF
+	bRectF& operator+(const bPointF& other);
+	bRectF& operator-(const bPointF& other);
+	bRectF& operator*(const bPointF& other);
+	bRectF& operator/(const bPointF& other);
 
-    bRectF& operator-=(const bRectF& other) {
-        x -= other.x;
-        y -= other.y;
-        width -= other.width;
-        height -= other.height;
-        return *this;
-    }
+	// ###### Assignment Operators ########
+	// ####################################
 
-    bRectF& operator*=(float scalar) {
-        x *= scalar;
-        y *= scalar;
-        width *= scalar;
-        height *= scalar;
-        return *this;
-    }
+	// += and -= with a bRect
+    bRectF& operator+=(const bRectF& other);
+    bRectF& operator-=(const bRectF& other);
 
-    bRectF& operator/=(float scalar) {
-        x /= scalar;
-        y /= scalar;
-        width /= scalar;
-        height /= scalar;
-        return *this;
-    }
+	// *= and /= with a scalar
+    bRectF& operator*=(float scalar);
+    bRectF& operator/=(float scalar);
 
-	// Point Operators
-	bRectF& operator+(const bPointF& other) {
-		x += other.x;
-		y += other.y;
-		return *this;
-		
-	}
+	// +=, -=, *=, and /= with a bPointF
+	bRectF& operator+=(const bPointF& other);
+	bRectF& operator-=(const bPointF& other);
+	bRectF& operator*=(const bPointF& other);
+	bRectF& operator/=(const bPointF& other);
 
-	bRectF& operator-(const bPointF& other) {
-		x -= other.x;
-		y -= other.y;
-		return *this;
-	}
 
-	bRectF& operator*(const bPointF& other) {
-		x *= other.x;
-		y *= other.y;
-		return *this;
-	}
-
-	bRectF& operator/(const bPointF& other) {
-		x /= other.x;
-		y /= other.y;
-		return *this;
-	}
-
-	bRectF& operator+=(const bPointF& other) {
-		x += other.x;
-		y += other.y;
-		return *this;
-	}
-
-	bRectF& operator-=(const bPointF& other) {
-		x -= other.x;
-		y -= other.y;
-		return *this;
-	}
-
-	bRectF& operator*=(const bPointF& other) {
-		x *= other.x;
-		y *= other.y;
-		return *this;
-	}
-
-	bRectF& operator/=(const bPointF& other) {
-		x /= other.x;
-		y /= other.y;
-		return *this;
-	}
 
 };
 
