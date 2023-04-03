@@ -8,7 +8,7 @@
 bool bSheet::startAnimation(std::string key) {
 
 	if (animations.count(key) == 0) {
-		perror("KEY DID NOT EXIST\n");
+		fprintf(stderr, "Animation %s does not exist\n", key.c_str());
 		return false;
 	}
 
@@ -96,7 +96,6 @@ bool readSheetFromJSON(const char *filePath, bSheet &data) {
 
 		data.imagePath = meta["image"].get<std::string>();
 
-
 		data.totalWidth = dimensions["w"];
 		data.totalHeight = dimensions["h"];
 		
@@ -126,10 +125,14 @@ bool readSheetFromJSON(const char *filePath, bSheet &data) {
 		}
 		data.animations[animation.name] = animation;
 		data.totalSprites = count;
+
 		return true;
+
+	// If the JSON file is invalid
 	} catch (...) {
-		perror("JSON Parsing Error\n");
-		return false;
+
+
+		fprintf(stderr, "JSON Parsing Error: %s\n", filePath);
 		exit(1);
 	}
 	

@@ -75,6 +75,7 @@ bTexture bRenderer::initTexture(const char* source, bRect src) {
 void bRenderer::initSpriteSheet(bSheet &sheet) {
    
     bTexture newTexture;
+
     newTexture = _texture_manager -> loadTexture(sheet.imagePath.c_str(), {0, 0, sheet.totalWidth, sheet.totalHeight});
     sheet.sourceTexture = newTexture;
 }

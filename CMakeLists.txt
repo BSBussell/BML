@@ -125,7 +125,7 @@ if(TESTS)
 		)
 
 	    set_target_properties(${test_name} PROPERTIES
-	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../tests/bin
+	        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/../../BML/tests/bin
 	    )
 	    add_dependencies(${test_name} BML)
 
