@@ -4,11 +4,10 @@
 
 #include "BML.h"
 
-
 void BML_Init() {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
-		printf("---       SDL SUCCESSFULLY INITIALIZED     ---\n");
+		printf("---   SDL %d.%d.%d SUCCESSFULLY INITIALIZED  ---\n", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
 	} else {
 		printf("---       SDL FAILED TO INITIALIZE          ---\n");
 		printf("Unable to initialize SDL: %s", SDL_GetError());
@@ -22,29 +21,27 @@ void BML_Close() {
 
 std::string BML_GetPath(const char* path) {
 
-	char * base_path = SDL_GetBasePath();
+	// Get SDL_BasePath
 
-	std::string relativePath = std::string(base_path);
-    relativePath += std::string(path);
-	
-	// SDL being a C library always causes some funnies
-	// Maybe I should be rewriting this in C lmao
-	free(base_path);
+	char *base_path = SDL_GetBasePath();
+	std::string base_path_string = std::string(base_path);
+	std::string full_path = base_path_string + std::string(path);
 
-    return relativePath;
+	// Making me nostalgic for CS360
+	SDL_free(base_path);
+
+    return full_path;
 
 }
 
 std::string BML_GetPath(std::string path) {
 
-	char * base_path = SDL_GetBasePath();
+	char *base_path = SDL_GetBasePath();
+	std::string base_path_string = std::string(base_path);
+	std::string full_path = base_path_string + path;
 
-	std::string relativePath = std::string(base_path);
-    relativePath += path;
+	// Lol C
+	SDL_free(base_path);
 
-	// holy hell :3
-	free(base_path);
-
-    return relativePath;
-
+    return full_path;
 }
