@@ -91,22 +91,21 @@ private:
 
 	/**
 	 * @brief The renderer that the textures are tied to
-	 * 
 	 */
 	SDL_Renderer *_sdl_renderer;
 
 	
 	/**
 	 * @brief Cache of allocated textures
-	 * 
 	 */
 	std::unordered_map<std::string, SDL_Texture*> _loaded_textures;
 
 	/**
 	 * @brief Reference counter for textures
-	 * 
 	 */
 	std::unordered_map<SDL_Texture*, Uint8> _refs;
+
+
 
 };
 

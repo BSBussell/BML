@@ -86,7 +86,8 @@ int main() {
         renderer -> drawSprite(spriteSheet, dest);
         
         
-        renderer->presentBuffer();
+        renderer -> presentBuffer();
+
     }
 
     spriteSheet.stopAnimation();

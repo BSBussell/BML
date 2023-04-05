@@ -25,10 +25,13 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
         exit(1);
     }
 
-    
-    _font_manager = new bFontManager(_sdl_renderer);
-    _texture_manager = new bTextureManager(_sdl_renderer);    
 
+    // Create our managers
+    _font_manager = new bFontManager(_sdl_renderer);
+    _texture_manager = new bTextureManager(_sdl_renderer);
+
+    // we start with a empty batch
+    _batch = nullptr;
 }
 
 // Delete our managers
@@ -47,15 +50,54 @@ void bRenderer::background(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 
 // Clears the current buffer
 void bRenderer::clearBuffer() {
-	
+
+    SDL_SetRenderTarget(_sdl_renderer, nullptr);
 	SDL_SetRenderDrawColor( _sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a);
     SDL_RenderClear(_sdl_renderer);
+
+    // Start our default batch
+    newBatch();
 }
 
 // Presents the current buffer
 void bRenderer::presentBuffer() {
 
+    // If we have a current batch, push it to the queue
+    if (_batch) {
+        _atlas_queue.push(_batch);
+    }
+
+    SDL_SetRenderTarget(_sdl_renderer, nullptr);
+
+    // While the queue is not empty, render the textures
+    while (!_atlas_queue.empty()) {
+
+
+        // Get the next batch
+        SDL_Texture* batch = _atlas_queue.front();
+        _atlas_queue.pop();
+
+        // The source rectangle
+        SDL_Rect src = {0, 0, 0, 0};
+
+        // Get the size of the batch
+        SDL_QueryTexture(batch, nullptr, nullptr, &src.w, &src.h);
+
+        // Destination rectangle
+        SDL_Rect dest = {0, 0, src.w, src.h};
+
+        // Render the batch
+        SDL_RenderCopy(_sdl_renderer, batch, &src, &dest);
+
+        // Free the batch
+        SDL_DestroyTexture(batch);
+    }
+
+
+    // Present the buffer
 	SDL_RenderPresent(_sdl_renderer);
+    _batch = nullptr;
+
 }
 
 // Presents the current buffer and then clears it for next frame
@@ -63,6 +105,26 @@ void bRenderer::drawBuffer() {
 
 	presentBuffer();
 	clearBuffer();
+}
+
+// Creates a new batch for the texture atlas
+void bRenderer::newBatch() {
+
+    // If we have a current batch, push it to the queue
+    if (_batch) {
+        _atlas_queue.push(_batch);
+    }
+
+    int width, height;
+    SDL_GetRendererOutputSize(_sdl_renderer, &width, &height);
+    _batch = SDL_CreateTexture(_sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+
+    // Set the render target to the current atlas
+    SDL_SetRenderTarget(_sdl_renderer, _batch);
+
+    SDL_SetRenderDrawColor(_sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a); // Set the draw color to transparent black
+    SDL_RenderClear(_sdl_renderer); // Clear the render target
+
 }
 
 // Initalizes a texutre from the texture manager and returns it 
@@ -123,7 +185,6 @@ void bRenderer::drawRect(bRect location, SDL_Color color) {
     SDL_SetRenderDrawColor( _sdl_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(_sdl_renderer, &SDL_location);
     SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 255 );
-    //free(SDL_location);
 }
 
 // Unloads a texture from memory

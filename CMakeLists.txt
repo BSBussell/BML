@@ -142,6 +142,12 @@ if(TESTS)
 	    )
 	    add_dependencies(${test_name} BML)
 
+		add_custom_target(clean_${test_name}
+				COMMAND ${CMAKE_COMMAND} -E remove ${test_name}
+				DEPENDS ${test_name}
+		)
+
+
 	endforeach()
 endif()
 

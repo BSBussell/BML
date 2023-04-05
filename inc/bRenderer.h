@@ -21,6 +21,7 @@ public:
 
     // Create the renderer using the given flags
 	bRenderer(SDL_Window *window, Uint32 _render_flags);
+    // Delete our managers
 	~bRenderer();
 
     // Change the background color
@@ -30,6 +31,9 @@ public:
     void clearBuffer();
     void presentBuffer();
     void drawBuffer();
+
+    // Batch Rendering
+    void newBatch();
 
     // Initalize Textures
     bTexture initTexture(const char* source, bRect src);
@@ -65,6 +69,13 @@ private:
 
     // The background color
     SDL_Color _bkg_color;
+
+    // The Texture Atlas
+    SDL_Texture *_batch;
+
+
+    // @brief A Queue of texture atlases
+    std::queue<SDL_Texture*> _atlas_queue;
 
 };
 
