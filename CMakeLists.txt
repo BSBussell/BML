@@ -73,12 +73,30 @@ target_compile_options(
 target_include_directories(	BML PUBLIC inc )
 
 install(TARGETS BML
-    ARCHIVE DESTINATION lib
-)
+		ARCHIVE DESTINATION lib
+		COMPONENT BML
+		)
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/inc/
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/usr/local/include/BML
-        FILES_MATCHING PATTERN "*.h")
+file(GLOB_RECURSE HEADER_FILES "${PROJECT_SOURCE_DIR}/inc/*.h")
+foreach(header ${HEADER_FILES})
+	get_filename_component(header_subdir "${header}" DIRECTORY)
+	file(RELATIVE_PATH relative_subdir "${PROJECT_SOURCE_DIR}/inc" "${header_subdir}")
+	install(FILES "${header}"
+			DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/usr/local/include/BML/${relative_subdir}"
+			COMPONENT BML
+			)
+endforeach()
+
+add_custom_target(Install_BML
+		COMMAND "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=BML -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
+		DEPENDS BML
+		WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+		COMMENT "Installing BML library"
+		)
+
+
+
+message("Install Include Directory: ${INSTALL_INCLUDE_DIR}")
 
 
 # Conditionally add the tests directory
@@ -126,4 +144,6 @@ if(TESTS)
 
 	endforeach()
 endif()
+
+
 
