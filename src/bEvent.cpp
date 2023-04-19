@@ -84,6 +84,7 @@ bool bEvent::eventLoop() {
         switch(event.type) {
             
             case SDL_QUIT:
+
                 return false;
             
             case SDL_KEYDOWN:
