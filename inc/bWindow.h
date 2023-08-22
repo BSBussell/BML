@@ -43,6 +43,11 @@ public:
     void toggleHighDPI() { windowFlags ^= SDL_WINDOW_ALLOW_HIGHDPI; }
     void toggleResizeable() { windowFlags ^= SDL_WINDOW_RESIZABLE; }
     void toggleBorders() { windowFlags ^= SDL_WINDOW_BORDERLESS; }
+    
+    // Sets Hint for Render Scaling
+    void toggleNearest() { SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" ); }
+    void toggleLinear() { SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ); }
+
 
     // Renderer Flag Toggles
     void toggleSoftwareRender() { _render_flags ^= SDL_RENDERER_SOFTWARE; }
@@ -81,6 +86,8 @@ private:
 
     Uint32 windowFlags = 0;
     Uint32 _render_flags = 0;
+
+    std::string scale_quality = "0";
 
 };
 

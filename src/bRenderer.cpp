@@ -108,6 +108,7 @@ void bRenderer::presentBuffer() {
     src.h = _dimensions.y * ( 1.0 / _camera_scale.y );
 
 
+    // Print out the Camera Scaling
     printf("Camera Scale (%f, %f)\n", _camera_scale.x, _camera_scale.y);
 
 
@@ -197,7 +198,15 @@ void bRenderer::drawSprite(bSheet &sheet, bRect dest) {
 void bRenderer::drawRect(bRect location, SDL_Color color) {
 
 
+
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
+    
+    // Apply Camera Transformations
+    SDL_location.x -= _camera_position.x;
+    SDL_location.y -= _camera_position.y;
+
+
+
     SDL_SetRenderDrawColor( _sdl_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(_sdl_renderer, &SDL_location);
     SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 255 );
@@ -230,49 +239,6 @@ void bRenderer::drawText(std::string text, bPoint position) {
 
 // Sets the camera's transformations
 void bRenderer::setCameraTransformations(bPoint position, bPointF scale, double angle) {
-
-//    // If the scale has changed, we need to resize the buffer
-//    if (_camera_scale.x != scale.x || _camera_scale.y != scale.y) {
-//
-//        _camera_scale = scale;
-//
-//        // Calculate the new dimensions
-//        SDL_Point resize;
-//        resize.x = _dimensions.x / scale.x;
-//        resize.y = _dimensions.y / scale.y;
-//
-//        printf("Resized Buffer Dimensions: %d, %d\n", resize.x, resize.y);
-//
-//
-//        // Create the new buffer
-//        SDL_Texture *_new_buffer = SDL_CreateTexture(_sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,resize.x, resize.y);
-//
-//        // Setup the new buffer to be drawn to
-//        SDL_SetRenderTarget(_sdl_renderer, _new_buffer);
-//        SDL_SetRenderDrawColor(_sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a);
-//        SDL_RenderClear(_sdl_renderer);
-//
-//        SDL_Rect new_dimensions;
-//        new_dimensions.x = 0;
-//        new_dimensions.y = 0;
-//        new_dimensions.w = _dimensions.x;
-//        new_dimensions.h = _dimensions.y;
-//
-//        // Copy the old buffer to the new buffer
-//        SDL_RenderCopy(_sdl_renderer, _buffer, NULL, &new_dimensions);
-//
-//        // Delete the old buffer
-//        SDL_DestroyTexture(_buffer);
-//
-//        // Set the new buffer to be the current buffer
-//        _buffer = _new_buffer;
-//
-//        // Set the updated Scaling
-//        _camera_scale = scale;
-//
-//        _dimensions = resize;
-//    }
-
 
     _camera_scale = scale;
     _camera_position = position;
@@ -316,9 +282,13 @@ void bRenderer::resizeToWindow() {
     // Get the window's dimensions
     SDL_GetWindowSize(_window, &_dimensions.x, &_dimensions.y);
 
-    if (_hi_dpi)
+    // If we're in HIDPI Mode, we do this. I do need to find actual way to handle this.
+    if (_hi_dpi) {
         
-
+        _dimensions.x *= 2;
+        _dimensions.y *= 2;
+    }
+        
     // Delete the old buffer
     SDL_DestroyTexture(_buffer);
 

@@ -21,13 +21,16 @@ int main() {
     // Ok looking at this a year after I developed this, I hate it
     // This should be something that should be set, like maybe a bool?
     // However now that I've peaked at bit more at this function... I get it a bit more...
-    window->toggleResizeable();
-    window->toggleHighDPI();
+    window -> toggleResizeable();
+    window -> toggleHighDPI();
 
     // Flags for our renderer
-//  //window->toggleSoftwareRender();
+    // window->toggleSoftwareRender();
     window -> toggleHardwareRender();
-    window->toggleVSync();
+    window -> toggleVSync();
+
+    window -> toggleNearest();
+
 
     // Create Window returns a pointer to the renderer
     bRenderer *renderer = window->createWindow();
@@ -54,8 +57,6 @@ int main() {
     spriteSheet.sourceTexture.angle = 0;
     spriteSheet.sourceTexture.center = {64, 128};
 
-    // Enable linear filtering
-    SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "2" );
 
     // Setting up a texture
     bTexture texture = renderer->initTexture("../resources/blueSquare.png", {0,0,128,128});
