@@ -7,6 +7,7 @@
 #define BML_SHEET_H
 
 
+//#include "BML.h"
 #include "bRect.h"
 #include "bTexture.h"
 
@@ -119,5 +120,11 @@ struct bSheet {
  * @return false 
  */
 bool readSheetFromJSON(const char *filePath, bSheet &data);
+
+/**
+ * @brief Gets the tick count
+ *
+ */
+Uint64 BML_GetTicks();
 
 #endif

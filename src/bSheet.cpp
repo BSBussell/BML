@@ -15,7 +15,7 @@ bool bSheet::startAnimation(std::string key) {
 	animated = true;
 
 	currentAnimation = &animations[key];
-	currentAnimation -> tickCount = SDL_GetTicks64();
+	currentAnimation -> tickCount = BML_GetTicks();
 
 	currentSprite = currentAnimation -> frames.front();
 
@@ -31,7 +31,7 @@ bool bSheet::startAnimation(bAnimation *animation) {
 
 	currentAnimation = animation;
 
-	currentAnimation -> tickCount = SDL_GetTicks64();
+	currentAnimation -> tickCount = BML_GetTicks();
 
 	currentSprite = currentAnimation -> frames.front();
 
@@ -46,9 +46,9 @@ bool bSheet::updateAnimation() {
 
 	// For readability
 	bAnimation *current = currentAnimation;
-	Uint64 changeInTick = SDL_GetTicks64();
+	Uint64 changeInTick = BML_GetTicks();
 
-	changeInTick = SDL_GetTicks64() - current -> tickCount;
+	changeInTick = BML_GetTicks() - current -> tickCount;
 
 	Uint32 duration = current -> duration.front();
 
@@ -64,7 +64,7 @@ bool bSheet::updateAnimation() {
 		current -> duration.pop();
 		current -> duration.push(duration);
 
-		current -> tickCount = SDL_GetTicks64();
+		current -> tickCount = BML_GetTicks();
 	}
 
 	return true;
@@ -138,3 +138,12 @@ bool readSheetFromJSON(const char *filePath, bSheet &data) {
 	
 
 }
+
+Uint64 BML_GetTicks() {
+    #if SDL_VERSION_ATLEAST(2, 0, 18)  // Zorin is behind on their SDL versions
+        return SDL_GetTicks64();
+    #else
+        return static_cast<Uint64>(SDL_GetTicks());
+    #endif
+}
+

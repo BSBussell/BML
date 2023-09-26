@@ -45,4 +45,10 @@ std::string BML_GetPath(const char* path);
  */
 std::string BML_GetPath(std::string path);
 
+/**
+ * @brief Gets the tick count
+ *
+ */
+// Uint64 BML_GetTicks();
+
 #endif

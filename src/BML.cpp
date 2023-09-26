@@ -45,3 +45,12 @@ std::string BML_GetPath(std::string path) {
 
     return full_path;
 }
+
+
+//Uint64 BML_GetTicks() {
+//    #if SDL_VERSION_ATLEAST(2, 0, 18)  // Zorin is behind on their SDL versions
+//        return SDL_GetTicks64();
+//    #else
+//        return static_cast<Uint64>(SDL_GetTicks());
+//    #endif
+//}
