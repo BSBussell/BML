@@ -11,6 +11,10 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
 	_context = window;
     _bkg_color = {255, 255, 255, 255};
 
+    // Check if high DPI is enabled
+    _hi_dpi = (SDL_GetWindowFlags(_context) & SDL_WINDOW_ALLOW_HIGHDPI);
+
+
 	_sdl_renderer = SDL_CreateRenderer(_context, -1, _render_flags);
     SDL_SetRenderDrawBlendMode(_sdl_renderer, SDL_BLENDMODE_BLEND);
 
@@ -25,18 +29,33 @@ bRenderer::bRenderer(SDL_Window *window, Uint32 _render_flags) {
         exit(1);
     }
 
-    
-    _font_manager = new bFontManager(_sdl_renderer);
-    _texture_manager = new bTextureManager(_sdl_renderer);    
 
+    // Create our managers
+    _font_manager = new bFontManager(_sdl_renderer);
+    _texture_manager = new bTextureManager(_sdl_renderer);
+
+    int width, height;
+    SDL_GetRendererOutputSize(_sdl_renderer, &width, &height);
+    _dimensions = {width, height};
+
+
+    // Testing Creation of a bigger buffer than the rendering space
+    width *= (1.0f / _min_zoom.x);
+    height *= (1.0f / _min_zoom.y);
+    _buffer = SDL_CreateTexture(_sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
 }
 
 // Delete our managers
 bRenderer::~bRenderer() {
 
+    // Delete our managers
 	delete _texture_manager;
 	delete _font_manager;
-	SDL_DestroyRenderer(_sdl_renderer);
+
+    // We are mixing C and C++ memory allocations
+    SDL_DestroyTexture(_buffer);
+    SDL_DestroyRenderer(_sdl_renderer);
+
 }
 
 // Changes the renderers background color
@@ -45,17 +64,66 @@ void bRenderer::background(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     _bkg_color = {r, g, b, a};
 }
 
-// Clears the current buffer
+// Clears the current buffer, it is essential to call this before drawing
 void bRenderer::clearBuffer() {
-	
-	SDL_SetRenderDrawColor( _sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a);
+
+    // Set the void color
+    SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 0);
+
+
+    // Clear the screen
+    SDL_SetRenderTarget(_sdl_renderer, nullptr);
+    SDL_RenderClear(_sdl_renderer);
+
+    // Clear the buffer
+    SDL_SetRenderTarget(_sdl_renderer, _buffer);
+    SDL_SetRenderDrawColor( _sdl_renderer, _bkg_color.r, _bkg_color.g, _bkg_color.b, _bkg_color.a);
     SDL_RenderClear(_sdl_renderer);
 }
 
 // Presents the current buffer
 void bRenderer::presentBuffer() {
 
+    // Present the framebuffer
+    SDL_SetRenderTarget(_sdl_renderer, NULL);
+
+
+    // Set up the camera transformation
+    SDL_Rect transformed;
+    transformed.x = 0;
+    transformed.y = 0;
+
+    // Here we are sizing the Source rect to the size of the zoom
+    transformed.w = _dimensions.x * ( 1.0 / _camera_scale.x );
+    transformed.h = _dimensions.y * ( 1.0 / _camera_scale.y );
+
+    SDL_Rect src;
+
+    // Here we are sizing the source rect to the size of the zoom
+    src.x = 0;
+    src.y = 0;
+
+    // Here we are sizing the destination rect to the size of the zoom
+    src.w = _dimensions.x * ( 1.0 / _camera_scale.x );
+    src.h = _dimensions.y * ( 1.0 / _camera_scale.y );
+
+
+    // Print out the Camera Scaling
+    printf("Camera Scale (%f, %f)\n", _camera_scale.x, _camera_scale.y);
+
+
+    // Set the scale
+    SDL_RenderSetScale(_sdl_renderer, _camera_scale.x, _camera_scale.y);
+
+    // Render the buffer
+    SDL_RenderCopyEx(_sdl_renderer, _buffer, &src, &transformed, _camera_angle, NULL, SDL_FLIP_NONE);
+
+    // Reset the scale
+    SDL_RenderSetScale(_sdl_renderer, 1, 1);
+
+    // Present the buffer
 	SDL_RenderPresent(_sdl_renderer);
+
 }
 
 // Presents the current buffer and then clears it for next frame
@@ -75,7 +143,6 @@ bTexture bRenderer::initTexture(const char* source, bRect src) {
 void bRenderer::initSpriteSheet(bSheet &sheet) {
    
     bTexture newTexture;
-
     newTexture = _texture_manager -> loadTexture(sheet.imagePath.c_str(), {0, 0, sheet.totalWidth, sheet.totalHeight});
     sheet.sourceTexture = newTexture;
 }
@@ -84,46 +151,65 @@ void bRenderer::initSpriteSheet(bSheet &sheet) {
 // Draws a texture to the screen
 void bRenderer::drawTexture(bTexture texture, bRect dest) {
 
+    // Apply the camera transformation
+    dest.x -= _camera_position.x;
+    dest.y -= _camera_position.y;
+
+
+
     _texture_manager -> renderTexture(texture, dest);
 }
 
+// Draws a texture to the screen at a given point
 void bRenderer::drawTexture(bTexture texture, bPoint dest) {
 
-    _texture_manager -> renderTexture(texture, dest);
+    bRect destRect;
+    destRect.x = dest.x;
+    destRect.y = dest.y;
+    destRect.width = static_cast<Uint32>(texture.src.w);
+    destRect.height = static_cast<Uint32>(texture.src.h);
+
+    drawTexture(texture, destRect);
 }
 
-// Initalizes and adds a texture to render scene then frees texture
-// Awful don't use :3
-void bRenderer::drawTexture(const char* source, bRect src, bRect dest) {
-
-    bTexture newTexture = _texture_manager -> loadTexture(source, src);
-    _texture_manager -> renderTexture(newTexture, dest);
-    _texture_manager -> unloadTexture(newTexture);
-}
 
 // Draws a sprite by grabbing from the texture and then drawing that specific region
 void bRenderer::drawSprite(bSheet &sheet, bRect dest) {
 
+    // If the sheet is animated, update the animation
     if (sheet.animated)
         sheet.updateAnimation();
     
     // Converting the rects we're given into the appropriate rects
-    SDL_Rect SDL_dest = SDL_Rect(dest);
     SDL_Rect SDL_src = SDL_Rect(sheet.sprites[sheet.currentSprite]);
 
-    // print to the renderer the texture at the coordinates
-    SDL_RenderCopy(_sdl_renderer, sheet.sourceTexture.texture, &SDL_src, &SDL_dest);
+    // Set the source texture to the given sprite
+    sheet.sourceTexture.src = SDL_src;
+
+    // Draw the bTexture at the destination
+    drawTexture(sheet.sourceTexture, dest);
+
+    // Reset the source texture to the entire spritesheet
+    sheet.sourceTexture.src = {0, 0, sheet.sourceTexture.src.w, sheet.sourceTexture.src.h};
+
 }
 
 // Simply drawing a rectangle
 void bRenderer::drawRect(bRect location, SDL_Color color) {
 
 
+
     SDL_Rect SDL_location = {(int)location.x, (int)location.y, (int)location.width, (int)location.height};
+    
+    // Apply Camera Transformations
+    SDL_location.x -= _camera_position.x;
+    SDL_location.y -= _camera_position.y;
+
+
+
     SDL_SetRenderDrawColor( _sdl_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(_sdl_renderer, &SDL_location);
     SDL_SetRenderDrawColor( _sdl_renderer, 0, 0, 0, 255 );
-    //free(SDL_location);
 }
 
 // Unloads a texture from memory
@@ -135,7 +221,7 @@ void bRenderer::unloadTexture(bTexture &texture) {
 // Just calls unloadTexture() on the sheet's source texture
 void bRenderer::unloadSpriteSheet(bSheet &sheet) {
 
-    this->unloadTexture(sheet.sourceTexture);
+    unloadTexture(sheet.sourceTexture);
 }
 
 void bRenderer::setFont(std::string filePath, Uint8 font_size, SDL_Color color) {
@@ -144,5 +230,71 @@ void bRenderer::setFont(std::string filePath, Uint8 font_size, SDL_Color color) 
 }
 void bRenderer::drawText(std::string text, bPoint position) {
 
+    // Adjust position to camera's position
+    position.x -= _camera_position.x;
+    position.y -= _camera_position.y;
+
     _font_manager -> render(text, position);
+}
+
+// Sets the camera's transformations
+void bRenderer::setCameraTransformations(bPoint position, bPointF scale, double angle) {
+
+    _camera_scale = scale;
+    _camera_position = position;
+    _camera_angle = angle;
+
+    // Floor the camera zoom
+    if (_camera_scale.x < _min_zoom.x)
+        _camera_scale.x = _min_zoom.x;
+    if (_camera_scale.y < _min_zoom.y)
+        _camera_scale.y = _min_zoom.y;
+}
+
+void bRenderer::setMinZoom(bPointF min_zoom) {
+
+    // Resize the framebuffer if changing the min zoom
+    if (_min_zoom.x != min_zoom.x || _min_zoom.y != min_zoom.y) {
+
+        // Calculate the new buffer size
+        SDL_Point resize;
+        resize.x = _dimensions.x * (1.0f / min_zoom.x);
+        resize.y = _dimensions.y * (1.0f / min_zoom.y);
+
+        // Delete the old buffer
+        SDL_DestroyTexture(_buffer);
+
+        // Create the new buffer
+        _buffer = SDL_CreateTexture(_sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,resize.x, resize.y);
+
+        // Clear the new buffer
+        clearBuffer();
+    }
+
+    _min_zoom = min_zoom;
+}
+
+void bRenderer::resizeToWindow() {
+
+    // Get the Window from a secret function :3
+    SDL_Window *_window =  SDL_RenderGetWindow(_sdl_renderer);
+
+    // Get the window's dimensions
+    SDL_GetWindowSize(_window, &_dimensions.x, &_dimensions.y);
+
+    // If we're in HIDPI Mode, we do this. I do need to find actual way to handle this.
+    if (_hi_dpi) {
+        
+        _dimensions.x *= 2;
+        _dimensions.y *= 2;
+    }
+        
+    // Delete the old buffer
+    SDL_DestroyTexture(_buffer);
+
+    // Create the new buffer
+    _buffer = SDL_CreateTexture(_sdl_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,_dimensions.x, _dimensions.y);
+
+    // Clear the new buffer
+    clearBuffer();
 }

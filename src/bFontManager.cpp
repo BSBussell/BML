@@ -129,6 +129,7 @@ void bFontManager::render(std::string text, bPoint position) {
     	surface->w, surface->h
     };
 
+    // TODO: Add RenderCopyEx() to allow for rotation and flipping
     // Render the texture to the renderer
     SDL_RenderCopy(_renderer, texture, NULL, &rect);
 

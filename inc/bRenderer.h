@@ -21,7 +21,10 @@ public:
 
     // Create the renderer using the given flags
 	bRenderer(SDL_Window *window, Uint32 _render_flags);
+    // Delete our managers
 	~bRenderer();
+
+
 
     // Change the background color
     void background(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
@@ -38,7 +41,8 @@ public:
     // Drawing Textures and Rectangles
     void drawTexture(bTexture texture, bRect dest);
     void drawTexture(bTexture texture, bPoint dest);
-    void drawTexture(const char* source, bRect src, bRect dest);
+
+    // Drawing Sprites and also a rectangle
     void drawSprite(bSheet &sheet, bRect dest);
     void drawRect(bRect location, SDL_Color color);
 
@@ -49,6 +53,14 @@ public:
     // Fonts
     void setFont(std::string filePath, Uint8 font_size, SDL_Color color);
     void drawText(std::string text, bPoint position);
+
+    // Camera Transformation
+    void setCameraTransformations(bPoint position, bPointF scale, double angle);
+    void setMinZoom(bPointF min_zoom);
+
+    // Resize to Window
+    void resizeToWindow();
+
 
 private:
 
@@ -65,6 +77,23 @@ private:
 
     // The background color
     SDL_Color _bkg_color;
+
+    // Camera Transformations
+    bPoint _camera_position = {0, 0};
+    bPointF _camera_scale = {1.0, 1.0};
+    double _camera_angle = 0.0;
+
+    // Minimum Zoom
+    bPointF _min_zoom = {1.0f/3.0f, 1.0f/3.0f};
+
+    // Renderer Dimensions
+    SDL_Point _dimensions;
+
+    // HI-DPI
+    bool _hi_dpi = false;
+
+    // Framebuffer
+    SDL_Texture *_buffer;
 
 };
 

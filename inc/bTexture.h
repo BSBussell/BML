@@ -26,11 +26,21 @@ struct bTexture {
 	SDL_Texture *texture;
 	SDL_Rect src;
 
+
+    // The Angle
+    double angle;
+
+    // Center point for rotation
+    SDL_Point center;
+
+    // If we should flip the texture
+    SDL_RendererFlip flip;
+
 };
 
 /**
  * @brief A class for managing textures in a cache
- * 
+ *
  */
 class bTextureManager {
 
@@ -38,20 +48,20 @@ public:
 
 	/**
 	 * @brief Making a bTextureManager tied to the renderer
-	 * 
-	 * @param SDL_Renderer* renderer 
+	 *
+	 * @param SDL_Renderer* renderer
 	 */
 	bTextureManager(SDL_Renderer *renderer);
 
 	/**
 	 * @brief Destroy the b Texture Manager::b Texture Manager object by clearing the cache
-	 * 
+	 *
 	 */
 	~bTextureManager();
 
 	/**
 	 * @brief Load the texture either by creating a new one or grabbing it from the cache
-	 * 
+	 *
 	 * @param const_char* the path to the texture
 	 * @param bRect the dimensions of the texture
 	 */
@@ -59,20 +69,20 @@ public:
 
 	/**
 	 * @brief Unload the texture by decreasing the ref count and deleting it if it's at zero
-	 * 
+	 *
 	 * @param bTexture the texture to unload
 	 */
 	void unloadTexture(bTexture texture);
 
 	/**
 	 * @brief Clear the cache of textures
-	 * 
+	 *
 	 */
 	void clearCache();
 
 	/**
 	 * @brief Render the texture to the screen
-	 * 
+	 *
 	 * @param bTexture the texture to render
 	 * @param bRect the destination rectangle
 	 */
@@ -80,33 +90,32 @@ public:
 
 	/**
 	 * @brief Render the texture to the screen
-	 * 
+	 *
 	 * @param bTexture the texture to render
 	 * @param bPoint the destination point
 	 */
 	void renderTexture(bTexture &texture, bPoint dest);
-	
+
 
 private:
 
 	/**
 	 * @brief The renderer that the textures are tied to
-	 * 
 	 */
 	SDL_Renderer *_sdl_renderer;
 
-	
+
 	/**
 	 * @brief Cache of allocated textures
-	 * 
 	 */
 	std::unordered_map<std::string, SDL_Texture*> _loaded_textures;
 
 	/**
 	 * @brief Reference counter for textures
-	 * 
 	 */
 	std::unordered_map<SDL_Texture*, Uint8> _refs;
+
+
 
 };
 

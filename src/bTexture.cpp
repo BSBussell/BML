@@ -21,9 +21,18 @@ bTexture bTextureManager::loadTexture(const char *path, bRect dim) {
 	std::string absPath = BML_GetPath(path);
 
 	// No matter what we're make a new bTexture
-	bTexture newTexture;// = new bTexture();
+	bTexture newTexture;
 	newTexture.src = dim;
 	newTexture.path = absPath;
+
+    // We set the textures default angle to 0
+    newTexture.angle = 0.0;
+
+    // We set the textures default center to its feet
+    newTexture.center = {static_cast<int>(dim.width/2), static_cast<int>(dim.height)};
+
+    // We set the textures default flip to none
+    newTexture.flip = SDL_FLIP_NONE;
 
 	// If we've already loaded this image
 	auto iter = _loaded_textures.find(absPath);
@@ -108,26 +117,15 @@ void bTextureManager::renderTexture(bTexture &texture, bRect dest) {
 	// I could not find an easy way around doing this ngl
 	SDL_Rect SDL_dest = SDL_Rect(dest); 
 
-	SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &SDL_dest);
+
+    // Render the texture
+    SDL_RenderCopyEx(_sdl_renderer, texture.texture, &texture.src, &SDL_dest, texture.angle, &texture.center, texture.flip);
 }
 
 void bTextureManager::renderTexture(bTexture &texture, bPoint dest) {
 
-	// Make sure the SDL_Texture hasn't been unloaded
-	auto refs_iter = _refs.find(texture.texture);
-	if (refs_iter == _refs.end()) {
-
-		// Create new texture
-		SDL_Surface* surface = IMG_Load(texture.path.c_str());
-	    texture.texture = SDL_CreateTextureFromSurface(_sdl_renderer, surface);
-	    SDL_FreeSurface(surface);
-
-	    // Setup our look ups and reference counter
-	    _loaded_textures[texture.path] = texture.texture;
-	    _refs[texture.texture] = 1;	
-	}
-
-	// I could not find an easy way around doing this ngl
-	SDL_Rect SDL_dest = {(int)dest.x, (int)dest.y, texture.src.w, texture.src.h}; 
-	SDL_RenderCopy(_sdl_renderer, texture.texture, &texture.src, &SDL_dest);
+    // Call renderTexture using a bRect
+	renderTexture(texture, {dest.x, dest.y,
+                                static_cast<Uint32>(texture.src.w),
+                                 static_cast<Uint32>(texture.src.h)});
 }
