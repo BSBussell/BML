@@ -1,6 +1,6 @@
 # BML
 
-BML is the SDL wrapper that BlueKit2D will use. It is designed to handle many of the lower level task for the engine and keep them obstructed so that I can focus more on the structure of components and data when creating the engine.
+BML is the SDL wrapper that [BlueKit2D](https://github.com/BSBussell/BlueKit2D) will use. It is designed to handle many of the lower level task for the engine and keep them obstructed so that I can focus more on the structure of components and data when creating the engine.
 
 ### Uses
 This project is mostly for personal use so I do not plan on writing much in-depth documentation on how it works other than my personal comments I leave for myself. Just like ask me if you want to know how something works but really I am trying to keep it as straight forward as possible
